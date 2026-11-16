@@ -122,18 +122,13 @@ img{display:block;max-width:100%}
 .card .brandtag{position:absolute;left:12px;bottom:12px;z-index:2;height:24px;padding:0 10px;border-radius:8px;background:rgba(13,31,20,.88);color:#fff;font-size:11.5px;font-weight:600;display:inline-flex;align-items:center;letter-spacing:.01em;backdrop-filter:blur(6px)}
 .cb{display:flex;flex-direction:column;flex:1;padding:14px 16px 0}
 .cb h3{font-family:var(--display);font-weight:600;font-size:16px;line-height:1.22;letter-spacing:-.02em}
-.meter{margin-top:10px}
-.meter .mt{display:flex;justify-content:space-between;align-items:baseline;font-size:12.5px;color:var(--muted)}
-.meter .mt b{font-family:var(--display);font-weight:700;font-size:14px;color:var(--ink);letter-spacing:-.01em}
-.meter .tr{display:block;height:4px;border-radius:99px;background:var(--tile);margin-top:6px;overflow:hidden}
-.meter .tr i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#45F21F,#A6F45A)}
-.flv-stack{display:flex;align-items:center;gap:8px;margin-top:12px;min-height:30px}
-.flv-stack .em{display:flex}
-.flv-stack .em span{width:30px;height:30px;border-radius:999px;background:var(--tile);border:2px solid var(--surface);display:grid;place-items:center;font-size:14px;margin-left:-8px}
-.flv-stack .em span:first-child{margin-left:0}
-.promo .flv-stack .em span{border-color:#08100B}
-.flv-stack small{font-size:12.5px;color:var(--muted);line-height:1.25}
-.flv-stack small.low{color:#F5B14C;font-weight:600}
+.specs{display:grid;grid-template-columns:1fr 1fr;margin-top:12px;border:1px solid var(--line-2);border-radius:14px;overflow:hidden}
+.specs div{padding:9px 12px}
+.specs div+div{border-left:1px solid var(--line-2)}
+.specs small{display:block;font-size:11.5px;color:var(--muted)}
+.specs b{display:block;font-family:var(--display);font-weight:600;font-size:15px;letter-spacing:-.01em;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.stockwarn{display:flex;align-items:center;gap:6px;margin-top:10px;font-size:12.5px;font-weight:600;color:#F5B14C}
+.stockwarn::before{content:"";width:7px;height:7px;border-radius:99px;background:#F5B14C;box-shadow:0 0 0 3px rgba(245,177,76,.18)}
 .cb .rate{font-size:12px;color:var(--muted);margin-top:8px}
 .cb .rate b{color:#F5C451}
 .perf{position:relative;margin:16px -16px 0;border-top:1.5px dashed var(--line-2)}
@@ -142,7 +137,8 @@ img{display:block;max-width:100%}
 .promo .perf::before,.promo .perf::after{background:#0E2A1A}
 .buy{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 16px 16px;margin-top:auto}
 .buy .pr strong{font-size:22px}
-.buy .save{display:block;font-size:12px;font-weight:600;color:var(--lime);margin-top:2px}
+.buy .save b{font-weight:600}
+.buy .save{display:block;font-size:12px;font-weight:600;color:var(--lime);margin-top:2px;white-space:nowrap}
 .pick{position:relative;flex-shrink:0;width:50px;height:50px;border-radius:16px;background:var(--lime);color:var(--lime-ink);display:grid;place-items:center;transition:transform .15s,filter .15s,border-radius .2s}
 .pick:hover{filter:brightness(1.06);border-radius:999px}
 .pick:active{transform:scale(.94)}
@@ -333,14 +329,15 @@ footer{margin-top:64px;position:relative;overflow:hidden;border-top:1px solid va
   .card{border-radius:20px}
   .cb{padding:12px 12px 0}
   .cb h3{font-size:14px}
-  .meter .mt{font-size:11.5px}.meter .mt b{font-size:13px}
-  .flv-stack .em span{width:26px;height:26px;font-size:12px;margin-left:-7px}
-  .flv-stack small{font-size:11.5px}
+  .specs div{padding:8px 10px}
+  .specs b{font-size:13.5px}
+  .specs small{font-size:11px}
   .perf{margin:12px -12px 0}
   .buy{padding:12px}
   .buy .pr strong{font-size:17px}
   .buy .pr s{display:none}
-  .buy .save{font-size:11px}
+  .buy .save{font-size:10.5px}
+  .buy .save b{display:none}
   .pick{width:42px;height:42px;border-radius:13px}
   .card .brandtag{left:8px;bottom:8px;font-size:10.5px;height:22px;padding:0 8px}
   .promo{border-radius:22px;padding:16px 12px}
@@ -538,30 +535,25 @@ const qtyOf = pid => cart.filter(i=>i.pid===pid).reduce((a,i)=>a+i.qty,0);
 const totals = () => ({qty:cart.reduce((a,i)=>a+i.qty,0), sub:cart.reduce((a,i)=>a+i.qty*PRODUCTS[i.pid].price,0)});
 
 /* ---------- catalog ---------- */
-const seg=(typeof Intl!=="undefined"&&Intl.Segmenter)?new Intl.Segmenter("pt",{granularity:"grapheme"}):null;
-const firstEmoji=f=>{const head=f.split(" ")[0];const g=seg?[...seg.segment(head)].map(x=>x.segment):Array.from(head);return g[0]||"🍃";};
-const MAXPUFFS=55000;
+const flName=f=>f.replace(/^[^A-Za-zÀ-ú0-9]+/,"").trim()||f;
 function cardHTML(p){
   const off=p.old?Math.round((1-p.price/p.old)*100):0;
   const single=p.flavors.length===1;
   const q=qtyOf(p.id);
-  const puffs=Number(p.puffs.replace(/\./g,"")); const pct=Math.max(8,Math.round(puffs/MAXPUFFS*100));
-  const ems=[...new Set(p.flavors.map(firstEmoji))].slice(0,4);
-  let fl=single?esc(p.flavors[0].split(" ").slice(1).join(" ")):`${p.flavors.length} sabores`, low=false;
-  if(p.stock===1){fl+=" · última unidade";low=true;} else if(typeof p.stock==="number"){fl+=` · só ${p.stock}`;low=true;}
+  const stockTxt=p.stock===1?"Última unidade":(typeof p.stock==="number"?`Só ${p.stock} unidades`:"");
   return `<article class="card">
     <button class="ph" data-open="${p.id}" aria-label="Escolher sabor de ${esc(p.name)}" tabindex="-1"><img src="img/${p.img}" alt="${esc(p.name)}" loading="lazy">
       ${off?`<span class="badge off">−${off}%</span>`:""}${p.best?`<span class="badge best ${off?"badge2":""}">★ Mais vendido</span>`:""}
       <span class="brandtag">${p.brand}</span></button>
     <div class="cb">
       <h3>${esc(p.name)}</h3>
-      <div class="meter"><div class="mt"><span>Puffs</span><b>${p.puffs.replace(".000"," mil").replace(".500",",5 mil")}</b></div><span class="tr"><i style="width:${pct}%"></i></span></div>
-      <div class="flv-stack"><div class="em">${ems.map(e=>`<span>${e}</span>`).join("")}</div><small class="${low?"low":""}">${fl}</small></div>
+      <div class="specs"><div><small>Puffs</small><b class="num">${p.puffs.replace(".000"," mil").replace(".500",",5 mil")}</b></div><div><small>${single?"Sabor":"Sabores"}</small><b title="${single?esc(flName(p.flavors[0])):""}">${single?esc(flName(p.flavors[0])):p.flavors.length}</b></div></div>
+      ${stockTxt?`<p class="stockwarn">${stockTxt}</p>`:""}
       ${p.rating?`<p class="rate"><b>★ ${p.rating[0].toFixed(1)}</b> · ${p.rating[1]} ${p.rating[1]>1?"avaliações":"avaliação"}</p>`:""}
     </div>
     <div class="perf" aria-hidden="true"></div>
     <div class="buy">
-      <div><div class="pr"><strong class="num">${brl(p.price)}</strong>${p.old?`<s class="num">${brl(p.old)}</s>`:""}</div>${p.old?`<span class="save">Economize ${brl(p.old-p.price)}</span>`:""}</div>
+      <div><div class="pr"><strong class="num">${brl(p.price)}</strong>${p.old?`<s class="num">${brl(p.old)}</s>`:""}</div>${p.old?`<span class="save"><b>Economize </b>−${brl(p.old-p.price)}</span>`:""}</div>
       <button class="pick ${q?"in":""}" data-open="${p.id}" aria-label="${q?`${q} no pedido, alterar sabores de ${esc(p.name)}`:`Escolher sabor de ${esc(p.name)}`}">${q?`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg><span class="q">${q}</span>`:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>`}</button>
     </div></article>`;
 }

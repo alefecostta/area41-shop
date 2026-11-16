@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>ÁREA 41 SHOP — Pods descartáveis originais</title>
-<meta name="description" content="Pods descartáveis originais com pedido direto pelo WhatsApp. Pix ou dinheiro.">
+<meta name="description" content="Pods descartáveis originais com pedido direto pelo WhatsApp. Pix, cartão ou dinheiro.">
 <meta name="theme-color" content="#030504">
 <link rel="icon" href="img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -171,7 +171,7 @@ footer{margin-top:64px;position:relative;overflow:hidden;border-top:1px solid va
 .sheet.open{visibility:visible}
 .sheet .ov{position:absolute;inset:0;background:rgba(0,0,0,.6);opacity:0;transition:opacity .25s}
 .sheet.open .ov{opacity:1}
-.sheet .pn{position:absolute;right:12px;top:12px;bottom:12px;width:min(440px,calc(100% - 24px));background:var(--canvas);border-radius:26px;display:flex;flex-direction:column;overflow:hidden;transform:translateX(calc(100% + 24px));transition:transform .3s cubic-bezier(.2,.8,.2,1);box-shadow:0 30px 80px -20px rgba(0,0,0,.9);border:1px solid var(--line)}
+.sheet .pn{position:absolute;right:12px;top:12px;bottom:12px;width:min(440px,calc(100% - 24px));background:var(--canvas);border-radius:26px;display:flex;flex-direction:column;overflow:hidden;overflow:clip;transform:translateX(calc(100% + 24px));transition:transform .3s cubic-bezier(.2,.8,.2,1);box-shadow:0 30px 80px -20px rgba(0,0,0,.9);border:1px solid var(--line)}
 .sheet.open .pn{transform:none}
 .sh-h{display:flex;align-items:center;justify-content:space-between;padding:18px 18px 12px}
 .sh-h h2{font-family:var(--display);font-size:22px;font-weight:700;letter-spacing:-.02em}
@@ -206,8 +206,9 @@ footer{margin-top:64px;position:relative;overflow:hidden;border-top:1px solid va
 .field input:focus,.field textarea:focus{border-color:var(--lime);background:var(--surface)}
 .field.err input{border-color:var(--red);background:rgba(217,58,63,.08)}
 .field small{display:block;font-size:12.5px;color:var(--muted);margin-top:5px}
+.field small[hidden]{display:none}
 .field.err small{color:#FF8A8E}
-.seg{display:grid;grid-template-columns:1fr 1fr;gap:4px;background:var(--tile);border-radius:14px;padding:4px;margin:4px 0 12px}
+.seg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;background:var(--tile);border-radius:14px;padding:4px;margin:4px 0 12px}
 .seg label{height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;gap:8px;font-weight:600;font-size:14px;cursor:pointer;color:var(--ink-2)}
 .seg input{position:absolute;opacity:0;pointer-events:none}
 .seg label:has(input:checked){background:var(--lime);color:var(--lime-ink)}
@@ -219,6 +220,18 @@ footer{margin-top:64px;position:relative;overflow:hidden;border-top:1px solid va
 .send.alt{background:var(--tile);color:var(--ink);border:1px solid var(--line-2);margin-top:8px;font-size:14.5px;height:46px}
 .sh-f .hint{font-size:12.5px;color:var(--muted);text-align:center;margin-top:8px}
 
+.gift{display:flex;align-items:center;gap:12px;margin-top:12px;padding:12px 14px 12px 10px;border-radius:20px;background:linear-gradient(120deg,rgba(139,47,214,.22),rgba(139,47,214,.06));border:1px solid rgba(168,85,247,.35)}
+.gift img{width:58px;height:58px;object-fit:contain;flex-shrink:0;filter:drop-shadow(0 6px 10px rgba(0,0,0,.5))}
+.gift .g{flex:1;min-width:0}
+.gift b{display:block;font-size:14.5px}
+.gift span{display:block;font-size:13px;color:var(--ink-2);margin-top:1px}
+.gift .bar{display:block;height:6px;border-radius:99px;background:rgba(255,255,255,.1);margin-top:8px;overflow:hidden}
+.gift .bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#A855F7,#C084FC);transition:width .4s}
+.gift.ok{background:linear-gradient(120deg,rgba(166,244,90,.18),rgba(168,85,247,.16));border-color:rgba(166,244,90,.4)}
+.gift.ok .bar i{background:var(--lime)}
+.gift em{font-style:normal;font-weight:700;font-size:12.5px;background:var(--lime);color:var(--lime-ink);border-radius:999px;padding:4px 10px;flex-shrink:0}
+.gift-fact{text-align:left;border-color:rgba(168,85,247,.45)!important;background:linear-gradient(120deg,rgba(139,47,214,.2),rgba(139,47,214,.05))!important}
+.gift-fact img{width:34px;height:34px;object-fit:contain}
 /* ---------- flavor sheet (modal) ---------- */
 .modal{position:fixed;inset:0;z-index:70;display:flex;align-items:center;justify-content:center;padding:20px;visibility:hidden}
 .modal.open{visibility:visible}
@@ -293,7 +306,7 @@ footer{margin-top:64px;position:relative;overflow:hidden;border-top:1px solid va
   .hero h1{font-size:34px}
   .hero p.lead{font-size:15.5px}
   .facts{display:grid;grid-template-columns:1fr 1fr}
-  .fact:last-child{grid-column:span 2}
+
   .paycard{transform:none;padding:20px;border-radius:22px}
   @keyframes pulse{40%{transform:scale(1.025)}}
   .grid{gap:10px}
@@ -350,7 +363,8 @@ footer{margin-top:64px;position:relative;overflow:hidden;border-top:1px solid va
       <div class="facts">
         <div class="fact"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/></svg></i><div><b>Originais</b><span>Lacrados de fábrica</span></div></div>
         <div class="fact"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg></i><div><b>Garantia 24h</b><span>Troca se vier com defeito</span></div></div>
-        <div class="fact"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="5" rx="2"/><path d="M2 10h20"/></svg></i><div><b>Pix ou dinheiro</b><span>Você escolhe no pedido</span></div></div>
+        <div class="fact"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="5" rx="2"/><path d="M2 10h20"/></svg></i><div><b>Pix, cartão ou dinheiro</b><span>Você escolhe no pedido</span></div></div>
+        <button class="fact gift-fact" data-open-cart><img src="img/chaveiro.webp" alt=""><div><b>Chaveiro grátis</b><span>Comprando 2 pods</span></div></button>
       </div>
     </div>
     <div class="paycard" id="paycard">
@@ -382,7 +396,7 @@ footer{margin-top:64px;position:relative;overflow:hidden;border-top:1px solid va
       <div class="f-col"><h3>Ajuda</h3>
         <button data-info="comopedir">Como pedir</button><button data-info="pagamentos">Pagamentos</button><button data-info="garantia">Garantia 24h</button><button data-info="termos">Termos</button><button data-info="privacidade">Privacidade</button></div>
       <div class="f-col"><h3>Pagamento</h3>
-        <div class="paychips"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 2 5 5-5 5-5-5z"/><path d="m12 12 5 5-5 5-5-5z"/></svg>Pix</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="12" x="2" y="6" rx="2"/><circle cx="12" cy="12" r="2"/></svg>Dinheiro</span></div>
+        <div class="paychips"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 2 5 5-5 5-5-5z"/><path d="m12 12 5 5-5 5-5-5z"/></svg>Pix</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="12" x="2" y="6" rx="2"/><circle cx="12" cy="12" r="2"/></svg>Dinheiro</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="5" rx="2"/><path d="M2 10h20"/></svg>Cartão</span></div>
         <div class="age18"><b>+18</b>Venda proibida para menores de 18 anos.</div>
       </div>
     </div>
@@ -590,6 +604,15 @@ const FORM_KEY="a41_form";
 let form=Object.assign({nome:"",wpp:"",comp:"",pag:"Pix"},store.get(FORM_KEY,{}));
 const REQ={nome:"Nome",wpp:"WhatsApp"};
 function save(){store.set("a41_cart",cart);renderCart();renderCatalog();}
+const GIFT_MIN=2;
+function giftHTML(qty){
+  const ok=qty>=GIFT_MIN, left=Math.max(0,GIFT_MIN-qty), pct=Math.min(100,qty/GIFT_MIN*100);
+  return `<div class="gift ${ok?"ok":""}"><img src="img/chaveiro.webp" alt="Chaveiro Área 41">
+    <div class="g"><b>${ok?"Chaveiro Área 41 grátis 🎁":"Ganhe o chaveiro Área 41"}</b>
+    <span>${ok?"Já está incluído no seu pedido.":`Falta${left>1?"m":""} ${left} pod${left>1?"s":""} para ganhar de brinde.`}</span>
+    <i class="bar"><i style="width:${pct}%"></i></i></div>${ok?'<em>Grátis</em>':""}</div>`;
+}
+let hadGift=null;
 function renderCart(){
   const {qty,sub}=totals();
   const lines=cart.map((i,ix)=>{const p=PRODUCTS[i.pid];return `<div class="li"><img src="img/${p.img}" alt=""><div class="n"><b>${esc(p.name)}</b><small>${esc(i.flavor)}</small></div>
@@ -597,6 +620,7 @@ function renderCart(){
   const sugg=SUGGESTED.filter(id=>!qtyOf(id)).map(id=>{const p=PRODUCTS[id];return `<div class="li"><img src="img/${p.img}" alt=""><div class="n"><b>${esc(p.name)}</b><small class="num">${brl(p.price)}</small></div><button class="addmini" data-open="${id}" aria-label="Escolher sabor de ${esc(p.name)}">+</button></div>`;}).join("");
   $("#cartBody").innerHTML=`
     <div class="sum"><small>Total do pedido</small><span class="v num">${brl(sub)}</span><div class="meta"><span>${qty} ${qty===1?"item":"itens"}</span><span>${form.pag}</span></div></div>
+    ${giftHTML(qty)}
     ${qty?`<div class="block"><h3>Itens</h3>${lines}</div>`:`<div class="block"><div class="emptycart"><img src="img/logo.webp" alt=""><b>Seu pedido está vazio</b><p>Escolha um pod e os sabores para começar.</p></div></div>`}
     ${sugg?`<div class="block"><h3>Mais pedidos hoje</h3>${sugg}</div>`:""}
     ${qty?`<div class="block">
@@ -605,7 +629,7 @@ function renderCart(){
       <div class="field" data-k="wpp"><label for="f-wpp">WhatsApp</label><input id="f-wpp" data-in="wpp" value="${esc(form.wpp)}" inputmode="tel" autocomplete="tel" placeholder="(00) 00000-0000"><small>Usamos para confirmar seu pedido.</small></div>
       <div class="field"><label for="f-comp">Observação</label><textarea id="f-comp" data-in="comp" placeholder="Opcional">${esc(form.comp)}</textarea></div>
       <h3 style="padding-top:6px">Pagamento</h3>
-      <div class="seg" role="radiogroup" aria-label="Forma de pagamento"><label><input type="radio" name="pag" data-in="pag" value="Pix" ${form.pag==="Pix"?"checked":""}>Pix</label><label><input type="radio" name="pag" data-in="pag" value="Dinheiro" ${form.pag==="Dinheiro"?"checked":""}>Dinheiro</label></div>
+      <div class="seg" role="radiogroup" aria-label="Forma de pagamento"><label><input type="radio" name="pag" data-in="pag" value="Pix" ${form.pag==="Pix"?"checked":""}>Pix</label><label><input type="radio" name="pag" data-in="pag" value="Cartão" ${form.pag==="Cartão"?"checked":""}>Cartão</label><label><input type="radio" name="pag" data-in="pag" value="Dinheiro" ${form.pag==="Dinheiro"?"checked":""}>Dinheiro</label></div>
     </div>`:""}`;
   $("#cartFoot").innerHTML=qty?`<button class="send" data-finish><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.87 1.22 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2-1.41.25-.69.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35zM12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.5A10 10 0 1 0 12 2z"/></svg>Enviar pedido no WhatsApp</button><p class="hint">O pedido abre pronto no WhatsApp. É só tocar em enviar.</p>`
     :`<button class="send alt" data-close-cart>Ver os pods</button>`;
@@ -615,6 +639,8 @@ function renderCart(){
   $("#pcItems").textContent=qty?`${qty} ${qty===1?"pod":"pods"} no pedido`:"Nenhum pod escolhido ainda";
   $("#mbItems").textContent=`${qty} ${qty===1?"item":"itens"}`; $("#mbTot").textContent=brl(sub);
   $("#mbar").classList.toggle("on",qty>0);
+  const g=qty>=GIFT_MIN; if(hadGift===false&&g)setTimeout(()=>toast("Você ganhou o chaveiro Área 41 🎁"),2300); hadGift=g;
+  $("#mbItems").textContent=`${qty} ${qty===1?"item":"itens"}${g?" + chaveiro grátis 🎁":qty===1?" · falta 1 para o chaveiro":""}`;
 }
 function missing(){return Object.keys(REQ).filter(k=>{const v=(form[k]||"").trim();if(k==="wpp")return v.replace(/\D/g,"").length<10;return!v;});}
 function finish(){
@@ -624,6 +650,7 @@ function finish(){
   const {sub}=totals();
   let t=`👽 *Novo pedido — ${CONFIG.nome}*\n\n`;
   cart.forEach(i=>{const p=PRODUCTS[i.pid];t+=`• ${i.qty}x ${p.brand} ${p.name} — ${i.flavor} (${brl(p.price*i.qty)})\n`;});
+  if(totals().qty>=GIFT_MIN)t+=`• 1x 🎁 Chaveiro Área 41 — brinde (grátis)\n`;
   t+=`\n*Total:* ${brl(sub)}\n*Pagamento:* ${form.pag}\n\n*Nome:* ${form.nome}\n*WhatsApp:* ${form.wpp}\n`;
   if(form.comp)t+=`*Observação:* ${form.comp}\n`;
   const url=waLink(t); let w=null; try{w=window.open(url,"_blank");}catch(e){}
@@ -633,13 +660,13 @@ function finish(){
 }
 
 /* ---------- misc ---------- */
-let tt; function toast(m,err){const e=$("#toast");e.innerHTML=`<i style="${err?"background:#D93A3F;color:#fff":""}">${err?"!":"✓"}</i>${esc(m)}`;e.classList.add("on");clearTimeout(tt);tt=setTimeout(()=>e.classList.remove("on"),2200);}
+let tt; function toast(m,err){const e=$("#toast");e.innerHTML=`<i style="${err?"background:#D93A3F;color:#fff":""}">${err?"!":'<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg>'}</i>${esc(m)}`;e.classList.add("on");clearTimeout(tt);tt=setTimeout(()=>e.classList.remove("on"),2200);}
 function pulse(){const c=$("#paycard");c.classList.remove("pulse");void c.offsetWidth;c.classList.add("pulse");}
 function openCart(){closeModal();$("#sheet").classList.add("open");$("#sheet").setAttribute("aria-hidden","false");document.body.style.overflow="hidden";setTimeout(()=>$("#sheet .xbtn").focus({preventScroll:true}),60);}
 function closeCart(){$("#sheet").classList.remove("open");$("#sheet").setAttribute("aria-hidden","true");document.body.style.overflow="";}
 const INFO={
-  comopedir:["Como pedir","Toque em “Escolher sabor”, ajuste as quantidades e abra o seu pedido. Preencha nome e WhatsApp, escolha Pix ou dinheiro e toque em “Enviar pedido no WhatsApp”. A mensagem já vai pronta."],
-  pagamentos:["Pagamentos","Aceitamos Pix e dinheiro. No Pix, mandamos a chave pelo WhatsApp depois de confirmar o pedido."],
+  comopedir:["Como pedir","Toque em “Escolher sabor”, ajuste as quantidades e abra o seu pedido. Preencha nome e WhatsApp, escolha Pix, cartão ou dinheiro e toque em “Enviar pedido no WhatsApp”. A mensagem já vai pronta."],
+  pagamentos:["Pagamentos","Aceitamos Pix, cartão e dinheiro. No Pix, mandamos a chave pelo WhatsApp depois de confirmar o pedido. No cartão, combinamos a forma de pagamento pelo WhatsApp."],
   garantia:["Garantia 24h","Veio com defeito de fábrica? Mande foto ou vídeo pelo WhatsApp em até 24h após a compra que a gente troca."],
   termos:["Termos","Venda exclusiva para maiores de 18 anos. Ao fazer um pedido você declara ter 18 anos ou mais."],
   privacidade:["Privacidade","Seu nome e WhatsApp servem só para identificar o pedido e ficam salvos apenas neste aparelho."]

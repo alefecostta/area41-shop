@@ -1,40 +1,44 @@
 # ÁREA 41 SHOP
 
-Tabela online de pods descartáveis com pedido finalizado pelo WhatsApp.
-Site estático: só `index.html` + pasta `img/`. Não precisa de banco de dados nem Node.
+Loja de pods com pedido pelo WhatsApp + painel **/consoleadmin** para gerenciar tudo.
 
-## Configurar a loja
+## Estrutura
 
-No `index.html`, procure `const CONFIG` (no começo do `<script>`):
+| Pasta | O que é |
+|---|---|
+| `index.html`, `img/` | A loja |
+| `consoleadmin/` | O painel (produtos, fotos, puffs, sabores, estoque, preço, desconto, estrelas, categorias, brinde, WhatsApp) |
+| `server/server.js` | API em Node.js, sem dependências |
+| `data/catalog.seed.json` | Catálogo inicial (usado só na primeira instalação) |
+| `deploy/` | Scripts da VPS |
 
-```js
-const CONFIG = {
-  nome: "ÁREA 41 SHOP",
-  whatsapp: "5541999999999",   // DDI + DDD + número, só números
-  cidade: "Curitiba",
-  instagram: "area41shop"      // sem @
-};
-```
+Os produtos, fotos enviadas e a senha ficam na VPS em `/var/lib/area41` (fora do Git). Atualizar o site pelo GitHub **não apaga** nada disso. A cada salvamento o painel guarda um backup em `/var/lib/area41/backups`.
 
-- **Produtos e preços:** objeto `PRODUCTS` (`price` = preço atual, `old` = preço riscado).
-- **Sabores:** campo `flavors: ["🍉 Watermelon Ice", ...]` em cada produto.
-- **Categorias:** array `CATEGORIES`.
-- **Fotos:** coloque na pasta `img/` e use o nome do arquivo em `img`.
-
-## Colocar na VPS (Ubuntu/Debian)
-
-Logado na VPS:
+## Instalar ou atualizar a instalação na VPS
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/SEU_USUARIO/area41-shop/main/deploy/install.sh -o install.sh
-bash install.sh https://github.com/SEU_USUARIO/area41-shop.git seudominio.com.br
+curl -fsSL https://raw.githubusercontent.com/alefecostta/area41-shop/main/deploy/install.sh -o install.sh
+bash install.sh https://github.com/alefecostta/area41-shop.git area41shop.tech
 ```
 
-(Se o repositório for privado, clone com um token ou chave de deploy.)
+Na primeira vez ele pede para criar a senha do painel. Depois:
 
-Sem domínio, o site abre pelo IP da VPS. Com domínio, aponte o DNS (registro A) para o IP antes, que o script já ativa o HTTPS.
+- Loja: `https://area41shop.tech`
+- Painel: `https://area41shop.tech/consoleadmin`
 
-## Atualizar o site
+## Comandos úteis na VPS
 
-1. Edite e dê `git push` para o GitHub.
-2. Na VPS: `bash /var/www/area41-shop/deploy/update.sh`
+```bash
+bash /var/www/area41-shop/deploy/update.sh   # puxar a versão mais nova do GitHub (já roda sozinho a cada 2 min)
+bash /var/www/area41-shop/deploy/senha.sh    # trocar a senha do painel se esquecer
+systemctl status area41-api                  # ver se a API está rodando
+journalctl -u area41-api -n 50               # ver erros da API
+```
+
+## Testar no computador
+
+```bash
+DATA_DIR=./.data ADMIN_PASSWORD=teste12345 node server/server.js set-password
+DATA_DIR=./.data STATIC_DIR=. node server/server.js
+# abra http://localhost:4141 e http://localhost:4141/consoleadmin
+```

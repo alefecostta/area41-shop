@@ -1,0 +1,1708 @@
+{
+ "version": 1,
+ "config": {
+  "nome": "ÁREA 41 SHOP",
+  "whatsapp": "5500000000000",
+  "cidade": "sua região",
+  "instagram": "area41shop",
+  "giftEnabled": true,
+  "giftMin": 2,
+  "giftName": "Chaveiro Área 41",
+  "giftImg": "img/chaveiro.webp",
+  "suggested": [
+   "v300us",
+   "bs40im",
+   "dl20"
+  ]
+ },
+ "categories": [
+  {
+   "id": "bbb",
+   "name": "Ofertas de outro planeta 👽",
+   "note": "Os mais em conta",
+   "promo": true,
+   "items": [
+    "nik10",
+    "nik20"
+   ]
+  },
+  {
+   "id": "50k",
+   "name": "50K com preço terráqueo 🛸",
+   "note": "Muito puff, pouco gasto",
+   "promo": true,
+   "items": [
+    "rab50"
+   ]
+  },
+  {
+   "id": "best",
+   "name": "Mais vendidos",
+   "note": "",
+   "promo": false,
+   "items": [
+    "v300us",
+    "bs40im",
+    "dl20"
+   ]
+  },
+  {
+   "id": "ignite",
+   "name": "Ignite",
+   "note": "",
+   "promo": false,
+   "items": [
+    "v55p",
+    "v55l",
+    "v80",
+    "v155l",
+    "v155p",
+    "v250",
+    "v300us",
+    "v300",
+    "vmix",
+    "ice40",
+    "v500"
+   ]
+  },
+  {
+   "id": "elfbar",
+   "name": "Elfbar",
+   "note": "",
+   "promo": false,
+   "items": [
+    "bc",
+    "te",
+    "duke",
+    "iceking",
+    "joinon"
+   ]
+  },
+  {
+   "id": "bsheep",
+   "name": "Black Sheep",
+   "note": "",
+   "promo": false,
+   "items": [
+    "bs30",
+    "bs40",
+    "slim15",
+    "bs30im",
+    "bs40im",
+    "cyber"
+   ]
+  },
+  {
+   "id": "nikbar",
+   "name": "Nikbar",
+   "note": "",
+   "promo": false,
+   "items": [
+    "nik10",
+    "nik20"
+   ]
+  },
+  {
+   "id": "dinner",
+   "name": "Dinner Lady",
+   "note": "",
+   "promo": false,
+   "items": [
+    "dl20",
+    "luma40",
+    "dldual"
+   ]
+  },
+  {
+   "id": "rab",
+   "name": "RabBeats",
+   "note": "",
+   "promo": false,
+   "items": [
+    "rab50"
+   ]
+  }
+ ],
+ "products": [
+  {
+   "id": "nik10",
+   "name": "NIK 10K",
+   "brand": "Nikbar",
+   "puffs": 10000,
+   "img": "img/nik-10k.webp",
+   "price": 69.9,
+   "old": 79.9,
+   "best": false,
+   "rating": null,
+   "active": true,
+   "flavors": [
+    {
+     "name": "Watermelon Ice",
+     "stock": 10
+    },
+    {
+     "name": "Grape Ice",
+     "stock": 10
+    },
+    {
+     "name": "Strawberry Kiwi",
+     "stock": 10
+    },
+    {
+     "name": "Blue Razz Ice",
+     "stock": 10
+    },
+    {
+     "name": "Menthol",
+     "stock": 10
+    },
+    {
+     "name": "Banana Ice",
+     "stock": 10
+    },
+    {
+     "name": "Pineapple Ice",
+     "stock": 10
+    },
+    {
+     "name": "Peach Ice",
+     "stock": 10
+    },
+    {
+     "name": "Strawberry Banana",
+     "stock": 10
+    },
+    {
+     "name": "Cherry Ice",
+     "stock": 10
+    },
+    {
+     "name": "Lemon Mint",
+     "stock": 10
+    },
+    {
+     "name": "Mango Ice",
+     "stock": 10
+    },
+    {
+     "name": "Blueberry Ice",
+     "stock": 10
+    },
+    {
+     "name": "Tutti Frutti",
+     "stock": 10
+    },
+    {
+     "name": "Cola Ice",
+     "stock": 10
+    },
+    {
+     "name": "Aloe Grape",
+     "stock": 10
+    },
+    {
+     "name": "Pink Lemonade",
+     "stock": 10
+    },
+    {
+     "name": "Sakura Grape",
+     "stock": 10
+    },
+    {
+     "name": "Strawberry Watermelon",
+     "stock": 10
+    },
+    {
+     "name": "Mixed Berries",
+     "stock": 10
+    },
+    {
+     "name": "Green Apple Ice",
+     "stock": 10
+    },
+    {
+     "name": "Kiwi Passion Fruit",
+     "stock": 10
+    },
+    {
+     "name": "Orange Ice",
+     "stock": 10
+    },
+    {
+     "name": "Strawberry Ice",
+     "stock": 10
+    },
+    {
+     "name": "Watermelon Grape",
+     "stock": 10
+    },
+    {
+     "name": "Piña Colada",
+     "stock": 10
+    }
+   ]
+  },
+  {
+   "id": "nik20",
+   "name": "NIK 20K Ultra Slim",
+   "brand": "Nikbar",
+   "puffs": 20000,
+   "img": "img/nik-20k-ultra-slim.webp",
+   "price": 94.9,
+   "old": 109.9,
+   "best": false,
+   "rating": null,
+   "active": true,
+   "flavors": [
+    {
+     "name": "Banana Ice",
+     "stock": 10
+    },
+    {
+     "name": "Pineapple Ice",
+     "stock": 10
+    },
+    {
+     "name": "Peach Ice",
+     "stock": 10
+    },
+    {
+     "name": "Strawberry Banana",
+     "stock": 10
+    },
+    {
+     "name": "Cherry Ice",
+     "stock": 10
+    },
+    {
+     "name": "Lemon Mint",
+     "stock": 10
+    },
+    {
+     "name": "Mango Ice",
+     "stock": 10
+    },
+    {
+     "name": "Blueberry Ice",
+     "stock": 10
+    },
+    {
+     "name": "Tutti Frutti",
+     "stock": 10
+    },
+    {
+     "name": "Cola Ice",
+     "stock": 10
+    }
+   ]
+  },
+  {
+   "id": "rab50",
+   "name": "RabBeats 50K",
+   "brand": "RabBeats",
+   "puffs": 50000,
+   "img": "img/rabbeats-50k.webp",
+   "price": 95.9,
+   "old": 109.9,
+   "best": false,
+   "rating": {
+    "value": 5,
+    "count": 2
+   },
+   "active": true,
+   "flavors": [
+    {
+     "name": "Lemon Mint",
+     "stock": 10
+    },
+    {
+     "name": "Mango Ice",
+     "stock": 10
+    },
+    {
+     "name": "Blueberry Ice",
+     "stock": 10
+    },
+    {
+     "name": "Tutti Frutti",
+     "stock": 10
+    },
+    {
+     "name": "Cola Ice",
+     "stock": 10
+    },
+    {
+     "name": "Aloe Grape",
+     "stock": 10
+    },
+    {
+     "name": "Pink Lemonade",
+     "stock": 10
+    },
+    {
+     "name": "Sakura Grape",
+     "stock": 10
+    },
+    {
+     "name": "Strawberry Watermelon",
+     "stock": 10
+    },
+    {
+     "name": "Mixed Berries",
+     "stock": 10
+    },
+    {
+     "name": "Green Apple Ice",
+     "stock": 10
+    },
+    {
+     "name": "Kiwi Passion Fruit",
+     "stock": 10
+    }
+   ]
+  },
+  {
+   "id": "v55p",
+   "name": "V55 Ultra Thin (preto)",
+   "brand": "Ignite",
+   "puffs": 5500,
+   "img": "img/v55-ultra-thin-preto.webp",
+   "price": 74.9,
+   "old": null,
+   "best": false,
+   "rating": {
+    "value": 5,
+    "count": 1
+   },
+   "active": true,
+   "flavors": [
+    {
+     "name": "Aloe Grape",
+     "stock": 10
+    },
+    {
+     "name": "Pink Lemonade",
+     "stock": 10
+    },
+    {
+     "name": "Sakura Grape",
+     "stock": 10
+    },
+    {
+     "name": "Strawberry Watermelon",
+     "stock": 10
+    },
+    {
+     "name": "Mixed Berries",
+     "stock": 10
+    },
+    {
+     "name": "Green Apple Ice",
+     "stock": 10
+    },
+    {
+     "name": "Kiwi Passion Fruit",
+     "stock": 10
+    },
+    {
+     "name": "Orange Ice",
+     "stock": 10
+    },
+    {
+     "name": "Strawberry Ice",
+     "stock": 10
+    }
+   ]
+  },
+  {
+   "id": "v55l",
+   "name": "V55 Ultra Thin (laranja)",
+   "brand": "Ignite",
+   "puffs": 5500,
+   "img": "img/v55-ultra-thin-laranjado.webp",
+   "price": 74.9,
+   "old": null,
+   "best": false,
+   "rating": null,
+   "active": true,
+   "flavors": [
+    {
+     "name": "Green Apple Ice",
+     "stock": 10
+    },
+    {
+     "name": "Kiwi Passion Fruit",
+     "stock": 10
+    },
+    {
+     "name": "Orange Ice",
+     "stock": 10
+    },
+    {
+     "name": "Strawberry Ice",
+     "stock": 10
+    },
+    {
+     "name": "Watermelon Grape",
+     "stock": 10
+    },
+    {
+     "name": "Piña Colada",
+     "stock": 10
+    },
+    {
+     "name": "Peach Mango",
+     "stock": 10
+    },
+    {
+     "name": "Lemon Ice",
+     "stock": 10
+    },
+    {
+     "name": "Watermelon Ice",
+     "stock": 10
+    },
+    {
+     "name": "Grape Ice",
+     "stock": 10
+    },
+    {
+     "name": "Strawberry Kiwi",
+     "stock": 10
+    }
+   ]
+  },
+  {
+   "id": "v80",
+   "name": "V80 Ultra Slim",
+   "brand": "Ignite",
+   "puffs": 8000,
+   "img": "img/v80-ultra-slim.webp",
+   "price": 89.9,
+   "old": null,
+   "best": false,
+   "rating": {
+    "value": 5,
+    "count": 1
+   },
+   "active": true,
+   "flavors": [
+    {
+     "name": "Piña Colada",
+     "stock": 10
+    },
+    {
+     "name": "Peach Mango",
+     "stock": 10
+    },
+    {
+     "name": "Lemon Ice",
+     "stock": 10
+    },
+    {
+     "name": "Watermelon Ice",
+     "stock": 10
+    },
+    {
+     "name": "Grape Ice",
+     "stock": 10
+    }
+   ]
+  },
+  {
+   "id": "v155l",
+   "name": "V155 Ultra Slim (laranja)",
+   "brand": "Ignite",
+   "puffs": 15500,
+   "img": "img/v155-ultra-slim-laranjado.webp",
+   "price": 109.9,
+   "old": 115.9,
+   "best": false,
+   "rating": null,
+   "active": true,
+   "flavors": [
+    {
+     "name": "Strawberry Kiwi",
+     "stock": 10
+    },
+    {
+     "name": "Blue Razz Ice",
+     "stock": 10
+    },
+    {
+     "name": "Menthol",
+     "stock": 10
+    },
+    {
+     "name": "Banana Ice",
+     "stock": 10
+    },
+    {
+     "name": "Pineapple Ice",
+     "stock": 10
+    },
+    {
+     "name": "Peach Ice",
+     "stock": 10
+    },
+    {
+     "name": "Strawberry Banana",
+     "stock": 10
+    }
+   ]
+  },
+  {
+   "id": "v155p",
+   "name": "V155 Ultra Slim (preto)",
+   "brand": "Ignite",
+   "puffs": 15500,
+   "img": "img/v155-ultra-slim-preto.webp",
+   "price": 109.9,
+   "old": 115.9,
+   "best": false,
+   "rating": {
+    "value": 5,
+    "count": 1
+   },
+   "active": true,
+   "flavors": [
+    {
+     "name": "Peach Ice",
+     "stock": 10
+    },
+    {
+     "name": "Strawberry Banana",
+     "stock": 10
+    },
+    {
+     "name": "Cherry Ice",
+     "stock": 10
+    },
+    {
+     "name": "Lemon Mint",
+     "stock": 10
+    },
+    {
+     "name": "Mango Ice",
+     "stock": 10
+    },
+    {
+     "name": "Blueberry Ice",
+     "stock": 10
+    }
+   ]
+  },
+  {
+   "id": "v250",
+   "name": "V250 Preto",
+   "brand": "Ignite",
+   "puffs": 25000,
+   "img": "img/v250-preto.webp",
+   "price": 115.9,
+   "old": null,
+   "best": false,
+   "rating": null,
+   "active": true,
+   "flavors": [
+    {
+     "name": "Blueberry Ice",
+     "stock": 1
+    },
+    {
+     "name": "Tutti Frutti",
+     "stock": 1
+    }
+   ]
+  },
+  {
+   "id": "v300us",
+   "name": "V300 Ultra Slim",
+   "brand": "Ignite",
+   "puffs": 30000,
+   "img": "img/v300-ultra-slim.webp",
+   "price": 118.9,
+   "old": 124.9,
+   "best": true,
+   "rating": {
+    "value": 5,
+    "count": 1
+   },
+   "active": true,
+   "flavors": [
+    {
+     "name": "Sakura Grape",
+     "stock": 10
+    },
+    {
+     "name": "Strawberry Watermelon",
+     "stock": 10
+    },
+    {
+     "name": "Mixed Berries",
+     "stock": 10
+    },
+    {
+     "name": "Green Apple Ice",
+     "stock": 10
+    },
+    {
+     "name": "Kiwi Passion Fruit",
+     "stock": 10
+    },
+    {
+     "name": "Orange Ice",
+     "stock": 10
+    },
+    {
+     "name": "Strawberry Ice",
+     "stock": 10
+    },
+    {
+     "name": "Watermelon Grape",
+     "stock": 10
+    },
+    {
+     "name": "Piña Colada",
+     "stock": 10
+    },
+    {
+     "name": "Peach Mango",
+     "stock": 10
+    },
+    {
+     "name": "Lemon Ice",
+     "stock": 10
+    },
+    {
+     "name": "Watermelon Ice",
+     "stock": 10
+    },
+    {
+     "name": "Grape Ice",
+     "stock": 10
+    },
+    {
+     "name": "Strawberry Kiwi",
+     "stock": 10
+    },
+    {
+     "name": "Blue Razz Ice",
+     "stock": 10
+    },
+    {
+     "name": "Menthol",
+     "stock": 10
+    },
+    {
+     "name": "Banana Ice",
+     "stock": 10
+    },
+    {
+     "name": "Pineapple Ice",
+     "stock": 10
+    },
+    {
+     "name": "Peach Ice",
+     "stock": 10
+    }
+   ]
+  },
+  {
+   "id": "v300",
+   "name": "Ignite V300",
+   "brand": "Ignite",
+   "puffs": 30000,
+   "img": "img/ignite-v300.webp",
+   "price": 109.9,
+   "old": 119.9,
+   "best": false,
+   "rating": null,
+   "active": true,
+   "flavors": [
+    {
+     "name": "Orange Ice",
+     "stock": 10
+    },
+    {
+     "name": "Strawberry Ice",
+     "stock": 10
+    },
+    {
+     "name": "Watermelon Grape",
+     "stock": 10
+    },
+    {
+     "name": "Piña Colada",
+     "stock": 10
+    },
+    {
+     "name": "Peach Mango",
+     "stock": 10
+    },
+    {
+     "name": "Lemon Ice",
+     "stock": 10
+    },
+    {
+     "name": "Watermelon Ice",
+     "stock": 10
+    },
+    {
+     "name": "Grape Ice",
+     "stock": 10
+    },
+    {
+     "name": "Strawberry Kiwi",
+     "stock": 10
+    },
+    {
+     "name": "Blue Razz Ice",
+     "stock": 10
+    },
+    {
+     "name": "Menthol",
+     "stock": 10
+    },
+    {
+     "name": "Banana Ice",
+     "stock": 10
+    },
+    {
+     "name": "Pineapple Ice",
+     "stock": 10
+    },
+    {
+     "name": "Peach Ice",
+     "stock": 10
+    },
+    {
+     "name": "Strawberry Banana",
+     "stock": 10
+    },
+    {
+     "name": "Cherry Ice",
+     "stock": 10
+    }
+   ]
+  },
+  {
+   "id": "vmix",
+   "name": "New VMIX Boost Series",
+   "brand": "Ignite",
+   "puffs": 40000,
+   "img": "img/new-vmix-boost-series.webp",
+   "price": 134.9,
+   "old": null,
+   "best": false,
+   "rating": null,
+   "active": true,
+   "flavors": [
+    {
+     "name": "Lemon Ice",
+     "stock": 10
+    },
+    {
+     "name": "Watermelon Ice",
+     "stock": 10
+    },
+    {
+     "name": "Grape Ice",
+     "stock": 10
+    },
+    {
+     "name": "Strawberry Kiwi",
+     "stock": 10
+    },
+    {
+     "name": "Blue Razz Ice",
+     "stock": 10
+    },
+    {
+     "name": "Menthol",
+     "stock": 10
+    },
+    {
+     "name": "Banana Ice",
+     "stock": 10
+    },
+    {
+     "name": "Pineapple Ice",
+     "stock": 10
+    },
+    {
+     "name": "Peach Ice",
+     "stock": 10
+    },
+    {
+     "name": "Strawberry Banana",
+     "stock": 10
+    },
+    {
+     "name": "Cherry Ice",
+     "stock": 10
+    },
+    {
+     "name": "Lemon Mint",
+     "stock": 10
+    },
+    {
+     "name": "Mango Ice",
+     "stock": 10
+    },
+    {
+     "name": "Blueberry Ice",
+     "stock": 10
+    },
+    {
+     "name": "Tutti Frutti",
+     "stock": 10
+    },
+    {
+     "name": "Cola Ice",
+     "stock": 10
+    },
+    {
+     "name": "Aloe Grape",
+     "stock": 10
+    },
+    {
+     "name": "Pink Lemonade",
+     "stock": 10
+    }
+   ]
+  },
+  {
+   "id": "ice40",
+   "name": "Ice 40K",
+   "brand": "Ignite",
+   "puffs": 40000,
+   "img": "img/ice-40k.webp",
+   "price": 129.9,
+   "old": null,
+   "best": false,
+   "rating": null,
+   "active": true,
+   "flavors": [
+    {
+     "name": "Menthol",
+     "stock": 10
+    },
+    {
+     "name": "Banana Ice",
+     "stock": 10
+    },
+    {
+     "name": "Pineapple Ice",
+     "stock": 10
+    },
+    {
+     "name": "Peach Ice",
+     "stock": 10
+    },
+    {
+     "name": "Strawberry Banana",
+     "stock": 10
+    },
+    {
+     "name": "Cherry Ice",
+     "stock": 10
+    },
+    {
+     "name": "Lemon Mint",
+     "stock": 10
+    },
+    {
+     "name": "Mango Ice",
+     "stock": 10
+    },
+    {
+     "name": "Blueberry Ice",
+     "stock": 10
+    },
+    {
+     "name": "Tutti Frutti",
+     "stock": 10
+    },
+    {
+     "name": "Cola Ice",
+     "stock": 10
+    },
+    {
+     "name": "Aloe Grape",
+     "stock": 10
+    },
+    {
+     "name": "Pink Lemonade",
+     "stock": 10
+    },
+    {
+     "name": "Sakura Grape",
+     "stock": 10
+    },
+    {
+     "name": "Strawberry Watermelon",
+     "stock": 10
+    },
+    {
+     "name": "Mixed Berries",
+     "stock": 10
+    }
+   ]
+  },
+  {
+   "id": "v500",
+   "name": "V500",
+   "brand": "Ignite",
+   "puffs": 50000,
+   "img": "img/v500.webp",
+   "price": 139.9,
+   "old": null,
+   "best": false,
+   "rating": {
+    "value": 5,
+    "count": 1
+   },
+   "active": true,
+   "flavors": [
+    {
+     "name": "Cherry Ice",
+     "stock": 10
+    },
+    {
+     "name": "Lemon Mint",
+     "stock": 10
+    },
+    {
+     "name": "Mango Ice",
+     "stock": 10
+    },
+    {
+     "name": "Blueberry Ice",
+     "stock": 10
+    },
+    {
+     "name": "Tutti Frutti",
+     "stock": 10
+    },
+    {
+     "name": "Cola Ice",
+     "stock": 10
+    },
+    {
+     "name": "Aloe Grape",
+     "stock": 10
+    },
+    {
+     "name": "Pink Lemonade",
+     "stock": 10
+    },
+    {
+     "name": "Sakura Grape",
+     "stock": 10
+    },
+    {
+     "name": "Strawberry Watermelon",
+     "stock": 10
+    },
+    {
+     "name": "Mixed Berries",
+     "stock": 10
+    }
+   ]
+  },
+  {
+   "id": "bc",
+   "name": "BC 15K",
+   "brand": "Elfbar",
+   "puffs": 15000,
+   "img": "img/bc.webp",
+   "price": 79.9,
+   "old": null,
+   "best": false,
+   "rating": null,
+   "active": true,
+   "flavors": [
+    {
+     "name": "Cola Ice",
+     "stock": 10
+    },
+    {
+     "name": "Aloe Grape",
+     "stock": 10
+    },
+    {
+     "name": "Pink Lemonade",
+     "stock": 10
+    },
+    {
+     "name": "Sakura Grape",
+     "stock": 10
+    },
+    {
+     "name": "Strawberry Watermelon",
+     "stock": 10
+    },
+    {
+     "name": "Mixed Berries",
+     "stock": 10
+    },
+    {
+     "name": "Green Apple Ice",
+     "stock": 10
+    },
+    {
+     "name": "Kiwi Passion Fruit",
+     "stock": 10
+    },
+    {
+     "name": "Orange Ice",
+     "stock": 10
+    },
+    {
+     "name": "Strawberry Ice",
+     "stock": 10
+    },
+    {
+     "name": "Watermelon Grape",
+     "stock": 10
+    },
+    {
+     "name": "Piña Colada",
+     "stock": 10
+    },
+    {
+     "name": "Peach Mango",
+     "stock": 10
+    },
+    {
+     "name": "Lemon Ice",
+     "stock": 10
+    },
+    {
+     "name": "Watermelon Ice",
+     "stock": 10
+    },
+    {
+     "name": "Grape Ice",
+     "stock": 10
+    },
+    {
+     "name": "Strawberry Kiwi",
+     "stock": 10
+    }
+   ]
+  },
+  {
+   "id": "te",
+   "name": "TE 30K",
+   "brand": "Elfbar",
+   "puffs": 30000,
+   "img": "img/te.webp",
+   "price": 105.9,
+   "old": null,
+   "best": false,
+   "rating": null,
+   "active": true,
+   "flavors": [
+    {
+     "name": "Mixed Berries",
+     "stock": 10
+    },
+    {
+     "name": "Green Apple Ice",
+     "stock": 10
+    },
+    {
+     "name": "Kiwi Passion Fruit",
+     "stock": 10
+    },
+    {
+     "name": "Orange Ice",
+     "stock": 10
+    },
+    {
+     "name": "Strawberry Ice",
+     "stock": 10
+    },
+    {
+     "name": "Watermelon Grape",
+     "stock": 10
+    },
+    {
+     "name": "Piña Colada",
+     "stock": 10
+    },
+    {
+     "name": "Peach Mango",
+     "stock": 10
+    },
+    {
+     "name": "Lemon Ice",
+     "stock": 10
+    },
+    {
+     "name": "Watermelon Ice",
+     "stock": 10
+    },
+    {
+     "name": "Grape Ice",
+     "stock": 10
+    },
+    {
+     "name": "Strawberry Kiwi",
+     "stock": 10
+    },
+    {
+     "name": "Blue Razz Ice",
+     "stock": 10
+    },
+    {
+     "name": "Menthol",
+     "stock": 10
+    }
+   ]
+  },
+  {
+   "id": "duke",
+   "name": "Duke",
+   "brand": "Elfbar",
+   "puffs": 35000,
+   "img": "img/duke.webp",
+   "price": 109.9,
+   "old": null,
+   "best": false,
+   "rating": null,
+   "active": true,
+   "flavors": [
+    {
+     "name": "Blue Razz Ice",
+     "stock": 1
+    }
+   ]
+  },
+  {
+   "id": "iceking",
+   "name": "Ice King (regula o gelo)",
+   "brand": "Elfbar",
+   "puffs": 40000,
+   "img": "img/ice-king-regula-o-gelo.webp",
+   "price": 118.9,
+   "old": 124.9,
+   "best": false,
+   "rating": {
+    "value": 5,
+    "count": 1
+   },
+   "active": true,
+   "flavors": [
+    {
+     "name": "Grape Ice",
+     "stock": 10
+    },
+    {
+     "name": "Strawberry Kiwi",
+     "stock": 10
+    },
+    {
+     "name": "Blue Razz Ice",
+     "stock": 10
+    },
+    {
+     "name": "Menthol",
+     "stock": 10
+    },
+    {
+     "name": "Banana Ice",
+     "stock": 10
+    },
+    {
+     "name": "Pineapple Ice",
+     "stock": 10
+    },
+    {
+     "name": "Peach Ice",
+     "stock": 10
+    },
+    {
+     "name": "Strawberry Banana",
+     "stock": 10
+    },
+    {
+     "name": "Cherry Ice",
+     "stock": 10
+    },
+    {
+     "name": "Lemon Mint",
+     "stock": 10
+    }
+   ]
+  },
+  {
+   "id": "joinon",
+   "name": "Joinon EW Kit (bateria + refil)",
+   "brand": "Elfbar",
+   "puffs": 25000,
+   "img": "img/joinon-ew-kit-bateria-refil.webp",
+   "price": 124.9,
+   "old": null,
+   "best": false,
+   "rating": null,
+   "active": true,
+   "flavors": [
+    {
+     "name": "Pineapple Ice",
+     "stock": 10
+    },
+    {
+     "name": "Peach Ice",
+     "stock": 10
+    },
+    {
+     "name": "Strawberry Banana",
+     "stock": 10
+    }
+   ]
+  },
+  {
+   "id": "bs30",
+   "name": "Dual Tank 30K",
+   "brand": "Black Sheep",
+   "puffs": 30000,
+   "img": "img/black-sheep-dual-tank-30k.webp",
+   "price": 109.9,
+   "old": 129.9,
+   "best": false,
+   "rating": null,
+   "active": true,
+   "flavors": [
+    {
+     "name": "Mango Ice",
+     "stock": 10
+    },
+    {
+     "name": "Blueberry Ice",
+     "stock": 10
+    },
+    {
+     "name": "Tutti Frutti",
+     "stock": 10
+    },
+    {
+     "name": "Cola Ice",
+     "stock": 10
+    },
+    {
+     "name": "Aloe Grape",
+     "stock": 10
+    },
+    {
+     "name": "Pink Lemonade",
+     "stock": 10
+    },
+    {
+     "name": "Sakura Grape",
+     "stock": 10
+    },
+    {
+     "name": "Strawberry Watermelon",
+     "stock": 10
+    }
+   ]
+  },
+  {
+   "id": "bs40",
+   "name": "Dual 40K",
+   "brand": "Black Sheep",
+   "puffs": 40000,
+   "img": "img/black-sheep-dual-40k.webp",
+   "price": 129.9,
+   "old": 139.9,
+   "best": false,
+   "rating": null,
+   "active": true,
+   "flavors": [
+    {
+     "name": "Pink Lemonade",
+     "stock": 10
+    },
+    {
+     "name": "Sakura Grape",
+     "stock": 10
+    },
+    {
+     "name": "Strawberry Watermelon",
+     "stock": 10
+    },
+    {
+     "name": "Mixed Berries",
+     "stock": 10
+    },
+    {
+     "name": "Green Apple Ice",
+     "stock": 10
+    },
+    {
+     "name": "Kiwi Passion Fruit",
+     "stock": 10
+    },
+    {
+     "name": "Orange Ice",
+     "stock": 10
+    },
+    {
+     "name": "Strawberry Ice",
+     "stock": 10
+    },
+    {
+     "name": "Watermelon Grape",
+     "stock": 10
+    }
+   ]
+  },
+  {
+   "id": "slim15",
+   "name": "Slim 15K",
+   "brand": "Black Sheep",
+   "puffs": 15000,
+   "img": "img/slim-15k.webp",
+   "price": 89.9,
+   "old": null,
+   "best": false,
+   "rating": null,
+   "active": true,
+   "flavors": [
+    {
+     "name": "Pink Lemonade",
+     "stock": 1
+    }
+   ]
+  },
+  {
+   "id": "bs30im",
+   "name": "Dual Tank 30K Ice Master",
+   "brand": "Black Sheep",
+   "puffs": 30000,
+   "img": "img/black-sheep-dual-tank-30k-ice-master.webp",
+   "price": 109.9,
+   "old": 129.9,
+   "best": false,
+   "rating": null,
+   "active": true,
+   "flavors": [
+    {
+     "name": "Grape+Grape",
+     "stock": 10
+    }
+   ]
+  },
+  {
+   "id": "bs40im",
+   "name": "Dual 40K Ice Master",
+   "brand": "Black Sheep",
+   "puffs": 40000,
+   "img": "img/black-sheep-dual-40k-ice-master.webp",
+   "price": 129.9,
+   "old": 139.9,
+   "best": true,
+   "rating": null,
+   "active": true,
+   "flavors": [
+    {
+     "name": "Blue Razz Ice",
+     "stock": 10
+    },
+    {
+     "name": "Menthol",
+     "stock": 10
+    },
+    {
+     "name": "Banana Ice",
+     "stock": 10
+    },
+    {
+     "name": "Pineapple Ice",
+     "stock": 10
+    },
+    {
+     "name": "Peach Ice",
+     "stock": 10
+    }
+   ]
+  },
+  {
+   "id": "cyber",
+   "name": "Cyber Tank",
+   "brand": "Black Sheep",
+   "puffs": 55000,
+   "img": "img/cyber-tank.webp",
+   "price": 145.9,
+   "old": null,
+   "best": false,
+   "rating": null,
+   "active": true,
+   "flavors": [
+    {
+     "name": "Aloe Grape",
+     "stock": 10
+    }
+   ]
+  },
+  {
+   "id": "dl20",
+   "name": "Dinner Lady 20K",
+   "brand": "Dinner Lady",
+   "puffs": 20000,
+   "img": "img/dinner-lady-20k.webp",
+   "price": 89.9,
+   "old": null,
+   "best": true,
+   "rating": {
+    "value": 5,
+    "count": 1
+   },
+   "active": true,
+   "flavors": [
+    {
+     "name": "Tutti Frutti",
+     "stock": 10
+    },
+    {
+     "name": "Cola Ice",
+     "stock": 10
+    },
+    {
+     "name": "Aloe Grape",
+     "stock": 10
+    },
+    {
+     "name": "Pink Lemonade",
+     "stock": 10
+    },
+    {
+     "name": "Sakura Grape",
+     "stock": 10
+    },
+    {
+     "name": "Strawberry Watermelon",
+     "stock": 10
+    },
+    {
+     "name": "Mixed Berries",
+     "stock": 10
+    },
+    {
+     "name": "Green Apple Ice",
+     "stock": 10
+    },
+    {
+     "name": "Kiwi Passion Fruit",
+     "stock": 10
+    },
+    {
+     "name": "Orange Ice",
+     "stock": 10
+    },
+    {
+     "name": "Strawberry Ice",
+     "stock": 10
+    },
+    {
+     "name": "Watermelon Grape",
+     "stock": 10
+    },
+    {
+     "name": "Piña Colada",
+     "stock": 10
+    },
+    {
+     "name": "Peach Mango",
+     "stock": 10
+    },
+    {
+     "name": "Lemon Ice",
+     "stock": 10
+    },
+    {
+     "name": "Watermelon Ice",
+     "stock": 10
+    },
+    {
+     "name": "Grape Ice",
+     "stock": 10
+    },
+    {
+     "name": "Strawberry Kiwi",
+     "stock": 10
+    },
+    {
+     "name": "Blue Razz Ice",
+     "stock": 10
+    }
+   ]
+  },
+  {
+   "id": "luma40",
+   "name": "Dinner Luma 40K",
+   "brand": "Dinner Lady",
+   "puffs": 40000,
+   "img": "img/dinner-luma-40k.webp",
+   "price": 109.9,
+   "old": 119.9,
+   "best": false,
+   "rating": null,
+   "active": true,
+   "flavors": [
+    {
+     "name": "Strawberry Watermelon",
+     "stock": 10
+    },
+    {
+     "name": "Mixed Berries",
+     "stock": 10
+    },
+    {
+     "name": "Green Apple Ice",
+     "stock": 10
+    },
+    {
+     "name": "Kiwi Passion Fruit",
+     "stock": 10
+    },
+    {
+     "name": "Orange Ice",
+     "stock": 10
+    },
+    {
+     "name": "Strawberry Ice",
+     "stock": 10
+    },
+    {
+     "name": "Watermelon Grape",
+     "stock": 10
+    },
+    {
+     "name": "Piña Colada",
+     "stock": 10
+    },
+    {
+     "name": "Peach Mango",
+     "stock": 10
+    },
+    {
+     "name": "Lemon Ice",
+     "stock": 10
+    },
+    {
+     "name": "Watermelon Ice",
+     "stock": 10
+    },
+    {
+     "name": "Grape Ice",
+     "stock": 10
+    },
+    {
+     "name": "Strawberry Kiwi",
+     "stock": 10
+    },
+    {
+     "name": "Blue Razz Ice",
+     "stock": 10
+    },
+    {
+     "name": "Menthol",
+     "stock": 10
+    },
+    {
+     "name": "Banana Ice",
+     "stock": 10
+    },
+    {
+     "name": "Pineapple Ice",
+     "stock": 10
+    },
+    {
+     "name": "Peach Ice",
+     "stock": 10
+    },
+    {
+     "name": "Strawberry Banana",
+     "stock": 10
+    },
+    {
+     "name": "Cherry Ice",
+     "stock": 10
+    }
+   ]
+  },
+  {
+   "id": "dldual",
+   "name": "Dinner Lady Dual Flavor",
+   "brand": "Dinner Lady",
+   "puffs": 50000,
+   "img": "img/dinner-lady-dual-flavor.webp",
+   "price": 139.9,
+   "old": null,
+   "best": false,
+   "rating": null,
+   "active": true,
+   "flavors": [
+    {
+     "name": "Strawberry Ice",
+     "stock": 10
+    },
+    {
+     "name": "Watermelon Grape",
+     "stock": 10
+    },
+    {
+     "name": "Piña Colada",
+     "stock": 10
+    },
+    {
+     "name": "Peach Mango",
+     "stock": 10
+    },
+    {
+     "name": "Lemon Ice",
+     "stock": 10
+    },
+    {
+     "name": "Watermelon Ice",
+     "stock": 10
+    },
+    {
+     "name": "Grape Ice",
+     "stock": 10
+    },
+    {
+     "name": "Strawberry Kiwi",
+     "stock": 10
+    },
+    {
+     "name": "Blue Razz Ice",
+     "stock": 10
+    },
+    {
+     "name": "Menthol",
+     "stock": 10
+    },
+    {
+     "name": "Banana Ice",
+     "stock": 10
+    },
+    {
+     "name": "Pineapple Ice",
+     "stock": 10
+    },
+    {
+     "name": "Peach Ice",
+     "stock": 10
+    },
+    {
+     "name": "Strawberry Banana",
+     "stock": 10
+    }
+   ]
+  }
+ ]
+}

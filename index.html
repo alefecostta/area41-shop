@@ -138,6 +138,7 @@ img{display:block;max-width:100%}
 .buy{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 16px 16px;margin-top:auto}
 .buy .pr strong{font-size:22px}
 .buy .save b{font-weight:600}
+.buy .save i{font-style:normal;display:none}
 .buy .save{display:block;font-size:12px;font-weight:600;color:var(--lime);margin-top:2px;white-space:nowrap}
 .pick{position:relative;flex-shrink:0;width:50px;height:50px;border-radius:16px;background:var(--lime);color:var(--lime-ink);display:grid;place-items:center;transition:transform .15s,filter .15s,border-radius .2s}
 .pick:hover{filter:brightness(1.06);border-radius:999px}
@@ -145,6 +146,10 @@ img{display:block;max-width:100%}
 .pick svg{width:22px;height:22px}
 .pick.in{background:var(--tile);color:var(--lime);border:1px solid rgba(166,244,90,.45)}
 .pick .q{position:absolute;top:-6px;right:-6px;background:var(--lime);color:var(--lime-ink);border:2px solid var(--surface);border-radius:999px;min-width:22px;height:22px;font-size:11.5px;font-weight:800;display:grid;place-items:center;padding:0 5px}
+.card.sold .ph img{filter:grayscale(1);opacity:.55}
+.card .soldtag{position:absolute;inset:auto 0 50% 0;transform:translateY(50%);margin:0 auto;width:max-content;z-index:2;background:#0D1F14;color:#fff;font-weight:700;font-size:13px;padding:6px 14px;border-radius:999px}
+.pick.out{width:auto;padding:0 14px;background:var(--tile);color:var(--muted);font-size:13px;font-weight:600;border-radius:14px;cursor:default}
+.ph[disabled]{cursor:default}
 .empty-search{display:none;text-align:center;color:var(--muted);padding:60px 0}
 .empty-search b{display:block;font-family:var(--display);font-size:20px;color:var(--ink);margin-bottom:6px}
 
@@ -274,6 +279,10 @@ footer{margin-top:64px;position:relative;overflow:hidden;border-top:1px solid va
 .flv .add{height:36px;padding:0 14px;border-radius:999px;border:1px solid var(--line);font-weight:600;font-size:13.5px}
 .flv .add:hover{border-color:var(--lime);color:var(--lime)}
 .flv .stp{display:none}
+.flv .nm small{display:block;font-size:12px;color:#F5B14C;font-weight:600}
+.flv.out .nm{color:var(--muted);text-decoration:line-through}
+.flv .soldf{font-size:12.5px;color:var(--muted);font-weight:600}
+.stp button:disabled{opacity:.35;cursor:not-allowed}
 .flv.sel{}
 .flv.sel .add{display:none}
 .flv.sel .stp{display:inline-flex;background:var(--lime);border-color:var(--lime);color:var(--lime-ink)}
@@ -338,6 +347,7 @@ footer{margin-top:64px;position:relative;overflow:hidden;border-top:1px solid va
   .buy .pr s{display:none}
   .buy .save{font-size:10.5px}
   .buy .save b{display:none}
+  .buy .save i{display:inline}
   .pick{width:42px;height:42px;border-radius:13px}
   .card .brandtag{left:8px;bottom:8px;font-size:10.5px;height:22px;padding:0 8px}
   .promo{border-radius:22px;padding:16px 12px}
@@ -389,7 +399,7 @@ footer{margin-top:64px;position:relative;overflow:hidden;border-top:1px solid va
         <div class="fact"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/></svg></i><div><b>Originais</b><span>Lacrados de fábrica</span></div></div>
         <div class="fact"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg></i><div><b>Garantia 24h</b><span>Troca se vier com defeito</span></div></div>
         <div class="fact"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="5" rx="2"/><path d="M2 10h20"/></svg></i><div><b>Pix, cartão ou dinheiro</b><span>Você escolhe no pedido</span></div></div>
-        <button class="fact gift-fact" data-open-cart><img src="img/chaveiro.webp" alt=""><div><b>Chaveiro grátis</b><span>Comprando 2 pods</span></div></button>
+        <button class="fact gift-fact" id="giftFact" data-open-cart hidden><img id="giftFactImg" src="img/chaveiro.webp" alt=""><div><b id="giftFactName">Chaveiro grátis</b><span id="giftFactRule">Comprando 2 pods</span></div></button>
       </div>
     </div>
     <div class="paycard" id="paycard">
@@ -399,7 +409,7 @@ footer{margin-top:64px;position:relative;overflow:hidden;border-top:1px solid va
     </div>
   </section>
 
-  <div id="catalog"></div>
+  <div id="catalog"><p style="color:var(--muted);padding:40px 0;text-align:center">Carregando produtos…</p></div>
   <div class="empty-search" id="emptySearch"><b>Nada encontrado</b>Tente outro sabor ou o nome do modelo.</div>
 
 </main>
@@ -458,63 +468,11 @@ footer{margin-top:64px;position:relative;overflow:hidden;border-top:1px solid va
 
 <script>
 /* =====================================================================
-   CONFIGURAÇÃO DA LOJA — edite aqui
+   Os produtos, preços, estoque e configurações vêm do painel /consoleadmin
+   (API /api/catalog). Sem a API, usa o catálogo inicial data/catalog.seed.json.
    ===================================================================== */
-const CONFIG = {
-  nome: "ÁREA 41 SHOP",
-  whatsapp: "5500000000000",          // seu número com DDI+DDD, só números. Ex: 5541999999999
-  cidade: "sua região",                // ex: "Curitiba"
-  instagram: "area41shop"              // sem @
-};
-
-/* Sabores: edite a lista de cada produto em PRODUCTS (campo flavors).
-   Os produtos sem lista própria usam sabores de exemplo da lista abaixo. */
-const FLAVOR_POOL = ["🍉❄️ Watermelon Ice","🍇❄️ Grape Ice","🍓🥝 Strawberry Kiwi","🫐❄️ Blue Razz Ice","🌿❄️ Menthol","🍌❄️ Banana Ice","🍍❄️ Pineapple Ice","🍑❄️ Peach Ice","🍓🍌 Strawberry Banana","🍒❄️ Cherry Ice","🍋🌿 Lemon Mint","🥭❄️ Mango Ice","🫐 Blueberry Ice","🍬 Tutti Frutti","🥤❄️ Cola Ice","🍇💚 Aloe Grape","🍸🍋 Pink Lemonade","🌸🍇 Sakura Grape","🍓🍉 Strawberry Watermelon","🍇🫐 Mixed Berries","🍏❄️ Green Apple Ice","🥝💛 Kiwi Passion Fruit","🍊❄️ Orange Ice","🍓❄️ Strawberry Ice","🍉🍇 Watermelon Grape","🥥🍍 Piña Colada","🍑🥭 Peach Mango","🍋❄️ Lemon Ice"];
-
-const CATEGORIES = [
-  {id:"bbb",  name:"Ofertas de outro planeta 👽", promo:true, note:"Os mais em conta", items:["nik10","nik20"]},
-  {id:"50k",  name:"50K com preço terráqueo 🛸", promo:true, note:"Muito puff, pouco gasto", items:["rab50"]},
-  {id:"best", name:"Mais vendidos", items:["v300us","bs40im","dl20"]},
-  {id:"ignite", name:"Ignite", items:["v55p","v55l","v80","v155l","v155p","v250","v300us","v300","vmix","ice40","v500"]},
-  {id:"elfbar", name:"Elfbar", items:["bc","te","duke","iceking","joinon"]},
-  {id:"bsheep", name:"Black Sheep", items:["bs30","bs40","slim15","bs30im","bs40im","cyber"]},
-  {id:"nikbar", name:"Nikbar", items:["nik10","nik20"]},
-  {id:"dinner", name:"Dinner Lady", items:["dl20","luma40","dldual"]},
-  {id:"rab", name:"RabBeats", items:["rab50"]}
-];
-
-// price = preço atual; old = preço "de" (opcional); n = qtd de sabores (usado quando não há lista); stock: número = últimas unidades
-const PRODUCTS = {
-  nik10:  {name:"NIK 10K", brand:"Nikbar", puffs:"10.000", img:"nik-10k.webp", price:69.90, old:79.90, n:26},
-  nik20:  {name:"NIK 20K Ultra Slim", brand:"Nikbar", puffs:"20.000", img:"nik-20k-ultra-slim.webp", price:94.90, old:109.90, n:10},
-  rab50:  {name:"RabBeats 50K", brand:"RabBeats", puffs:"50.000", img:"rabbeats-50k.webp", price:95.90, old:109.90, n:12, rating:[5.0,2]},
-  v55p:   {name:"V55 Ultra Thin (preto)", brand:"Ignite", puffs:"5.500", img:"v55-ultra-thin-preto.webp", price:74.90, n:9, rating:[5.0,1]},
-  v55l:   {name:"V55 Ultra Thin (laranja)", brand:"Ignite", puffs:"5.500", img:"v55-ultra-thin-laranjado.webp", price:74.90, n:11},
-  v80:    {name:"V80 Ultra Slim", brand:"Ignite", puffs:"8.000", img:"v80-ultra-slim.webp", price:89.90, n:5, rating:[5.0,1]},
-  v155l:  {name:"V155 Ultra Slim (laranja)", brand:"Ignite", puffs:"15.500", img:"v155-ultra-slim-laranjado.webp", price:109.90, old:115.90, n:7},
-  v155p:  {name:"V155 Ultra Slim (preto)", brand:"Ignite", puffs:"15.500", img:"v155-ultra-slim-preto.webp", price:109.90, old:115.90, n:6, rating:[5.0,1]},
-  v250:   {name:"V250 Preto", brand:"Ignite", puffs:"25.000", img:"v250-preto.webp", price:115.90, n:2, stock:2},
-  v300us: {name:"V300 Ultra Slim", brand:"Ignite", puffs:"30.000", img:"v300-ultra-slim.webp", price:118.90, old:124.90, n:19, best:true, rating:[5.0,1]},
-  v300:   {name:"Ignite V300", brand:"Ignite", puffs:"30.000", img:"ignite-v300.webp", price:109.90, old:119.90, n:16},
-  vmix:   {name:"New VMIX Boost Series", brand:"Ignite", puffs:"40.000", img:"new-vmix-boost-series.webp", price:134.90, n:18},
-  ice40:  {name:"Ice 40K", brand:"Ignite", puffs:"40.000", img:"ice-40k.webp", price:129.90, n:16},
-  v500:   {name:"V500", brand:"Ignite", puffs:"50.000", img:"v500.webp", price:139.90, n:11, rating:[5.0,1]},
-  bc:     {name:"BC 15K", brand:"Elfbar", puffs:"15.000", img:"bc.webp", price:79.90, n:17},
-  te:     {name:"TE 30K", brand:"Elfbar", puffs:"30.000", img:"te.webp", price:105.90, n:14},
-  duke:   {name:"Duke", brand:"Elfbar", puffs:"35.000", img:"duke.webp", price:109.90, flavors:["🫐❤️❄️ Blue Razz Ice"], stock:1},
-  iceking:{name:"Ice King (regula o gelo)", brand:"Elfbar", puffs:"40.000", img:"ice-king-regula-o-gelo.webp", price:118.90, old:124.90, n:10, rating:[5.0,1]},
-  joinon: {name:"Joinon EW Kit (bateria + refil)", brand:"Elfbar", puffs:"25.000", img:"joinon-ew-kit-bateria-refil.webp", price:124.90, n:3},
-  bs30:   {name:"Dual Tank 30K", brand:"Black Sheep", puffs:"30.000", img:"black-sheep-dual-tank-30k.webp", price:109.90, old:129.90, n:8},
-  bs40:   {name:"Dual 40K", brand:"Black Sheep", puffs:"40.000", img:"black-sheep-dual-40k.webp", price:129.90, old:139.90, n:9},
-  slim15: {name:"Slim 15K", brand:"Black Sheep", puffs:"15.000", img:"slim-15k.webp", price:89.90, flavors:["🍸🍋 Pink Lemonade"], stock:1},
-  bs30im: {name:"Dual Tank 30K Ice Master", brand:"Black Sheep", puffs:"30.000", img:"black-sheep-dual-tank-30k-ice-master.webp", price:109.90, old:129.90, flavors:["🍇🧊🍇🧊 Grape+Grape"]},
-  bs40im: {name:"Dual 40K Ice Master", brand:"Black Sheep", puffs:"40.000", img:"black-sheep-dual-40k-ice-master.webp", price:129.90, old:139.90, n:5, best:true},
-  cyber:  {name:"Cyber Tank", brand:"Black Sheep", puffs:"55.000", img:"cyber-tank.webp", price:145.90, flavors:["🍦🍇💚 Aloe Grape"]},
-  dl20:   {name:"Dinner Lady 20K", brand:"Dinner Lady", puffs:"20.000", img:"dinner-lady-20k.webp", price:89.90, n:19, best:true, rating:[5.0,1]},
-  luma40: {name:"Dinner Luma 40K", brand:"Dinner Lady", puffs:"40.000", img:"dinner-luma-40k.webp", price:109.90, old:119.90, n:20},
-  dldual: {name:"Dinner Lady Dual Flavor", brand:"Dinner Lady", puffs:"50.000", img:"dinner-lady-dual-flavor.webp", price:139.90, n:14}
-};
-const SUGGESTED = ["v300us","bs40im","dl20"];
+let CONFIG={nome:"ÁREA 41 SHOP",whatsapp:"",cidade:"",instagram:"",giftEnabled:true,giftMin:2,giftName:"Chaveiro Área 41",giftImg:"img/chaveiro.webp",suggested:[]};
+let CATEGORIES=[], PRODUCTS={}, SUGGESTED=[];
 
 /* ===================================================================== */
 const $ = s => document.querySelector(s);
@@ -523,14 +481,38 @@ const brl = v => "R$ " + v.toFixed(2).replace(".", ",").replace(/\B(?=(\d{3})+(?
 const waLink = (txt) => "https://wa.me/" + CONFIG.whatsapp + (txt ? "?text=" + encodeURIComponent(txt) : "");
 const store = {get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
 const esc = s => String(s||"").replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;");
-const puffsShort = p => p.replace(".000"," mil").replace(".500",",5 mil") + " puffs";
+const puffsK = n => n>=1000 ? (Math.round(n/100)/10).toLocaleString("pt-BR")+" mil" : String(n);
+const puffsShort = n => puffsK(n) + " puffs";
 
-Object.entries(PRODUCTS).forEach(([id,p],i)=>{
-  p.id=id;
-  if(!p.flavors){const off=(i*5)%FLAVOR_POOL.length;p.flavors=Array.from({length:p.n},(_,k)=>FLAVOR_POOL[(off+k)%FLAVOR_POOL.length]);}
-});
+function applyCatalog(c){
+  CONFIG=Object.assign(CONFIG,c.config||{});
+  PRODUCTS={};
+  (c.products||[]).forEach(p=>{
+    if(p.active===false)return;
+    const all=(p.flavors||[]).map(f=>({name:String(f.name),stock:Math.max(0,parseInt(f.stock,10)||0)}));
+    const stockOf={}; all.forEach(f=>stockOf[f.name]=f.stock);
+    const total=all.reduce((a,f)=>a+f.stock,0);
+    PRODUCTS[p.id]={id:p.id,name:p.name,brand:p.brand||"",img:p.img||"img/logo.webp",price:Number(p.price)||0,old:p.old||null,best:!!p.best,
+      puffs:Number(p.puffs)||0, rating:p.rating&&p.rating.value>0?[Number(p.rating.value),Number(p.rating.count)||0]:null,
+      description:p.description||"", flavorsAll:all, flavors:all.filter(f=>f.stock>0).map(f=>f.name), stockOf, total, soldOut:total===0,
+      stock:total>0&&total<=3?total:undefined};
+  });
+  CATEGORIES=(c.categories||[]).map(x=>Object.assign({},x,{items:(x.items||[]).filter(id=>PRODUCTS[id]).sort((a,b)=>PRODUCTS[a].soldOut-PRODUCTS[b].soldOut)})).filter(x=>x.items.length);
+  SUGGESTED=(CONFIG.suggested||[]).filter(id=>PRODUCTS[id]&&!PRODUCTS[id].soldOut);
+}
+async function loadCatalog(){
+  for(const u of ["/api/catalog","data/catalog.seed.json"]){
+    try{const r=await fetch(u,{cache:"no-cache"}); if(r.ok){applyCatalog(await r.json()); return true;}}catch(e){}
+  }
+  return false;
+}
 
-let cart = store.get("a41_cart", []).filter(i=>PRODUCTS[i.pid]);
+let cart = store.get("a41_cart", []);
+function cleanCart(){
+  cart=cart.filter(i=>PRODUCTS[i.pid]&&PRODUCTS[i.pid].stockOf[i.flavor]>0);
+  cart.forEach(i=>{i.qty=Math.min(i.qty,PRODUCTS[i.pid].stockOf[i.flavor]);});
+  store.set("a41_cart",cart);
+}
 const qtyOf = pid => cart.filter(i=>i.pid===pid).reduce((a,i)=>a+i.qty,0);
 const totals = () => ({qty:cart.reduce((a,i)=>a+i.qty,0), sub:cart.reduce((a,i)=>a+i.qty*PRODUCTS[i.pid].price,0)});
 
@@ -540,21 +522,22 @@ function cardHTML(p){
   const off=p.old?Math.round((1-p.price/p.old)*100):0;
   const single=p.flavors.length===1;
   const q=qtyOf(p.id);
-  const stockTxt=p.stock===1?"Última unidade":(typeof p.stock==="number"?`Só ${p.stock} unidades`:"");
-  return `<article class="card">
-    <button class="ph" data-open="${p.id}" aria-label="Escolher sabor de ${esc(p.name)}" tabindex="-1"><img src="img/${p.img}" alt="${esc(p.name)}" loading="lazy">
+  if(p.soldOut&&p.flavorsAll.length===1)p._single=true;
+  const stockTxt=p.soldOut?"":(p.stock===1?"Última unidade":(typeof p.stock==="number"?`Só ${p.stock} unidades`:""));
+  return `<article class="card ${p.soldOut?"sold":""}">
+    <button class="ph" ${p.soldOut?"disabled":`data-open="${p.id}"`} aria-label="Escolher sabor de ${esc(p.name)}" tabindex="-1"><img src="${esc(p.img)}" alt="${esc(p.name)}" loading="lazy">
       ${off?`<span class="badge off">−${off}%</span>`:""}${p.best?`<span class="badge best ${off?"badge2":""}">★ Mais vendido</span>`:""}
-      <span class="brandtag">${p.brand}</span></button>
+      ${p.soldOut?'<span class="soldtag">Esgotado</span>':""}<span class="brandtag">${esc(p.brand)}</span></button>
     <div class="cb">
       <h3>${esc(p.name)}</h3>
-      <div class="specs"><div><small>Puffs</small><b class="num">${p.puffs.replace(".000"," mil").replace(".500",",5 mil")}</b></div><div><small>${single?"Sabor":"Sabores"}</small><b title="${single?esc(flName(p.flavors[0])):""}">${single?esc(flName(p.flavors[0])):p.flavors.length}</b></div></div>
+      <div class="specs"><div><small>Puffs</small><b class="num">${puffsK(p.puffs)}</b></div><div><small>${single?"Sabor":"Sabores"}</small><b title="${single?esc(flName(p.flavors[0])):""}">${single?esc(flName(p.flavors[0])):(p.soldOut?p.flavorsAll.length:p.flavors.length)}</b></div></div>
       ${stockTxt?`<p class="stockwarn">${stockTxt}</p>`:""}
       ${p.rating?`<p class="rate"><b>★ ${p.rating[0].toFixed(1)}</b> · ${p.rating[1]} ${p.rating[1]>1?"avaliações":"avaliação"}</p>`:""}
     </div>
     <div class="perf" aria-hidden="true"></div>
     <div class="buy">
-      <div><div class="pr"><strong class="num">${brl(p.price)}</strong>${p.old?`<s class="num">${brl(p.old)}</s>`:""}</div>${p.old?`<span class="save"><b>Economize </b>−${brl(p.old-p.price)}</span>`:""}</div>
-      <button class="pick ${q?"in":""}" data-open="${p.id}" aria-label="${q?`${q} no pedido, alterar sabores de ${esc(p.name)}`:`Escolher sabor de ${esc(p.name)}`}">${q?`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg><span class="q">${q}</span>`:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>`}</button>
+      <div><div class="pr"><strong class="num">${brl(p.price)}</strong>${p.old?`<s class="num">${brl(p.old)}</s>`:""}</div>${p.old?`<span class="save"><b>Economize </b><i>−</i>${brl(p.old-p.price)}</span>`:""}</div>
+      ${p.soldOut?`<span class="pick out">Esgotado</span>`:`<button class="pick ${q?"in":""}" data-open="${p.id}" aria-label="${q?`${q} no pedido, alterar sabores de ${esc(p.name)}`:`Escolher sabor de ${esc(p.name)}`}">${q?`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg><span class="q">${q}</span>`:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>`}</button>`}
     </div></article>`;
 }
 function renderCatalog(){
@@ -577,6 +560,7 @@ function renderCatalog(){
 function renderTabs(){$("#tabs").innerHTML=CATEGORIES.map((c,i)=>`<button data-cat="${c.id}" class="${i===0?"on":""}">${c.name.replace(/[👽🛸]/gu,"").trim()}</button>`).join("");}
 function goCat(id){const el=document.getElementById("cat-"+id);if(el)el.scrollIntoView({block:"start"});}
 function spy(){
+  if(!CATEGORIES.length)return;
   let cur=CATEGORIES[0].id;
   CATEGORIES.forEach(c=>{const el=document.getElementById("cat-"+c.id);if(el&&el.getBoundingClientRect().top<170)cur=c.id;});
   $$("[data-cat]").forEach(b=>b.classList.toggle("on",b.dataset.cat===cur));
@@ -586,20 +570,20 @@ function spy(){
 /* ---------- flavor modal ---------- */
 let sel={},modalPid=null,lastFocus=null;
 function openModal(pid,about){
-  const p=PRODUCTS[pid]; modalPid=pid; sel={}; lastFocus=document.activeElement;
+  const p=PRODUCTS[pid]; if(!p||p.soldOut)return; modalPid=pid; sel={}; lastFocus=document.activeElement;
   cart.filter(i=>i.pid===pid).forEach(i=>sel[i.flavor]=i.qty);
   const off=p.old?Math.round((1-p.price/p.old)*100):0;
   $("#modalBox").setAttribute("aria-label",p.name);
   $("#modalBox").innerHTML=`
-   <div class="mh"><div class="ph"><img src="img/${p.img}" alt=""></div>
-     <div class="n"><small>${p.brand}, ${puffsShort(p.puffs)}</small><h3>${esc(p.name)}</h3>
+   <div class="mh"><div class="ph"><img src="${esc(p.img)}" alt=""></div>
+     <div class="n"><small>${esc(p.brand)}, ${puffsShort(p.puffs)}</small><h3>${esc(p.name)}</h3>
        <div class="pr"><strong class="num">${brl(p.price)}</strong>${p.old?`<s class="num">${brl(p.old)}</s>`:""}${off?`<span class="badge off" style="position:static">−${off}%</span>`:""}</div></div>
      <button class="xbtn" data-close-modal aria-label="Fechar" style="align-self:flex-start"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button></div>
    <div class="mb">
-     ${about?`<p class="desc">${esc(p.brand)} ${esc(p.name)}: pod descartável com até ${p.puffs} puffs. Original, lacrado e com garantia de 24h contra defeito de fábrica. Já vem carregado, é só usar.</p>`:""}
-     ${p.flavors.length>6?'<input class="fsearch" id="fq" placeholder="Filtrar sabores" aria-label="Filtrar sabores">':""}
-     <div class="flist" id="flvList">${p.flavors.map(f=>`<div class="flv" data-f="${esc(f)}"><span class="nm">${esc(f)}</span>
-        <button class="add">Adicionar</button><span class="stp"><button data-d="-1" aria-label="Diminuir">−</button><b>0</b><button data-d="1" aria-label="Aumentar">+</button></span></div>`).join("")}</div>
+     ${about?`<p class="desc">${esc(p.brand)} ${esc(p.name)}: ${p.description?esc(p.description)+" ":""}Pod descartável com até ${p.puffs.toLocaleString("pt-BR")} puffs. Original, lacrado e com garantia de 24h contra defeito de fábrica. Já vem carregado, é só usar.</p>`:""}
+     ${p.flavorsAll.length>6?'<input class="fsearch" id="fq" placeholder="Filtrar sabores" aria-label="Filtrar sabores">':""}
+     <div class="flist" id="flvList">${p.flavorsAll.map(({name:f,stock:st})=>`<div class="flv ${st?"":"out"}" data-f="${esc(f)}" data-max="${st}"><span class="nm">${esc(f)}${st&&st<=3?`<small>${st===1?"Última unidade":`Últimas ${st}`}</small>`:""}</span>
+        ${st?'<button class="add">Adicionar</button>':'<span class="soldf">Esgotado</span>'}<span class="stp"><button data-d="-1" aria-label="Diminuir">−</button><b>0</b><button data-d="1" aria-label="Aumentar">+</button></span></div>`).join("")}</div>
    </div>
    <div class="mf"><button class="send" id="mOk"></button></div>`;
   syncModal();
@@ -609,7 +593,7 @@ function openModal(pid,about){
 }
 function syncModal(){
   let qt=0;
-  $$("#flvList .flv").forEach(r=>{const q=sel[r.dataset.f]||0;r.classList.toggle("sel",q>0);r.querySelector(".stp b").textContent=q;qt+=q;});
+  $$("#flvList .flv").forEach(r=>{const q=sel[r.dataset.f]||0;r.classList.toggle("sel",q>0);r.querySelector(".stp b").textContent=q;r.querySelector('[data-d="1"]').disabled=q>=Number(r.dataset.max);qt+=q;});
   const had=cart.some(i=>i.pid===modalPid), b=$("#mOk");
   b.disabled=!qt&&!had;
   b.textContent=qt?`${had?"Atualizar pedido":"Adicionar ao pedido"} · ${brl(qt*PRODUCTS[modalPid].price)}`:(had?"Tirar do pedido":"Escolha pelo menos um sabor");
@@ -629,20 +613,21 @@ const FORM_KEY="a41_form";
 let form=Object.assign({nome:"",wpp:"",comp:"",pag:"Pix"},store.get(FORM_KEY,{}));
 const REQ={nome:"Nome",wpp:"WhatsApp"};
 function save(){store.set("a41_cart",cart);renderCart();renderCatalog();}
-const GIFT_MIN=2;
 function giftHTML(qty){
+  if(!CONFIG.giftEnabled)return "";
+  const GIFT_MIN=CONFIG.giftMin;
   const ok=qty>=GIFT_MIN, left=Math.max(0,GIFT_MIN-qty), pct=Math.min(100,qty/GIFT_MIN*100);
-  return `<div class="gift ${ok?"ok":""}"><img src="img/chaveiro.webp" alt="Chaveiro Área 41">
-    <div class="g"><b>${ok?"Chaveiro Área 41 grátis 🎁":"Ganhe o chaveiro Área 41"}</b>
+  return `<div class="gift ${ok?"ok":""}"><img src="${esc(CONFIG.giftImg)}" alt="${esc(CONFIG.giftName)}">
+    <div class="g"><b>${ok?`${esc(CONFIG.giftName)} grátis 🎁`:`Ganhe: ${esc(CONFIG.giftName)}`}</b>
     <span>${ok?"Já está incluído no seu pedido.":`Falta${left>1?"m":""} ${left} pod${left>1?"s":""} para ganhar de brinde.`}</span>
     <i class="bar"><i style="width:${pct}%"></i></i></div>${ok?'<em>Grátis</em>':""}</div>`;
 }
 let hadGift=null;
 function renderCart(){
   const {qty,sub}=totals();
-  const lines=cart.map((i,ix)=>{const p=PRODUCTS[i.pid];return `<div class="li"><img src="img/${p.img}" alt=""><div class="n"><b>${esc(p.name)}</b><small>${esc(i.flavor)}</small></div>
+  const lines=cart.map((i,ix)=>{const p=PRODUCTS[i.pid];return `<div class="li"><img src="${esc(p.img)}" alt=""><div class="n"><b>${esc(p.name)}</b><small>${esc(i.flavor)}</small></div>
      <span class="stp"><button data-ci="${ix}" data-d="-1" aria-label="Diminuir">−</button><b>${i.qty}</b><button data-ci="${ix}" data-d="1" aria-label="Aumentar">+</button></span></div>`;}).join("");
-  const sugg=SUGGESTED.filter(id=>!qtyOf(id)).map(id=>{const p=PRODUCTS[id];return `<div class="li"><img src="img/${p.img}" alt=""><div class="n"><b>${esc(p.name)}</b><small class="num">${brl(p.price)}</small></div><button class="addmini" data-open="${id}" aria-label="Escolher sabor de ${esc(p.name)}">+</button></div>`;}).join("");
+  const sugg=SUGGESTED.filter(id=>!qtyOf(id)).map(id=>{const p=PRODUCTS[id];return `<div class="li"><img src="${esc(p.img)}" alt=""><div class="n"><b>${esc(p.name)}</b><small class="num">${brl(p.price)}</small></div><button class="addmini" data-open="${id}" aria-label="Escolher sabor de ${esc(p.name)}">+</button></div>`;}).join("");
   $("#cartBody").innerHTML=`
     <div class="sum"><small>Total do pedido</small><span class="v num">${brl(sub)}</span><div class="meta"><span>${qty} ${qty===1?"item":"itens"}</span><span>${form.pag}</span></div></div>
     ${giftHTML(qty)}
@@ -664,8 +649,8 @@ function renderCart(){
   $("#pcItems").textContent=qty?`${qty} ${qty===1?"pod":"pods"} no pedido`:"Nenhum pod escolhido ainda";
   $("#mbItems").textContent=`${qty} ${qty===1?"item":"itens"}`; $("#mbTot").textContent=brl(sub);
   $("#mbar").classList.toggle("on",qty>0);
-  const g=qty>=GIFT_MIN; if(hadGift===false&&g)setTimeout(()=>toast("Você ganhou o chaveiro Área 41 🎁"),2300); hadGift=g;
-  $("#mbItems").textContent=`${qty} ${qty===1?"item":"itens"}${g?" + chaveiro grátis 🎁":qty===1?" · falta 1 para o chaveiro":""}`;
+  const gm=CONFIG.giftMin, g=CONFIG.giftEnabled&&qty>=gm; if(hadGift===false&&g)setTimeout(()=>toast(`Você ganhou: ${CONFIG.giftName} 🎁`),2300); hadGift=g;
+  $("#mbItems").textContent=`${qty} ${qty===1?"item":"itens"}${g?" + brinde grátis 🎁":(CONFIG.giftEnabled&&qty>0&&gm-qty===1)?" · falta 1 para o brinde":""}`;
 }
 function missing(){return Object.keys(REQ).filter(k=>{const v=(form[k]||"").trim();if(k==="wpp")return v.replace(/\D/g,"").length<10;return!v;});}
 function finish(){
@@ -675,7 +660,7 @@ function finish(){
   const {sub}=totals();
   let t=`👽 *Novo pedido — ${CONFIG.nome}*\n\n`;
   cart.forEach(i=>{const p=PRODUCTS[i.pid];t+=`• ${i.qty}x ${p.brand} ${p.name} — ${i.flavor} (${brl(p.price*i.qty)})\n`;});
-  if(totals().qty>=GIFT_MIN)t+=`• 1x 🎁 Chaveiro Área 41 — brinde (grátis)\n`;
+  if(CONFIG.giftEnabled&&totals().qty>=CONFIG.giftMin)t+=`• 1x 🎁 ${CONFIG.giftName} — brinde (grátis)\n`;
   t+=`\n*Total:* ${brl(sub)}\n*Pagamento:* ${form.pag}\n\n*Nome:* ${form.nome}\n*WhatsApp:* ${form.wpp}\n`;
   if(form.comp)t+=`*Observação:* ${form.comp}\n`;
   const url=waLink(t); let w=null; try{w=window.open(url,"_blank");}catch(e){}
@@ -708,9 +693,9 @@ document.addEventListener("click",e=>{
   const cat=t.closest("[data-cat]"); if(cat){e.preventDefault();goCat(cat.dataset.cat);return;}
   const inf=t.closest("[data-info]"); if(inf){e.preventDefault();info(inf.dataset.info);return;}
   const row=t.closest("#flvList .flv");
-  if(row){const f=row.dataset.f;if(t.closest(".add")){sel[f]=1;syncModal();row.querySelector('[data-d="1"]').focus();return;}const d=t.closest("[data-d]");if(d){sel[f]=Math.max(0,(sel[f]||0)+Number(d.dataset.d));syncModal();}return;}
+  if(row){const f=row.dataset.f;if(t.closest(".add")){if(!(Number(row.dataset.max)>0))return;sel[f]=1;syncModal();row.querySelector('[data-d="1"]').focus();return;}const d=t.closest("[data-d]");if(d){const mx=Number(row.dataset.max)||0;const nv=Math.min(mx,Math.max(0,(sel[f]||0)+Number(d.dataset.d)));if(nv===sel[f]&&Number(d.dataset.d)>0)toast(`Só temos ${mx} desse sabor`,true);sel[f]=nv;syncModal();}return;}
   if(t.closest("#mOk")){commitModal();return;}
-  const cq=t.closest("[data-ci]"); if(cq){const ix=+cq.dataset.ci,i=cart[ix];i.qty+=Number(cq.dataset.d);if(i.qty<=0)cart.splice(ix,1);save();return;}
+  const cq=t.closest("[data-ci]"); if(cq){const ix=+cq.dataset.ci,i=cart[ix],mx=PRODUCTS[i.pid].stockOf[i.flavor]||0;if(Number(cq.dataset.d)>0&&i.qty>=mx){toast(`Só temos ${mx} desse sabor`,true);return;}i.qty+=Number(cq.dataset.d);if(i.qty<=0)cart.splice(ix,1);save();return;}
   if(t.closest("[data-finish]")){finish();return;}
 });
 document.addEventListener("input",e=>{
@@ -731,12 +716,18 @@ $("#age18").onclick=()=>{store.set("a41_age",true);$("#gate").classList.remove("
 $("#ageNo").onclick=()=>{$("#ageMsg").style.display="block";};
 
 /* ---------- init ---------- */
-$$("[data-wa]").forEach(a=>{a.href=waLink(`Olá! Vim pelo site da ${CONFIG.nome} 👽`);});
-$("#igLink").href="https://instagram.com/"+CONFIG.instagram;
-$("#footCity").textContent="Atendimento em "+CONFIG.cidade+".";
-$("#footCats").innerHTML=CATEGORIES.filter(c=>!c.promo&&c.id!=="best").map(c=>`<a href="#cat-${c.id}" data-cat="${c.id}">${c.name}</a>`).join("");
 $("#yr").textContent=new Date().getFullYear();
-renderTabs(); renderCatalog(); renderCart();
+(async()=>{
+  const ok=await loadCatalog();
+  if(!ok){$("#catalog").innerHTML='<div class="empty-search" style="display:block"><b>Não foi possível carregar os produtos</b>Atualize a página em alguns segundos.</div>';return;}
+  cleanCart();
+  $$("[data-wa]").forEach(a=>{a.href=waLink(`Olá! Vim pelo site da ${CONFIG.nome} 👽`);});
+  $("#igLink").href="https://instagram.com/"+CONFIG.instagram;
+  $("#footCity").textContent=CONFIG.cidade?"Atendimento em "+CONFIG.cidade+".":"";
+  $("#footCats").innerHTML=CATEGORIES.filter(c=>!c.promo&&c.id!=="best").map(c=>`<a href="#cat-${c.id}" data-cat="${c.id}">${esc(c.name)}</a>`).join("");
+  if(CONFIG.giftEnabled){$("#giftFact").hidden=false;$("#giftFactImg").src=CONFIG.giftImg;$("#giftFactName").textContent=CONFIG.giftName.split(" ")[0]+" grátis";$("#giftFactRule").textContent=`Comprando ${CONFIG.giftMin} ${CONFIG.giftMin>1?"pods":"pod"}`;}
+  renderTabs(); renderCatalog(); renderCart();
+})();
 </script>
 </body>
 </html>

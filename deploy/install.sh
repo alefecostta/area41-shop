@@ -24,6 +24,8 @@ fi
 echo "   Node $(node -v)"
 
 echo ">> Baixando o site..."
+# a pasta pertence ao www-data; libera o git do root para usá-la
+git config --global --get-all safe.directory 2>/dev/null | grep -qx "$DIR" || git config --global --add safe.directory "$DIR"
 if [ -d "$DIR/.git" ]; then
   git -C "$DIR" pull --ff-only
 else

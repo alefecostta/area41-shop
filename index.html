@@ -472,8 +472,8 @@ const CONFIG = {
 const FLAVOR_POOL = ["🍉❄️ Watermelon Ice","🍇❄️ Grape Ice","🍓🥝 Strawberry Kiwi","🫐❄️ Blue Razz Ice","🌿❄️ Menthol","🍌❄️ Banana Ice","🍍❄️ Pineapple Ice","🍑❄️ Peach Ice","🍓🍌 Strawberry Banana","🍒❄️ Cherry Ice","🍋🌿 Lemon Mint","🥭❄️ Mango Ice","🫐 Blueberry Ice","🍬 Tutti Frutti","🥤❄️ Cola Ice","🍇💚 Aloe Grape","🍸🍋 Pink Lemonade","🌸🍇 Sakura Grape","🍓🍉 Strawberry Watermelon","🍇🫐 Mixed Berries","🍏❄️ Green Apple Ice","🥝💛 Kiwi Passion Fruit","🍊❄️ Orange Ice","🍓❄️ Strawberry Ice","🍉🍇 Watermelon Grape","🥥🍍 Piña Colada","🍑🥭 Peach Mango","🍋❄️ Lemon Ice"];
 
 const CATEGORIES = [
-  {id:"bbb",  name:"Bom, bonito e barato 😂😍", promo:true, note:"Os mais em conta", items:["nik10","nik20"]},
-  {id:"50k",  name:"50K por menos de R$ 100 😱", promo:true, note:"Muito puff, pouco gasto", items:["rab50"]},
+  {id:"bbb",  name:"Ofertas de outro planeta 👽", promo:true, note:"Os mais em conta", items:["nik10","nik20"]},
+  {id:"50k",  name:"50K com preço terráqueo 🛸", promo:true, note:"Muito puff, pouco gasto", items:["rab50"]},
   {id:"best", name:"Mais vendidos", items:["v300us","bs40im","dl20"]},
   {id:"ignite", name:"Ignite", items:["v55p","v55l","v80","v155l","v155p","v250","v300us","v300","vmix","ice40","v500"]},
   {id:"elfbar", name:"Elfbar", items:["bc","te","duke","iceking","joinon"]},
@@ -574,7 +574,7 @@ function renderCatalog(){
   $("#emptySearch").style.display=any?"none":"block";
   $(".hero").style.display=q?"none":"";
 }
-function renderTabs(){$("#tabs").innerHTML=CATEGORIES.map((c,i)=>`<button data-cat="${c.id}" class="${i===0?"on":""}">${c.name.replace(/[😂😍😱]/gu,"").trim()}</button>`).join("");}
+function renderTabs(){$("#tabs").innerHTML=CATEGORIES.map((c,i)=>`<button data-cat="${c.id}" class="${i===0?"on":""}">${c.name.replace(/[👽🛸]/gu,"").trim()}</button>`).join("");}
 function goCat(id){const el=document.getElementById("cat-"+id);if(el)el.scrollIntoView({block:"start"});}
 function spy(){
   let cur=CATEGORIES[0].id;

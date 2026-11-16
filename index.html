@@ -265,6 +265,16 @@ footer .copy{font-size:11px;color:#777;margin-top:16px}
   .app{padding-right:400px}
   .cartpanel{width:400px}
 }
+/* carrinho fechado (computador) */
+.cartfab{display:none}
+@media (min-width:1024px){
+  body.cart-closed .app{padding-right:0}
+  body.cart-closed .cartpanel{display:none}
+  body.cart-closed .cartfab{display:flex}
+  .cartfab{position:fixed;right:24px;bottom:24px;z-index:25;align-items:center;gap:10px;height:56px;padding:0 20px 0 16px;border-radius:999px;background:var(--primary);color:var(--primary-fg);font-weight:900;font-size:15px;box-shadow:0 10px 30px -8px rgba(69,242,31,.6)}
+  .cartfab svg{width:22px;height:22px}
+  .cartfab b{min-width:22px;height:22px;border-radius:999px;background:#0b0b0b;color:#fff;font-size:12px;display:grid;place-items:center;padding:0 6px}
+}
 </style>
 </head>
 <body>
@@ -278,6 +288,7 @@ footer .copy{font-size:11px;color:#777;margin-top:16px}
 
 <!-- ===================== CART PANEL (desktop) ===================== -->
 <aside class="cartpanel" id="cartPanel"></aside>
+<button class="cartfab" id="cartFab" aria-label="Abrir carrinho"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>Carrinho <b id="fabCnt">0</b></button>
 
 <div class="app" id="top">
   <!-- desktop top -->
@@ -539,7 +550,7 @@ function cartHTML(mobile){
   const sugg=SUGGESTED.map(id=>{const p=PRODUCTS[id];return `<div class="sug"><img src="img/${p.img}" alt=""><div class="n"><b>${p.name}</b><span>${brl(p.price)}</span></div><button data-open="${id}" aria-label="Adicionar ${p.name}">+</button></div>`;}).join("");
   const f=form;
   return `<div class="cart">
-   <div class="hd"><div><h2>Seu carrinho</h2><small>${qty?`${qty} ${qty>1?"itens":"item"} · ${brl(sub)}`:"Nenhum item ainda"}</small></div>${mobile?'<button class="x" data-close-drawer aria-label="Fechar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>':""}</div>
+   <div class="hd"><div><h2>Seu carrinho</h2><small>${qty?`${qty} ${qty>1?"itens":"item"} · ${brl(sub)}`:"Nenhum item ainda"}</small></div><button class="x" ${mobile?"data-close-drawer":"data-close-cart"} aria-label="Fechar carrinho"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button></div>
    <div class="body">
     ${qty?items+`<div class="totals"><div class="big" style="margin-top:0"><span>Total</span><span>${brl(sub)}</span></div></div>`
       :`<div class="emptycart"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg></i><b>Sua sacola está vazia</b><p>Escolha seus sabores e finalize o pedido pelo WhatsApp.</p></div>`}
@@ -560,7 +571,7 @@ function esc(s){return String(s||"").replace(/&/g,"&amp;").replace(/"/g,"&quot;"
 function renderCart(){
   $("#cartPanel").innerHTML=cartHTML(false);
   $("#drawerPanel").innerHTML=cartHTML(true);
-  const {qty}=cartTotals(); const c=$("#bagCnt"); c.textContent=qty; c.style.display=qty?"grid":"none";
+  const {qty}=cartTotals(); const c=$("#bagCnt"); c.textContent=qty; c.style.display=qty?"grid":"none"; $("#fabCnt").textContent=qty;
   updateMissing();
 }
 const REQ={nome:"Nome",wpp:"WhatsApp"};
@@ -585,6 +596,7 @@ function finish(root){
 /* ---------- misc ---------- */
 let tt; function toast(m){const e=$("#toast");e.textContent=m;e.classList.add("on");clearTimeout(tt);tt=setTimeout(()=>e.classList.remove("on"),2200);}
 function bump(){const b=$(".bnav .bag i");b.animate([{transform:"scale(1)"},{transform:"scale(1.18)"},{transform:"scale(1)"}],{duration:350});}
+function setCartOpen(open){document.body.classList.toggle("cart-closed",!open);store.set("a41_cart_closed",!open);}
 function openDrawer(){$("#drawer").classList.add("open");document.body.style.overflow="hidden";}
 function closeDrawer(){$("#drawer").classList.remove("open");document.body.style.overflow="";}
 const INFO={
@@ -603,6 +615,7 @@ document.addEventListener("click",e=>{
   const ab=t.closest("[data-about]"); if(ab){openModal(ab.dataset.about,true);return;}
   if(t.closest("[data-close-modal]")){closeModal();return;}
   if(t.closest("[data-close-drawer]")){closeDrawer();return;}
+  if(t.closest("[data-close-cart]")){setCartOpen(false);return;}
   const cat=t.closest("[data-cat]"); if(cat){goCat(cat.dataset.cat);return;}
   const g=t.closest("[data-garantia]"); if(g){e.preventDefault();info("garantia");return;}
   const inf=t.closest("[data-info]"); if(inf){e.preventDefault();info(inf.dataset.info);return;}
@@ -629,6 +642,8 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeModal();closeD
 $("#q").addEventListener("input",renderCatalog);
 $("#pickBtn").onclick=()=>{const all=Object.values(PRODUCTS);openModal(all[Math.floor(Math.random()*all.length)].id);};
 $("#bagBtn").onclick=openDrawer;
+$("#cartFab").onclick=()=>setCartOpen(true);
+if(store.get("a41_cart_closed",false))document.body.classList.add("cart-closed");
 $("#srchBtn").onclick=()=>{$("#q").scrollIntoView({behavior:"smooth",block:"center"});setTimeout(()=>$("#q").focus(),350);};
 window.addEventListener("scroll",spy,{passive:true});
 

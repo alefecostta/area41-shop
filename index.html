@@ -1,379 +1,386 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="dark">
+<html lang="pt-BR">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>ÁREA 41 SHOP — Tabela online de Pods Descartáveis</title>
-<meta name="description" content="Tabela online de pods descartáveis com pedido direto pelo WhatsApp.">
-<meta name="theme-color" content="#0b0b0b">
+<title>ÁREA 41 SHOP — Pods descartáveis originais</title>
+<meta name="description" content="Pods descartáveis originais com pedido direto pelo WhatsApp. Pix ou dinheiro.">
+<meta name="theme-color" content="#0F2A1B">
 <link rel="icon" href="img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#0b0b0b; --fg:#f7f7f7; --card:#161616; --card2:#1d1d1d; --muted:#262626; --muted-fg:#a8a8a8;
-  --border:rgba(255,255,255,.1); --primary:#45f21f; --primary-fg:#061003; --green-price:#3ddc84;
-  --grad:linear-gradient(135deg,#39ff14 0%,#00d0ff 55%,#8b5cf6 100%);
-  --radius:14px;
+  --canvas:#EEF2EC; --surface:#FFFFFF; --tile:#F4F7F2;
+  --ink:#0D1F14; --ink-2:#3E5045; --muted:#6B7B70; --line:#DCE3DA;
+  --forest:#0F2A1B; --forest-2:#17402A; --lime:#A6F45A; --lime-ink:#0D1F14; --neon:#45F21F;
+  --red:#D93A3F; --amber:#C77700;
+  --r-lg:22px; --r-md:16px; --r-sm:12px;
+  --display:"Sora",ui-sans-serif,system-ui,sans-serif;
+  --body:"Instrument Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{background:var(--bg);color:var(--fg);font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji";-webkit-font-smoothing:antialiased}
-body{min-height:100vh;overflow-x:hidden}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{background:var(--canvas);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.45;-webkit-font-smoothing:antialiased;min-height:100vh;overflow-x:hidden}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 input,textarea{font:inherit;color:inherit}
 a{color:inherit;text-decoration:none}
 img{display:block;max-width:100%}
-.tabnum{font-variant-numeric:tabular-nums}
-.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+:focus-visible{outline:2px solid var(--forest);outline-offset:2px;border-radius:6px}
+.num{font-family:var(--display);font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.container{max-width:1240px;margin:0 auto;padding:0 20px}
 
-/* ---------- layout ---------- */
-.app{max-width:100%;padding-bottom:110px}
-.sidebar,.cartpanel,.desk-top{display:none}
-.wrap{max-width:672px;margin:0 auto;padding:0 12px}
+/* ---------- top bar ---------- */
+.top{position:sticky;top:0;z-index:40;background:rgba(238,242,236,.86);backdrop-filter:saturate(1.4) blur(16px);padding-top:env(safe-area-inset-top)}
+.top .container{display:flex;align-items:center;gap:16px;height:72px}
+.logo{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo img{width:46px;height:46px;object-fit:contain}
+.logo b{font-family:var(--display);font-weight:800;font-size:17px;letter-spacing:-.02em}
+.search{flex:1;max-width:520px;margin:0 auto;display:flex;align-items:center;gap:10px;height:46px;padding:0 16px;border-radius:999px;background:var(--surface);border:1px solid var(--line);transition:border-color .15s,box-shadow .15s}
+.search:focus-within{border-color:var(--forest);box-shadow:0 0 0 4px rgba(15,42,27,.08)}
+.search svg{width:18px;height:18px;color:var(--muted);flex-shrink:0}
+.search input{flex:1;min-width:0;border:0;outline:0;background:none;font-size:15px}
+.search input::placeholder{color:var(--muted)}
+.topact{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;height:46px;padding:0 16px;border-radius:999px;font-weight:600;font-size:14px;border:1px solid var(--line);background:var(--surface)}
+.btn-ghost svg{width:18px;height:18px}
+.btn-cart{display:inline-flex;align-items:center;gap:10px;height:46px;padding:0 6px 0 16px;border-radius:999px;background:var(--forest);color:#fff;font-weight:600;font-size:14px}
+.btn-cart svg{width:18px;height:18px}
+.btn-cart .tot{background:var(--lime);color:var(--lime-ink);border-radius:999px;height:34px;padding:0 12px;display:inline-flex;align-items:center;font-weight:700;font-size:14px}
 
-/* mobile header */
-.mhead{position:sticky;top:0;z-index:40;background:rgba(11,11,11,.95);backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,.05);padding-top:env(safe-area-inset-top)}
-.mhead .in{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px}
-.brand{display:flex;align-items:center;gap:10px;min-width:0}
-.brand img{width:56px;height:56px;object-fit:contain;flex-shrink:0}
-.brand b{display:block;font-size:15px;letter-spacing:-.01em}
-.brand small{display:block;font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted-fg);margin-top:2px}
-.btn-outline{display:flex;align-items:center;gap:6px;border:1px solid rgba(69,242,31,.4);background:rgba(69,242,31,.12);color:var(--primary);border-radius:12px;padding:8px 12px;font-size:12px;font-weight:700}
-.btn-outline svg{width:16px;height:16px}
+/* ---------- category tabs ---------- */
+.tabs-wrap{position:sticky;top:calc(72px + env(safe-area-inset-top));z-index:35;background:rgba(238,242,236,.86);backdrop-filter:saturate(1.4) blur(16px);border-bottom:1px solid var(--line)}
+.tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding:8px 0 10px}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{white-space:nowrap;height:36px;padding:0 14px;border-radius:999px;font-size:14px;font-weight:600;color:var(--ink-2);transition:background .15s,color .15s}
+.tabs button:hover{background:rgba(13,31,20,.06)}
+.tabs button.on{background:var(--ink);color:#fff}
 
+/* ---------- hero ---------- */
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center;padding:36px 0 12px}
+.hero h1{font-family:var(--display);font-weight:700;font-size:clamp(32px,4.4vw,52px);line-height:1.04;letter-spacing:-.035em;max-width:14ch}
+.hero p.lead{margin-top:14px;color:var(--ink-2);font-size:17px;max-width:42ch}
+.facts{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.fact{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:10px 14px 10px 10px}
+.fact i{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:var(--tile);color:var(--forest)}
+.fact i svg{width:18px;height:18px}
+.fact b{display:block;font-size:14px}
+.fact span{display:block;font-size:12.5px;color:var(--muted)}
 
-.warranty{margin:10px auto 0;display:flex;justify-content:center}
-.warranty a{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--border);border-radius:999px;padding:7px 14px;font-size:12px;font-weight:700;color:#e5e5e5;background:rgba(255,255,255,.02)}
-.warranty a span{color:var(--muted-fg);font-weight:500}
-.warranty svg{width:14px;height:14px}
+/* the card */
+.paycard{position:relative;aspect-ratio:1.586;width:100%;max-width:440px;justify-self:end;border-radius:26px;padding:24px;color:#fff;overflow:hidden;
+  background:radial-gradient(120% 90% at 100% 0%,#2B6B3F 0%,rgba(43,107,63,0) 55%),radial-gradient(90% 80% at 0% 100%,#0B4A2A 0%,rgba(11,74,42,0) 60%),linear-gradient(160deg,#143823,#0B2116);
+  box-shadow:0 30px 60px -28px rgba(15,42,27,.65),inset 0 1px 0 rgba(255,255,255,.12);display:flex;flex-direction:column;transform:rotate(-2deg)}
+.paycard::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.55) 1px,transparent 1.2px);background-size:22px 22px;mask-image:linear-gradient(120deg,transparent 30%,#000 75%);opacity:.18;pointer-events:none}
+.paycard::after{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(69,242,31,.45),transparent 65%);filter:blur(8px);pointer-events:none}
+.paycard .r1{display:flex;align-items:center;justify-content:space-between;position:relative;z-index:1}
+.paycard .r1 img{width:54px;height:54px;object-fit:contain;filter:drop-shadow(0 4px 10px rgba(0,0,0,.35))}
+.chipico{width:44px;height:34px;border-radius:8px;background:linear-gradient(135deg,#E9F7C9,#9CC56A);position:relative;opacity:.95}
+.chipico::before{content:"";position:absolute;inset:7px 9px;border:1.5px solid rgba(13,31,20,.35);border-radius:4px}
+.paycard .bal{margin-top:auto;position:relative;z-index:1}
+.paycard .bal small{font-size:13px;color:rgba(255,255,255,.7)}
+.paycard .bal .v{display:block;font-size:clamp(34px,4vw,44px);font-weight:700;line-height:1.05;margin-top:2px}
+.paycard .r3{display:flex;align-items:flex-end;justify-content:space-between;margin-top:14px;position:relative;z-index:1}
+.paycard .r3 .nm{font-family:var(--display);font-weight:700;letter-spacing:.06em;font-size:14px}
+.paycard .r3 .nm span{display:block;font-family:var(--body);font-weight:500;letter-spacing:0;font-size:12.5px;color:rgba(255,255,255,.65);margin-top:2px}
+.paycard .open{height:40px;padding:0 16px;border-radius:999px;background:var(--lime);color:var(--lime-ink);font-weight:700;font-size:14px}
+.paycard.pulse{animation:pulse .5s ease}
+@keyframes pulse{40%{transform:rotate(-2deg) scale(1.025)}}
 
-.hero{margin-top:16px;border:1px solid var(--border);border-radius:20px;padding:20px;background:radial-gradient(120% 120% at 0% 0%,#1f1f1f 0%,#121212 60%,#0d0d0d 100%)}
-.hero .kick{font-size:10.5px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:#d4d4d4}
-.hero h2{margin-top:10px;font-size:26px;line-height:1.1;font-weight:800;letter-spacing:-.02em}
-.hero h2 em{font-style:normal;background:linear-gradient(90deg,#39ff14,#b6ff9e);-webkit-background-clip:text;background-clip:text;color:transparent}
-.pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-.pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--border);border-radius:999px;padding:6px 11px;font-size:12px;font-weight:700;background:rgba(255,255,255,.03)}
-.pill svg{width:14px;height:14px;color:var(--primary)}
-.routes{margin-top:16px;border:1px solid var(--border);border-radius:16px;padding:12px;background:rgba(0,0,0,.25)}
-.routes p{font-size:12px;color:var(--muted-fg)}
-.routes p b{color:#e5e5e5;font-weight:600}
-.routes .next{margin-top:10px;display:flex;align-items:center;gap:12px;border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:10px 12px;background:#1b1b1b;font-weight:800;font-size:16px}
-.routes .next i{display:grid;place-items:center;width:36px;height:36px;border-radius:10px;background:#2a2a2a}
-.routes .next svg{width:18px;height:18px}
+/* ---------- sections ---------- */
+.sec{padding-top:36px;scroll-margin-top:140px}
+.sec-h{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:16px}
+.sec-h h2{font-family:var(--display);font-weight:700;font-size:24px;letter-spacing:-.025em}
+.sec-h span{color:var(--muted);font-size:14px;white-space:nowrap}
+.promos{display:flex;flex-wrap:wrap;gap:14px;margin-top:36px}
+.promo{flex:var(--n,1) 1 0;min-width:min(100%,280px);border-radius:28px;background:var(--forest);color:#fff;padding:24px;scroll-margin-top:140px;position:relative;overflow:hidden}
+.promo::after{content:"";position:absolute;left:-80px;bottom:-120px;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(166,244,90,.22),transparent 65%)}
+.promo .sec-h{position:relative;z-index:1}
+.promo .sec-h span{color:rgba(255,255,255,.65)}
+.promo .grid{position:relative;z-index:1;grid-template-columns:repeat(var(--n,1),minmax(0,1fr))}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
 
-/* search */
-.search{margin-top:16px;display:flex;align-items:center;gap:10px}
-.sbox{flex:1;min-width:0;position:relative;display:flex;align-items:center;gap:10px;border-radius:16px;padding:0 16px;height:52px;background:#101010;border:1px solid rgba(255,255,255,.14);box-shadow:inset 0 0 0 1px rgba(69,242,31,.05)}
-.sbox::after{content:"";position:absolute;left:12%;right:30%;top:-1px;height:1px;background:linear-gradient(90deg,transparent,var(--primary),transparent)}
-.sbox svg{width:18px;height:18px;flex-shrink:0}
-.sbox input{flex:1;background:none;border:0;outline:0;font-weight:700;font-size:15px;min-width:0}
-.sbox input::placeholder{color:#f2f2f2}
-.chip-btn{flex-shrink:0;border-radius:999px;background:#262626;padding:9px 14px;font-size:13px;font-weight:800}
+/* ---------- product card ---------- */
+.card{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:10px;color:var(--ink);transition:border-color .15s,box-shadow .2s}
+.card:hover{border-color:#C6D2C4;box-shadow:0 14px 30px -18px rgba(13,31,20,.35)}
+.promo .card{border-color:transparent}
+.ph{position:relative;aspect-ratio:1;border-radius:16px;background:var(--tile);overflow:hidden;display:block;width:100%}
+.ph img{width:100%;height:100%;object-fit:contain;padding:12px;mix-blend-mode:multiply;transition:transform .3s}
+.card:hover .ph img{transform:scale(1.04)}
+.badge{position:absolute;left:8px;top:8px;height:24px;padding:0 9px;border-radius:999px;font-size:12px;font-weight:700;display:inline-flex;align-items:center;gap:4px;background:var(--surface);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.badge.off{background:var(--red);color:#fff}
+.badge.best{background:var(--lime);color:var(--lime-ink)}
+.badge2{left:auto;right:8px}
+.cb{padding:12px 6px 4px;display:flex;flex-direction:column;flex:1}
+.brandrow{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:12.5px;color:var(--muted)}
+.puffs{background:var(--tile);border-radius:999px;padding:2px 8px;font-weight:600;color:var(--ink-2);white-space:nowrap}
+.cb h3{font-family:var(--display);font-weight:600;font-size:15.5px;line-height:1.25;letter-spacing:-.015em;margin-top:6px}
+.cb .sub{font-size:13px;color:var(--muted);margin-top:4px}
+.cb .sub.low{color:var(--amber);font-weight:600}
+.cb .rate{font-size:12.5px;color:var(--muted);margin-top:2px}
+.cb .rate b{color:var(--ink)}
+.pr{display:flex;align-items:baseline;gap:8px;margin-top:auto;padding-top:12px;flex-wrap:wrap}
+.pr strong{font-size:21px;font-weight:700}
+.pr s{font-size:13px;color:var(--muted)}
+.pick{margin-top:12px;height:44px;border-radius:14px;background:var(--forest);color:#fff;font-weight:600;font-size:14.5px;display:flex;align-items:center;justify-content:center;gap:8px;transition:background .15s}
+.pick:hover{background:var(--forest-2)}
+.pick svg{width:18px;height:18px}
+.pick .q{background:var(--lime);color:var(--lime-ink);border-radius:999px;min-width:22px;height:22px;font-size:12px;font-weight:700;display:grid;place-items:center;padding:0 6px}
+.empty-search{display:none;text-align:center;color:var(--muted);padding:60px 0}
+.empty-search b{display:block;font-family:var(--display);font-size:20px;color:var(--ink);margin-bottom:6px}
 
-/* category chips (mobile) */
-.cats-m{position:sticky;top:81px;z-index:30;margin:14px -12px 0;padding:8px 12px;background:rgba(11,11,11,.92);backdrop-filter:blur(14px);display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}
-.cats-m::-webkit-scrollbar{display:none}
-.cats-m button{white-space:nowrap;border:1px solid var(--border);border-radius:999px;padding:7px 13px;font-size:12.5px;font-weight:700;color:#d4d4d4;background:#141414}
-.cats-m button.on{background:var(--primary);color:var(--primary-fg);border-color:transparent}
+/* ---------- trust strip + footer ---------- */
+.trust{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:48px}
+.trust div{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:20px}
+.trust b{display:block;font-family:var(--display);font-weight:600;font-size:16px;margin-bottom:4px}
+.trust p{color:var(--muted);font-size:14px}
+footer{margin-top:48px;background:var(--forest);color:rgba(255,255,255,.75);padding:36px 0 120px}
+footer .container{display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:flex-start}
+footer .fl{display:flex;gap:14px;align-items:center}
+footer .fl img{width:64px}
+footer .fl b{display:block;color:#fff;font-family:var(--display);font-size:18px}
+footer nav{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:14px}
+footer nav a:hover{color:#fff}
+footer .legal{width:100%;font-size:12.5px;color:rgba(255,255,255,.5);border-top:1px solid rgba(255,255,255,.1);padding-top:18px}
 
-/* sections */
-.sec{margin-top:24px;scroll-margin-top:140px}
-.sec h3{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;margin-bottom:12px;min-width:0}
-.sec h3 .nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.tag{flex-shrink:0;font-size:10px;letter-spacing:.04em;background:#0b0b0b;color:#fff;border-radius:999px;padding:4px 9px;font-weight:800}
-.sec.feat{border-radius:22px;padding:16px;background:var(--grad);box-shadow:0 0 50px -12px rgba(0,208,255,.55)}
-.sec.feat h3{color:#04110a}
-.grid{display:grid;grid-template-columns:1fr;gap:12px}
+/* ---------- mobile checkout bar ---------- */
+.mbar{display:none}
 
-/* product card */
-.card{position:relative;overflow:hidden;border-radius:18px;border:1px solid var(--border);background:var(--card);padding:14px}
-.card.hl{border-color:rgba(69,242,31,.35);box-shadow:0 0 24px -8px var(--primary)}
-.card.best{border-color:rgba(245,158,11,.45);box-shadow:0 0 24px -8px rgba(245,158,11,.55)}
-.card .row{display:flex;gap:12px;align-items:stretch}
-.thumb{position:relative;flex-shrink:0;width:112px;height:112px;border-radius:12px;background:#fff;overflow:hidden;display:grid;place-items:center}
-.thumb img{width:100%;height:100%;object-fit:contain;padding:6px}
-.thumb .b1{position:absolute;left:4px;top:4px;background:rgba(0,0,0,.6);color:#fff;font-size:9px;font-weight:800;border-radius:6px;padding:3px 6px;text-transform:uppercase}
-.thumb .b2{position:absolute;right:4px;bottom:4px;background:#0b0b0b;color:#fff;font-size:9px;font-weight:800;border-radius:999px;padding:3px 7px;text-transform:uppercase}
-.thumb .b2.gold{background:#f59e0b;color:#1a1000}
-.info{display:flex;flex-direction:column;min-width:0;flex:1}
-.info .meta{font-size:10.5px;font-weight:700;color:var(--muted-fg);text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.info .meta b{color:#d4d4d4}
-.info h4{margin-top:3px;font-size:15px;font-weight:800;line-height:1.2;text-transform:uppercase}
-.info .fl{font-size:12px;color:var(--muted-fg);margin-top:4px}
-.info .rate{font-size:11.5px;color:var(--muted-fg);margin-top:2px}
-.info .rate b{color:#fbbf24}
-.info .stock{font-size:11px;font-weight:700;color:#34d399;margin-top:2px}
-.info .stock.low{color:#fb923c}
-.price{margin-top:auto;padding-top:8px;display:flex;align-items:baseline;flex-wrap:wrap;gap:6px}
-.price s{font-size:11px;color:var(--muted-fg)}
-.price strong{font-size:17px;font-weight:800;color:var(--green-price)}
-.price .off{font-size:10px;font-weight:800;color:#ef4444}
-.about{margin-top:4px;width:fit-content;font-size:10.5px;font-weight:700;color:var(--muted-fg);text-decoration:underline dotted;text-underline-offset:2px;display:inline-flex;gap:4px;align-items:center}
-.about svg{width:12px;height:12px}
-.addbtn{margin-top:10px;display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:44px;border-radius:12px;background:#e9e9e9;color:#0b0b0b;font-size:16px;font-weight:800;transition:transform .1s}
-.addbtn:active{transform:scale(.98)}
-.addbtn svg{width:20px;height:20px}
-.card.hl .addbtn{background:var(--primary);color:var(--primary-fg)}
-.empty-search{display:none;text-align:center;color:var(--muted-fg);padding:40px 0}
+/* ---------- sheet (cart) ---------- */
+.sheet{position:fixed;inset:0;z-index:60;visibility:hidden}
+.sheet.open{visibility:visible}
+.sheet .ov{position:absolute;inset:0;background:rgba(13,31,20,.42);opacity:0;transition:opacity .25s}
+.sheet.open .ov{opacity:1}
+.sheet .pn{position:absolute;right:12px;top:12px;bottom:12px;width:min(440px,calc(100% - 24px));background:var(--canvas);border-radius:26px;display:flex;flex-direction:column;overflow:hidden;transform:translateX(calc(100% + 24px));transition:transform .3s cubic-bezier(.2,.8,.2,1);box-shadow:0 30px 80px -20px rgba(13,31,20,.5)}
+.sheet.open .pn{transform:none}
+.sh-h{display:flex;align-items:center;justify-content:space-between;padding:18px 18px 12px}
+.sh-h h2{font-family:var(--display);font-size:22px;font-weight:700;letter-spacing:-.02em}
+.xbtn{width:40px;height:40px;border-radius:999px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center}
+.xbtn svg{width:18px;height:18px}
+.sh-b{flex:1;overflow-y:auto;padding:0 18px 18px}
+.sum{background:var(--forest);color:#fff;border-radius:20px;padding:18px}
+.sum small{color:rgba(255,255,255,.7);font-size:13px}
+.sum .v{display:block;font-size:34px;font-weight:700;margin-top:2px}
+.sum .meta{display:flex;justify-content:space-between;margin-top:8px;font-size:13px;color:rgba(255,255,255,.7)}
+.block{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:6px 14px;margin-top:12px}
+.block>h3{font-family:var(--display);font-weight:600;font-size:15px;padding:10px 0 4px}
+.li{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid var(--line)}
+.block>h3+.li{border-top:0}
+.li img{width:48px;height:48px;border-radius:12px;background:var(--tile);object-fit:contain;padding:3px;mix-blend-mode:multiply;flex-shrink:0}
+.li .n{flex:1;min-width:0}
+.li .n b{display:block;font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.li .n small{display:block;font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.li .p{font-size:14.5px;font-weight:700;text-align:right}
+.stp{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px;height:34px}
+.stp button{width:34px;height:32px;font-size:18px;font-weight:600;display:grid;place-items:center;color:var(--ink-2)}
+.stp b{min-width:18px;text-align:center;font-size:14px}
+.addmini{width:34px;height:34px;border-radius:999px;background:var(--forest);color:#fff;font-size:20px;display:grid;place-items:center;flex-shrink:0}
+.emptycart{text-align:center;padding:22px 10px 18px}
+.emptycart img{width:84px;margin:0 auto 10px;opacity:.9}
+.emptycart b{display:block;font-family:var(--display);font-size:17px}
+.emptycart p{color:var(--muted);font-size:14px;margin-top:4px}
+.field{padding:8px 0}
+.field label{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
+.field input,.field textarea{width:100%;height:48px;border-radius:14px;border:1px solid var(--line);background:var(--tile);padding:0 14px;outline:0;font-size:15px;transition:border-color .15s,background .15s}
+.field textarea{height:72px;padding:12px 14px;resize:none}
+.field input:focus,.field textarea:focus{border-color:var(--forest);background:#fff}
+.field.err input{border-color:var(--red);background:#FFF5F5}
+.field small{display:block;font-size:12.5px;color:var(--muted);margin-top:5px}
+.field.err small{color:var(--red)}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:4px;background:var(--tile);border-radius:14px;padding:4px;margin:4px 0 12px}
+.seg label{height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;gap:8px;font-weight:600;font-size:14px;cursor:pointer;color:var(--ink-2)}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg label:has(input:checked){background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(13,31,20,.12)}
+.seg label:has(input:focus-visible){outline:2px solid var(--forest)}
+.sh-f{padding:14px 18px calc(16px + env(safe-area-inset-bottom));background:var(--surface);border-top:1px solid var(--line)}
+.send{width:100%;height:54px;border-radius:16px;background:var(--lime);color:var(--lime-ink);font-weight:700;font-size:16px;display:flex;align-items:center;justify-content:center;gap:10px;transition:filter .15s}
+.send:hover{filter:brightness(.97)}
+.send svg{width:20px;height:20px}
+.send.alt{background:var(--forest);color:#fff;margin-top:8px;font-size:14.5px;height:46px}
+.sh-f .hint{font-size:12.5px;color:var(--muted);text-align:center;margin-top:8px}
 
-/* footer */
-footer{margin-top:40px;border-top:1px solid var(--border);padding:28px 0 20px;text-align:center}
-footer img{width:90px;margin:0 auto}
-footer .t{margin-top:10px;font-weight:800}
-footer p{font-size:12.5px;color:var(--muted-fg);margin-top:6px}
-footer .links{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 14px;margin-top:14px;font-size:12.5px;color:#cfcfcf}
-footer .copy{font-size:11px;color:#777;margin-top:16px}
-
-/* bottom nav */
-.bnav{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(12px + env(safe-area-inset-bottom));z-index:45;width:min(448px,calc(100% - 24px));display:grid;grid-template-columns:repeat(5,1fr);align-items:end;border-radius:24px;background:rgba(18,18,18,.92);backdrop-filter:blur(18px);border:1px solid var(--border);padding:10px 6px 8px;box-shadow:0 20px 40px -10px rgba(0,0,0,.8)}
-.bnav a,.bnav button{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:9.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#8a8a8a;position:relative}
-.bnav svg{width:20px;height:20px}
-.bnav .on{color:var(--primary)}
-.bnav .bag i{display:grid;place-items:center;width:52px;height:52px;margin-top:-30px;border-radius:999px;background:radial-gradient(circle at 30% 30%,#7dff63,#2bbf0b);color:#062000;box-shadow:0 0 0 4px #0b0b0b,0 0 22px rgba(69,242,31,.5)}
-.bnav .bag i svg{width:22px;height:22px}
-.bnav .cnt{position:absolute;top:-34px;right:calc(50% - 32px);min-width:20px;height:20px;border-radius:999px;background:#ef4444;color:#fff;font-size:11px;display:none;place-items:center;padding:0 5px;border:2px solid #0b0b0b}
-.bnav .soon{position:absolute;top:-16px;font-size:8px;background:#f5d08a;color:#3a2600;border-radius:999px;padding:2px 6px}
-
-/* ---------- cart ---------- */
-.cart{display:flex;flex-direction:column;height:100%;background:#0f0f0f}
-.cart .hd{padding:18px 16px 12px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;background:linear-gradient(180deg,#1a1a1a,#0f0f0f)}
-.cart .hd h2{font-size:18px;font-weight:800}
-.cart .hd small{font-size:12px;color:var(--primary);font-weight:600}
-.cart .x{width:34px;height:34px;border-radius:10px;background:#222;display:grid;place-items:center}
-.cart .x svg{width:18px;height:18px}
-.cart .body{flex:1;overflow-y:auto;padding:12px 16px 16px}
-.cart .emptycart{text-align:center;padding:26px 8px 18px}
-.emptycart i{display:grid;place-items:center;width:62px;height:62px;border-radius:999px;margin:0 auto;border:1px solid rgba(255,255,255,.15);background:#1b1b1b}
-.emptycart svg{width:26px;height:26px;color:var(--primary)}
-.emptycart b{display:block;margin-top:14px;font-size:16px}
-.emptycart p{margin-top:6px;font-size:13px;color:var(--muted-fg)}
-.lbl{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-fg);margin:16px 0 8px}
-.sug{display:flex;align-items:center;gap:12px;border-radius:14px;background:#1d1d1d;border:1px solid var(--border);padding:8px;margin-bottom:8px}
-.sug img{width:48px;height:48px;border-radius:8px;background:#fff;object-fit:contain;padding:2px}
-.sug .n{flex:1;min-width:0}
-.sug .n b{display:block;font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.sug .n span{font-size:13px;font-weight:700;color:var(--green-price)}
-.sug button{width:32px;height:32px;border-radius:9px;background:var(--primary);color:var(--primary-fg);font-weight:900;font-size:18px}
-.item{display:flex;gap:10px;align-items:center;border-radius:14px;background:#1a1a1a;border:1px solid var(--border);padding:8px;margin-bottom:8px}
-.item img{width:46px;height:46px;border-radius:8px;background:#fff;object-fit:contain;padding:2px}
-.item .n{flex:1;min-width:0}
-.item .n b{display:block;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.item .n small{display:block;font-size:12px;color:var(--muted-fg);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.item .n span{font-size:12.5px;font-weight:800;color:var(--green-price)}
-.qty{display:flex;align-items:center;gap:6px}
-.qty button{width:28px;height:28px;border-radius:8px;background:#2a2a2a;font-weight:900}
-.qty b{min-width:16px;text-align:center;font-size:14px}
-.totals{border-radius:14px;background:#161616;border:1px solid var(--border);padding:12px;margin-top:4px;font-size:13px}
-.totals div{display:flex;justify-content:space-between;margin:3px 0;color:var(--muted-fg)}
-.totals div.big{color:var(--fg);font-size:17px;font-weight:800;margin-top:8px}
-.form .hint{font-size:12px;color:var(--muted-fg);margin-bottom:10px}
-.field{margin-bottom:10px}
-.field label{display:block;font-size:12px;font-weight:700;margin-bottom:5px}
-.field label i{color:#ef4444;font-style:normal}
-.field input,.field textarea{width:100%;height:44px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:#141414;padding:0 12px;outline:0;font-size:15px}
-.field textarea{height:64px;padding:10px 12px;resize:none}
-.field input:focus,.field textarea:focus{border-color:var(--primary)}
-.field.err input{border-color:#ef4444}
-.field small{display:block;font-size:11px;color:var(--muted-fg);margin-top:4px}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.checks{display:flex;flex-direction:column;gap:8px;margin:4px 0 12px}
-.checks label,.pay label{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600;border:1px solid var(--border);border-radius:12px;padding:10px 12px;background:#141414;cursor:pointer}
-.checks input,.pay input{accent-color:var(--primary);width:18px;height:18px}
-.pay{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
-.pay label:has(input:checked){border-color:var(--primary);background:rgba(69,242,31,.08)}
-.miss{font-size:12px;color:#fbbf24;text-align:center;margin-bottom:8px}
-.finish{width:100%;height:52px;border-radius:14px;background:var(--primary);color:var(--primary-fg);font-weight:900;font-size:15.5px;display:flex;align-items:center;justify-content:center;gap:8px}
-.finish svg{width:20px;height:20px}
-.finish:disabled{background:#2a2a2a;color:#777}
-
-.drawer{position:fixed;inset:0;z-index:60;display:none}
-.drawer.open{display:block}
-.drawer .ov{position:absolute;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(3px)}
-.drawer .pn{position:absolute;right:0;top:0;bottom:0;width:min(440px,100%);box-shadow:-20px 0 40px rgba(0,0,0,.6);animation:sl .25s ease}
-@keyframes sl{from{transform:translateX(100%)}}
-
-/* modal */
-.modal{position:fixed;inset:0;z-index:70;display:none;align-items:flex-end;justify-content:center}
-.modal.open{display:flex}
-.modal .ov{position:absolute;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(4px)}
-.modal .box{position:relative;width:100%;max-width:520px;max-height:90vh;display:flex;flex-direction:column;background:#121212;border:1px solid var(--border);border-radius:24px 24px 0 0;animation:up .25s ease}
-@keyframes up{from{transform:translateY(40px);opacity:0}}
-.mhd{display:flex;gap:12px;padding:16px;border-bottom:1px solid var(--border);align-items:center}
-.mhd img{width:72px;height:72px;border-radius:12px;background:#fff;object-fit:contain;padding:4px}
-.mhd .n{flex:1;min-width:0}
-.mhd .n small{font-size:11px;font-weight:700;color:var(--muted-fg);text-transform:uppercase}
-.mhd .n b{display:block;font-size:17px;text-transform:uppercase}
-.mhd .n .price{padding-top:2px}
-.mbody{overflow-y:auto;padding:12px 16px}
-.mbody .fsearch{width:100%;height:42px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:#1a1a1a;padding:0 12px;outline:0;margin-bottom:10px}
-.flv{display:flex;align-items:center;gap:10px;padding:10px 4px;border-bottom:1px solid rgba(255,255,255,.06)}
-.flv .nm{flex:1;font-size:14.5px;font-weight:600}
-.flv .add{height:34px;padding:0 14px;border-radius:10px;background:#262626;font-weight:800;font-size:13px}
+/* ---------- flavor sheet (modal) ---------- */
+.modal{position:fixed;inset:0;z-index:70;display:flex;align-items:center;justify-content:center;padding:20px;visibility:hidden}
+.modal.open{visibility:visible}
+.modal .ov{position:absolute;inset:0;background:rgba(13,31,20,.5);opacity:0;transition:opacity .2s}
+.modal.open .ov{opacity:1}
+.modal .box{position:relative;width:100%;max-width:520px;max-height:min(760px,92vh);background:var(--canvas);border-radius:26px;display:flex;flex-direction:column;overflow:hidden;transform:translateY(16px) scale(.98);opacity:0;transition:transform .25s cubic-bezier(.2,.8,.2,1),opacity .2s}
+.modal.open .box{transform:none;opacity:1}
+.mh{display:flex;gap:14px;align-items:center;padding:16px;background:var(--surface);border-bottom:1px solid var(--line)}
+.mh .ph{width:84px;height:84px;flex-shrink:0;border-radius:16px}
+.mh .ph img{padding:6px}
+.mh .n{flex:1;min-width:0}
+.mh .n small{font-size:13px;color:var(--muted)}
+.mh .n h3{font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:-.02em;line-height:1.2}
+.mh .pr{padding-top:6px}
+.mh .pr strong{font-size:19px}
+.mb{overflow-y:auto;padding:12px 16px}
+.mb .desc{color:var(--ink-2);font-size:14.5px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px}
+.fsearch{width:100%;height:44px;border-radius:12px;border:1px solid var(--line);background:var(--surface);padding:0 14px;outline:0;margin-bottom:8px}
+.fsearch:focus{border-color:var(--forest)}
+.flist{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:0 14px}
+.flv{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line);min-height:58px}
+.flv:first-child{border-top:0}
+.flv .nm{flex:1;font-size:15px;font-weight:500}
+.flv .add{height:36px;padding:0 14px;border-radius:999px;border:1px solid var(--line);font-weight:600;font-size:13.5px}
+.flv .add:hover{border-color:var(--forest)}
+.flv .stp{display:none}
+.flv.sel{}
 .flv.sel .add{display:none}
-.flv .qty{display:none}
-.flv.sel .qty{display:flex}
-.flv.sel .qty button{background:var(--primary);color:var(--primary-fg)}
-.mft{padding:12px 16px calc(14px + env(safe-area-inset-bottom));border-top:1px solid var(--border)}
-.desc{font-size:13px;color:var(--muted-fg);line-height:1.5;padding:4px 2px 10px}
+.flv.sel .stp{display:inline-flex;background:var(--forest);border-color:var(--forest);color:#fff}
+.flv.sel .stp button{color:#fff}
+.mf{padding:14px 16px calc(14px + env(safe-area-inset-bottom));background:var(--surface);border-top:1px solid var(--line)}
+.mf .send:disabled{background:var(--line);color:var(--muted);cursor:default;filter:none}
 
-/* age gate */
-.gate{position:fixed;inset:0;z-index:90;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(0,0,0,.82);backdrop-filter:blur(8px)}
+/* ---------- age gate ---------- */
+.gate{position:fixed;inset:0;z-index:90;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(13,31,20,.55);backdrop-filter:blur(10px)}
 .gate.open{display:flex}
-.gate .box{width:100%;max-width:400px;border-radius:22px;background:#151515;border:1px solid var(--border);padding:24px 20px;text-align:center}
-.gate img{width:130px;margin:0 auto}
-.gate h2{margin-top:10px;font-size:20px}
-.gate .pills{justify-content:center}
-.gate .q{margin-top:18px;font-size:11px;font-weight:800;letter-spacing:.12em;text-align:left;color:var(--muted-fg)}
-.gate .opts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
-.gate .opts button{height:46px;border-radius:12px;border:1px solid rgba(255,255,255,.16);font-weight:800;background:#1d1d1d}
-.gate .opts button.y{background:var(--primary);color:var(--primary-fg);border-color:transparent}
-.gate .no{display:none;margin-top:14px;color:#fca5a5;font-size:13px}
+.gate .box{width:100%;max-width:400px;background:var(--canvas);border-radius:28px;overflow:hidden}
+.gate .top-g{background:var(--forest);padding:28px 24px 22px;text-align:center;color:#fff}
+.gate .top-g img{width:110px;margin:0 auto}
+.gate h2{font-family:var(--display);font-size:22px;letter-spacing:-.02em;margin-top:8px}
+.gate .in{padding:20px 22px 24px}
+.gate p{color:var(--ink-2);font-size:14.5px;text-align:center}
+.gate .opts{display:grid;gap:8px;margin-top:16px}
+.gate .opts button{height:50px;border-radius:14px;font-weight:700;font-size:15px;border:1px solid var(--line);background:var(--surface)}
+.gate .opts button.y{background:var(--lime);border-color:transparent;color:var(--lime-ink)}
+.gate .no{display:none;margin-top:12px;color:var(--red);font-size:13.5px;text-align:center}
 
-.toast{position:fixed;left:50%;bottom:110px;transform:translateX(-50%) translateY(20px);opacity:0;z-index:95;background:#f2f2f2;color:#0b0b0b;font-weight:800;font-size:13px;padding:10px 16px;border-radius:999px;transition:.25s;pointer-events:none;white-space:nowrap}
-.toast.on{opacity:1;transform:translateX(-50%)}
+.toast{position:fixed;left:50%;bottom:28px;z-index:95;transform:translate(-50%,16px);opacity:0;background:var(--ink);color:#fff;font-weight:600;font-size:14px;padding:12px 18px;border-radius:999px;transition:.25s;pointer-events:none;white-space:nowrap;display:flex;gap:8px;align-items:center}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.toast i{width:20px;height:20px;border-radius:999px;background:var(--lime);color:var(--lime-ink);display:grid;place-items:center;font-style:normal;font-size:12px;font-weight:800}
 
-/* ---------- desktop ---------- */
-@media (min-width:640px){
-  .thumb{width:128px;height:128px}
+/* ---------- responsive ---------- */
+@media (max-width:1100px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:860px){
+  .hero{grid-template-columns:1fr;gap:22px;padding-top:20px}
+  .paycard{justify-self:start;max-width:420px}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .trust{grid-template-columns:1fr}
 }
-@media (min-width:1024px){
-  .app{padding-left:236px;padding-right:344px;padding-bottom:40px}
-  .mhead,.bnav,.cats-m,.mobile-only{display:none!important}
-  .wrap{max-width:1152px;padding:0 16px}
-  .sidebar{display:block;position:fixed;left:0;top:0;bottom:0;width:236px;padding:24px 16px;overflow-y:auto;border-right:1px solid rgba(255,255,255,.05);background:#0b0b0b;z-index:20}
-  .sidebar .brand{padding:0 6px}
-  .sidebar .brand img{width:64px;height:64px}
-  .sidebar h5{margin:26px 10px 10px;font-size:11.5px;letter-spacing:.12em;color:var(--muted-fg)}
-  .sidebar nav button{display:block;width:100%;text-align:left;border-radius:10px;padding:10px;font-size:14px;color:#c9c9c9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .sidebar nav button:hover{background:#151515}
-  .sidebar nav button.on{background:#1c1c1c;color:#fff;font-weight:800;box-shadow:inset 3px 0 0 var(--primary)}
-  .cartpanel{display:block;position:fixed;right:0;top:0;bottom:0;width:344px;border-left:1px solid var(--border);z-index:20}
-  .desk-top{display:block;padding-top:16px}
-  .desk-top .r1{display:flex;align-items:center;gap:24px;padding:14px 0}
-  .desk-top h1{font-size:17px;font-weight:800}
-  .desk-top h1 span{color:var(--primary)}
-  .desk-top .acc{white-space:nowrap;margin-left:auto;font-size:14px;font-weight:700;color:var(--muted-fg)}
-  .desk-top .wa{white-space:nowrap;border-radius:999px;background:var(--primary);color:var(--primary-fg);padding:9px 20px;font-size:14px;font-weight:800}
-  .desk-top .pills{margin-top:0;padding-bottom:12px}
-  .grid{grid-template-columns:1fr 1fr}
-  .hero{display:none}
-  .sec.feat{display:inline-block;min-width:min(100%,420px)}
-  .sec.feat .grid{grid-template-columns:repeat(var(--n,2),minmax(330px,1fr))}
-  .modal{align-items:center}
-  .modal .box{border-radius:24px}
-  .toast{bottom:30px}
+@media (max-width:720px){
+  body{font-size:14.5px}
+  .container{padding:0 14px}
+  .top .container{height:64px;gap:10px}
+  .tabs-wrap{top:calc(64px + env(safe-area-inset-top))}
+  .search{display:none}
+  .logo img{width:40px;height:40px}
+  .logo b{font-size:16px}
+  .btn-ghost span,.btn-cart .lbl{display:none}
+  .btn-ghost{width:46px;padding:0;justify-content:center}
+  .msearch{display:flex!important;margin-top:4px;max-width:none}
+  .hero h1{font-size:34px}
+  .hero p.lead{font-size:15.5px}
+  .facts{display:grid;grid-template-columns:1fr 1fr}
+  .fact:last-child{grid-column:span 2}
+  .paycard{transform:none;padding:20px;border-radius:22px}
+  @keyframes pulse{40%{transform:scale(1.025)}}
+  .grid{gap:10px}
+  .card{padding:8px;border-radius:18px}
+  .cb{padding:10px 4px 2px}
+  .cb h3{font-size:14px}
+  .pr strong{font-size:18px}
+  .pick{height:40px;font-size:13.5px;border-radius:12px}
+  .promo{border-radius:22px;padding:16px 12px}
+  .promo .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .sec-h h2{font-size:20px}
+  .badge{height:22px;font-size:11px;padding:0 7px}
+  .sheet .pn{inset:auto 0 0 0;width:100%;top:auto;height:92vh;border-radius:26px 26px 0 0;transform:translateY(100%)}
+  .modal{padding:0;align-items:flex-end}
+  .modal .box{max-height:90vh;border-radius:26px 26px 0 0;transform:translateY(40px)}
+  .mbar{display:flex;position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:45;align-items:center;gap:12px;background:var(--forest);color:#fff;border-radius:20px;padding:10px 10px 10px 16px;box-shadow:0 18px 40px -12px rgba(13,31,20,.6);transform:translateY(140%);transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+  .mbar.on{transform:none}
+  .mbar .t{flex:1}
+  .mbar small{display:block;font-size:12.5px;color:rgba(255,255,255,.7)}
+  .mbar b{font-size:19px;font-weight:700}
+  .mbar button{height:44px;padding:0 18px;border-radius:14px;background:var(--lime);color:var(--lime-ink);font-weight:700}
+  .toast{bottom:104px}
 }
-@media (min-width:1280px){
-  .app{padding-right:400px}
-  .cartpanel{width:400px}
-}
-/* carrinho fechado (computador) */
-.cartfab{display:none}
-@media (min-width:1024px){
-  body.cart-closed .app{padding-right:0}
-  body.cart-closed .cartpanel{display:none}
-  body.cart-closed .cartfab{display:flex}
-  .cartfab{position:fixed;right:24px;bottom:24px;z-index:25;align-items:center;gap:10px;height:56px;padding:0 20px 0 16px;border-radius:999px;background:var(--primary);color:var(--primary-fg);font-weight:900;font-size:15px;box-shadow:0 10px 30px -8px rgba(69,242,31,.6)}
-  .cartfab svg{width:22px;height:22px}
-  .cartfab b{min-width:22px;height:22px;border-radius:999px;background:#0b0b0b;color:#fff;font-size:12px;display:grid;place-items:center;padding:0 6px}
-}
+.msearch{display:none}
 </style>
 </head>
 <body>
 
-<!-- ===================== SIDEBAR (desktop) ===================== -->
-<aside class="sidebar">
-  <a class="brand" href="#top"><img src="img/logo.webp" alt="ÁREA 41 SHOP"><div><b id="sbName">ÁREA 41 SHOP</b><small>Qualidade · procedência</small></div></a>
-  <h5>CATEGORIAS</h5>
-  <nav id="sideNav"></nav>
-</aside>
-
-<!-- ===================== CART PANEL (desktop) ===================== -->
-<aside class="cartpanel" id="cartPanel"></aside>
-<button class="cartfab" id="cartFab" aria-label="Abrir carrinho"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>Carrinho <b id="fabCnt">0</b></button>
-
-<div class="app" id="top">
-  <!-- desktop top -->
-  <div class="desk-top"><div class="wrap">
-    <div class="r1">
-      <h1>Pods e vapes originais <span>com garantia e procedência</span></h1>
-      <a class="acc" href="#" data-wa>Fale conosco</a>
-      <a class="wa" href="#" data-wa target="_blank" rel="noopener">Chamar no WhatsApp</a>
+<header class="top">
+  <div class="container">
+    <a class="logo" href="#top" aria-label="ÁREA 41 SHOP, início"><img src="img/logo.webp" alt=""><b>ÁREA 41</b></a>
+    <label class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7.5"/><path d="m20.5 20.5-4.2-4.2"/></svg>
+      <input id="q" type="search" placeholder="Buscar pod ou sabor, ex.: melancia, ice, V300" autocomplete="off" aria-label="Buscar pod ou sabor"></label>
+    <div class="topact">
+      <a class="btn-ghost" href="#" data-wa target="_blank" rel="noopener" aria-label="Falar no WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.87 1.22 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2-1.41.25-.69.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35zM12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.5A10 10 0 1 0 12 2z"/></svg><span>WhatsApp</span></a>
+      <button class="btn-cart" data-open-cart aria-label="Abrir pedido"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span class="lbl">Pedido</span><span class="tot num" id="topTot">R$ 0,00</span></button>
     </div>
-    <div class="pills">
-      <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/></svg> Originais</span>
-      <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg> Garantia 24h</span>
-      <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg> Pix ou dinheiro</span>
-    </div>
-  </div></div>
+  </div>
+</header>
 
-  <!-- mobile header -->
-  <header class="mhead"><div class="in">
-    <a class="brand" href="#top"><img src="img/logo.webp" alt="ÁREA 41 SHOP"><div><b>ÁREA 41 SHOP</b><small>Qualidade · procedência &amp; confiança</small></div></a>
-    <a class="btn-outline" href="#" data-wa target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.87 1.22 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2-1.41.25-.69.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35zM12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.5A10 10 0 1 0 12 2z"/></svg>WhatsApp</a>
-  </div></header>
+<div class="tabs-wrap"><div class="container"><nav class="tabs" id="tabs" aria-label="Categorias"></nav></div></div>
 
-  <main class="wrap">
-    <div class="mobile-only">
-      <div class="warranty"><a href="#" data-garantia><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>Defeito de fábrica? Troca em 24h <span>· saiba mais</span></a></div>
-    </div>
+<main class="container" id="top">
+  <label class="search msearch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7.5"/><path d="m20.5 20.5-4.2-4.2"/></svg>
+    <input id="qm" type="search" placeholder="Buscar pod ou sabor" autocomplete="off" aria-label="Buscar pod ou sabor"></label>
 
-    <section class="hero">
-      <div class="kick" id="heroKick">Pods originais</div>
-      <h2>Pods de <em>verdade,</em> originais e com garantia.</h2>
-      <div class="pills">
-        <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/></svg> Originais</span>
-        <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg> Garantia 24h</span>
-        <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg> Pix ou dinheiro</span>
+  <section class="hero">
+    <div>
+      <h1>Pods originais, pedido em dois toques.</h1>
+      <p class="lead">Escolha o modelo, separe os sabores e mande o pedido pronto no nosso WhatsApp. Sem cadastro.</p>
+      <div class="facts">
+        <div class="fact"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/></svg></i><div><b>Originais</b><span>Lacrados de fábrica</span></div></div>
+        <div class="fact"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg></i><div><b>Garantia 24h</b><span>Troca se vier com defeito</span></div></div>
+        <div class="fact"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="5" rx="2"/><path d="M2 10h20"/></svg></i><div><b>Pix ou dinheiro</b><span>Você escolhe no pedido</span></div></div>
       </div>
-    </section>
-
-    <div class="search">
-      <label class="sbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-        <input id="q" type="search" placeholder="Busca por sabor 🍉🧊" autocomplete="off"></label>
-      <button class="chip-btn" id="pickBtn">Escolher</button>
     </div>
+    <div class="paycard" id="paycard">
+      <div class="r1"><img src="img/logo.webp" alt=""><span class="chipico" aria-hidden="true"></span></div>
+      <div class="bal"><small id="pcLabel">Seu pedido</small><span class="v num" id="pcTotal">R$ 0,00</span></div>
+      <div class="r3"><div class="nm">ÁREA 41 SHOP<span id="pcItems">Nenhum pod escolhido ainda</span></div><button class="open" data-open-cart>Ver pedido</button></div>
+    </div>
+  </section>
 
-    <div class="cats-m" id="catsM"></div>
-    <div id="catalog"></div>
-    <div class="empty-search" id="emptySearch">Nenhum produto ou sabor encontrado 👽</div>
+  <div id="catalog"></div>
+  <div class="empty-search" id="emptySearch"><b>Nada encontrado</b>Tente outro sabor ou o nome do modelo.</div>
 
-    <footer>
-      <img src="img/logo.webp" alt="">
-      <div class="t">ÁREA 41 SHOP</div>
-      <p>Monte seu pedido e finalize direto no WhatsApp</p>
-      <p id="footCity"></p>
-      <p><a href="#" id="igLink" target="_blank" rel="noopener"></a></p>
-      <div class="links"><a href="#" data-info="sobre">Sobre a ÁREA 41</a><a href="#" data-info="pagamentos">Pagamentos</a><a href="#" data-garantia>Garantia</a><a href="#" data-info="termos">Termos</a><a href="#" data-info="privacidade">Privacidade</a></div>
-      <div class="copy">© <span id="yr"></span> ÁREA 41 SHOP — Todos os direitos reservados.<br>Venda proibida para menores de 18 anos.</div>
-    </footer>
-  </main>
+  <section class="trust">
+    <div><b>Como pedir</b><p>Toque em “Escolher sabor”, ajuste as quantidades e envie o pedido pelo WhatsApp. A gente confirma por lá.</p></div>
+    <div><b>Pagamento</b><p>Pix ou dinheiro. Se for Pix, mandamos a chave no WhatsApp depois de confirmar o pedido.</p></div>
+    <div><b>Garantia 24h</b><p>Veio com defeito de fábrica? Mande foto ou vídeo em até 24h que a gente troca.</p></div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="fl"><img src="img/logo.webp" alt=""><div><b>ÁREA 41 SHOP</b><span id="footCity"></span></div></div>
+    <nav><a href="#" data-wa target="_blank" rel="noopener">WhatsApp</a><a href="#" id="igLink" target="_blank" rel="noopener">Instagram</a><a href="#" data-info="pagamentos">Pagamentos</a><a href="#" data-info="garantia">Garantia</a><a href="#" data-info="termos">Termos</a><a href="#" data-info="privacidade">Privacidade</a></nav>
+    <div class="legal">© <span id="yr"></span> ÁREA 41 SHOP. Venda proibida para menores de 18 anos.</div>
+  </div>
+</footer>
+
+<div class="mbar" id="mbar"><div class="t"><small id="mbItems">0 itens</small><b class="num" id="mbTot">R$ 0,00</b></div><button data-open-cart>Ver pedido</button></div>
+
+<!-- cart sheet -->
+<div class="sheet" id="sheet" aria-hidden="true"><div class="ov" data-close-cart></div>
+  <aside class="pn" role="dialog" aria-label="Seu pedido">
+    <div class="sh-h"><h2>Seu pedido</h2><button class="xbtn" data-close-cart aria-label="Fechar pedido"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button></div>
+    <div class="sh-b" id="cartBody"></div>
+    <div class="sh-f" id="cartFoot"></div>
+  </aside>
 </div>
 
-<!-- bottom nav (mobile) -->
-<nav class="bnav">
-  <a href="#top" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .71-1.53l7-6a2 2 0 0 1 2.58 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Início</a>
-  <a href="#" data-wa target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>WhatsApp</a>
-  <button class="bag" id="bagBtn"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></i><span class="cnt" id="bagCnt">0</span>Sacola</button>
-  <button id="srchBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>Buscar</button>
-  <a href="#" id="igNav" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="20" x="2" y="2" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".5" fill="currentColor"/></svg>Instagram</a>
-</nav>
-
-<!-- cart drawer (mobile) -->
-<div class="drawer" id="drawer"><div class="ov" data-close-drawer></div><div class="pn" id="drawerPanel"></div></div>
-
 <!-- flavor modal -->
-<div class="modal" id="modal"><div class="ov" data-close-modal></div><div class="box" id="modalBox"></div></div>
+<div class="modal" id="modal"><div class="ov" data-close-modal></div><div class="box" id="modalBox" role="dialog" aria-modal="true"></div></div>
 
 <!-- age gate -->
 <div class="gate" id="gate"><div class="box">
-  <img src="img/logo.webp" alt="ÁREA 41 SHOP">
-  <h2>Bem-vindo à ÁREA 41 SHOP</h2>
-  <div class="pills"><span class="pill">🛡️ Garantia 24h</span><span class="pill">✅ Originais</span><span class="pill">💳 Pix ou dinheiro</span></div>
-  <div class="q">CONFIRME SUA IDADE</div>
-  <div class="opts"><button class="y" id="age18">Tenho +18 anos</button><button id="ageNo">Tenho -18 anos</button></div>
-  <p class="no" id="ageMsg">Desculpe, a venda destes produtos é proibida para menores de 18 anos.</p>
+  <div class="top-g"><img src="img/logo.webp" alt="ÁREA 41 SHOP"><h2>Bem-vindo à Área 41</h2></div>
+  <div class="in">
+    <p>Este site vende produtos para maiores de 18 anos. Confirme sua idade para continuar.</p>
+    <div class="opts"><button class="y" id="age18">Tenho 18 anos ou mais</button><button id="ageNo">Tenho menos de 18</button></div>
+    <p class="no" id="ageMsg">A venda destes produtos é proibida para menores de 18 anos.</p>
+  </div>
 </div></div>
 
-<div class="toast" id="toast"></div>
+<div class="toast" id="toast" role="status"></div>
 
 <script>
 /* =====================================================================
@@ -382,283 +389,265 @@ footer .copy{font-size:11px;color:#777;margin-top:16px}
 const CONFIG = {
   nome: "ÁREA 41 SHOP",
   whatsapp: "5500000000000",          // seu número com DDI+DDD, só números. Ex: 5541999999999
-  cidade: "sua região",                // ex: "Curitiba & Região"
+  cidade: "sua região",                // ex: "Curitiba"
   instagram: "area41shop"              // sem @
 };
 
 /* Sabores: edite a lista de cada produto em PRODUCTS (campo flavors).
-   Os produtos que estão sem lista própria usam sabores de exemplo da lista abaixo. */
+   Os produtos sem lista própria usam sabores de exemplo da lista abaixo. */
 const FLAVOR_POOL = ["🍉❄️ Watermelon Ice","🍇❄️ Grape Ice","🍓🥝 Strawberry Kiwi","🫐❄️ Blue Razz Ice","🌿❄️ Menthol","🍌❄️ Banana Ice","🍍❄️ Pineapple Ice","🍑❄️ Peach Ice","🍓🍌 Strawberry Banana","🍒❄️ Cherry Ice","🍋🌿 Lemon Mint","🥭❄️ Mango Ice","🫐 Blueberry Ice","🍬 Tutti Frutti","🥤❄️ Cola Ice","🍇💚 Aloe Grape","🍸🍋 Pink Lemonade","🌸🍇 Sakura Grape","🍓🍉 Strawberry Watermelon","🍇🫐 Mixed Berries","🍏❄️ Green Apple Ice","🥝💛 Kiwi Passion Fruit","🍊❄️ Orange Ice","🍓❄️ Strawberry Ice","🍉🍇 Watermelon Grape","🥥🍍 Piña Colada","🍑🥭 Peach Mango","🍋❄️ Lemon Ice"];
 
 const CATEGORIES = [
-  {id:"bbb",  name:"BOM • BONITO E BARATO😂😍", featured:true, items:["nik10","nik20"]},
-  {id:"50k",  name:"50K POR MENOS DE R$100,00😱", featured:true, items:["rab50"]},
-  {id:"ignite", name:"IGNITE", items:["v55p","v55l","v80","v155l","v155p","v250","v300us","v300","vmix","ice40","v500"]},
-  {id:"elfbar", name:"ELFBAR", items:["bc","te","duke","iceking","joinon"]},
-  {id:"bsheep", name:"BLACK SHEEP", items:["bs30","bs40","slim15","bs30im","bs40im","cyber"]},
-  {id:"nikbar", name:"NIKBAR", items:["nik10","nik20"]},
-  {id:"dinner", name:"DINNER", items:["dl20","luma40","dldual"]},
-  {id:"rab", name:"RabBeats", items:["rab50"]},
-  {id:"best", name:"Mais vendidos", tag:"DESTAQUE", items:["v300us","bs40im","dl20"]}
+  {id:"bbb",  name:"Bom, bonito e barato 😂😍", promo:true, note:"Os mais em conta", items:["nik10","nik20"]},
+  {id:"50k",  name:"50K por menos de R$ 100 😱", promo:true, note:"Muito puff, pouco gasto", items:["rab50"]},
+  {id:"best", name:"Mais vendidos", items:["v300us","bs40im","dl20"]},
+  {id:"ignite", name:"Ignite", items:["v55p","v55l","v80","v155l","v155p","v250","v300us","v300","vmix","ice40","v500"]},
+  {id:"elfbar", name:"Elfbar", items:["bc","te","duke","iceking","joinon"]},
+  {id:"bsheep", name:"Black Sheep", items:["bs30","bs40","slim15","bs30im","bs40im","cyber"]},
+  {id:"nikbar", name:"Nikbar", items:["nik10","nik20"]},
+  {id:"dinner", name:"Dinner Lady", items:["dl20","luma40","dldual"]},
+  {id:"rab", name:"RabBeats", items:["rab50"]}
 ];
 
-// price = preço atual; old = preço "de" (opcional); n = qtd de sabores (usado quando não há lista); stock: "ok" | "low" | número
+// price = preço atual; old = preço "de" (opcional); n = qtd de sabores (usado quando não há lista); stock: número = últimas unidades
 const PRODUCTS = {
-  nik10:  {name:"NIK 10K", brand:"NIKBAR", puffs:"10.000", img:"nik-10k.webp", price:69.90, old:79.90, n:26, offer:true},
-  nik20:  {name:"NIK 20K Ultra Slim", brand:"NIKBAR", puffs:"20.000", img:"nik-20k-ultra-slim.webp", price:94.90, old:109.90, n:10, offer:true},
-  rab50:  {name:"RABBEATS 50K", brand:"RabBeats", puffs:"50.000", img:"rabbeats-50k.webp", price:95.90, old:109.90, n:12, offer:true, rating:[5.0,2]},
-  v55p:   {name:"V55 ULTRA THIN (PRETO)", brand:"IGNITE", puffs:"5.500", img:"v55-ultra-thin-preto.webp", price:74.90, n:9, rating:[5.0,1]},
-  v55l:   {name:"V55 ULTRA THIN (LARANJADO)", brand:"IGNITE", puffs:"5.500", img:"v55-ultra-thin-laranjado.webp", price:74.90, n:11},
-  v80:    {name:"V80 ULTRA SLIM", brand:"IGNITE", puffs:"8.000", img:"v80-ultra-slim.webp", price:89.90, n:5, rating:[5.0,1]},
-  v155l:  {name:"V155 ULTRA SLIM (LARANJADO)", brand:"IGNITE", puffs:"15.500", img:"v155-ultra-slim-laranjado.webp", price:109.90, old:115.90, n:7},
-  v155p:  {name:"V155 ULTRA SLIM (PRETO)", brand:"IGNITE", puffs:"15.500", img:"v155-ultra-slim-preto.webp", price:109.90, old:115.90, n:6, rating:[5.0,1]},
-  v250:   {name:"V250 PRETO", brand:"IGNITE", puffs:"25.000", img:"v250-preto.webp", price:115.90, n:2, stock:2},
-  v300us: {name:"V300 ULTRA SLIM", brand:"IGNITE", puffs:"30.000", img:"v300-ultra-slim.webp", price:118.90, old:124.90, n:19, best:true, rating:[5.0,1]},
-  v300:   {name:"IGNITE V300", brand:"IGNITE", puffs:"30.000", img:"ignite-v300.webp", price:109.90, old:119.90, n:16},
-  vmix:   {name:"NEW VMIX BOOST SERIES", brand:"IGNITE", puffs:"40.000", img:"new-vmix-boost-series.webp", price:134.90, n:18},
-  ice40:  {name:"ICE 40K", brand:"IGNITE", puffs:"40.000", img:"ice-40k.webp", price:129.90, n:16},
-  v500:   {name:"V500", brand:"IGNITE", puffs:"50.000", img:"v500.webp", price:139.90, n:11, rating:[5.0,1]},
-  bc:     {name:"BC", brand:"ELFBAR", puffs:"15.000", img:"bc.webp", price:79.90, n:17},
-  te:     {name:"TE", brand:"ELFBAR", puffs:"30.000", img:"te.webp", price:105.90, n:14},
-  duke:   {name:"DUKE", brand:"ELFBAR", puffs:"35.000", img:"duke.webp", price:109.90, flavors:["🫐❤️❄️ Blue Razz Ice"], stock:1},
-  iceking:{name:"ICE KING (REGULA O GELO)", brand:"ELFBAR", puffs:"40.000", img:"ice-king-regula-o-gelo.webp", price:118.90, old:124.90, n:10, rating:[5.0,1]},
-  joinon: {name:"JOINON EW KIT (bateria+refil)", brand:"ELFBAR", puffs:"25.000", img:"joinon-ew-kit-bateria-refil.webp", price:124.90, n:3},
-  bs30:   {name:"BLACK SHEEP DUAL TANK 30K", brand:"BLACK SHEEP", puffs:"30.000", img:"black-sheep-dual-tank-30k.webp", price:109.90, old:129.90, n:8},
-  bs40:   {name:"BLACK SHEEP DUAL 40K", brand:"BLACK SHEEP", puffs:"40.000", img:"black-sheep-dual-40k.webp", price:129.90, old:139.90, n:9},
-  slim15: {name:"Slim 15k", brand:"BLACK SHEEP", puffs:"15.000", img:"slim-15k.webp", price:89.90, flavors:["🍸🍋 Pink Lemonade"], stock:1},
-  bs30im: {name:"BLACK SHEEP DUAL TANK 30K ICE MASTER", brand:"BLACK SHEEP", puffs:"30.000", img:"black-sheep-dual-tank-30k-ice-master.webp", price:109.90, old:129.90, flavors:["🍇🧊🍇🧊 Grape+Grape"]},
-  bs40im: {name:"BLACK SHEEP DUAL 40K ICE MASTER", brand:"BLACK SHEEP", puffs:"40.000", img:"black-sheep-dual-40k-ice-master.webp", price:129.90, old:139.90, n:5, best:true},
-  cyber:  {name:"CYBER TANK", brand:"BLACK SHEEP", puffs:"55.000", img:"cyber-tank.webp", price:145.90, flavors:["🍦🍇💚 Aloe Grape"]},
-  dl20:   {name:"DINNER LADY 20K", brand:"DINNER", puffs:"20.000", img:"dinner-lady-20k.webp", price:89.90, n:19, best:true, rating:[5.0,1]},
-  luma40: {name:"DINNER LUMA 40K", brand:"DINNER", puffs:"40.000", img:"dinner-luma-40k.webp", price:109.90, old:119.90, n:20},
-  dldual: {name:"DINNER LADY DUAL FLAVOR", brand:"DINNER", puffs:"50.000", img:"dinner-lady-dual-flavor.webp", price:139.90, n:14}
+  nik10:  {name:"NIK 10K", brand:"Nikbar", puffs:"10.000", img:"nik-10k.webp", price:69.90, old:79.90, n:26},
+  nik20:  {name:"NIK 20K Ultra Slim", brand:"Nikbar", puffs:"20.000", img:"nik-20k-ultra-slim.webp", price:94.90, old:109.90, n:10},
+  rab50:  {name:"RabBeats 50K", brand:"RabBeats", puffs:"50.000", img:"rabbeats-50k.webp", price:95.90, old:109.90, n:12, rating:[5.0,2]},
+  v55p:   {name:"V55 Ultra Thin (preto)", brand:"Ignite", puffs:"5.500", img:"v55-ultra-thin-preto.webp", price:74.90, n:9, rating:[5.0,1]},
+  v55l:   {name:"V55 Ultra Thin (laranja)", brand:"Ignite", puffs:"5.500", img:"v55-ultra-thin-laranjado.webp", price:74.90, n:11},
+  v80:    {name:"V80 Ultra Slim", brand:"Ignite", puffs:"8.000", img:"v80-ultra-slim.webp", price:89.90, n:5, rating:[5.0,1]},
+  v155l:  {name:"V155 Ultra Slim (laranja)", brand:"Ignite", puffs:"15.500", img:"v155-ultra-slim-laranjado.webp", price:109.90, old:115.90, n:7},
+  v155p:  {name:"V155 Ultra Slim (preto)", brand:"Ignite", puffs:"15.500", img:"v155-ultra-slim-preto.webp", price:109.90, old:115.90, n:6, rating:[5.0,1]},
+  v250:   {name:"V250 Preto", brand:"Ignite", puffs:"25.000", img:"v250-preto.webp", price:115.90, n:2, stock:2},
+  v300us: {name:"V300 Ultra Slim", brand:"Ignite", puffs:"30.000", img:"v300-ultra-slim.webp", price:118.90, old:124.90, n:19, best:true, rating:[5.0,1]},
+  v300:   {name:"Ignite V300", brand:"Ignite", puffs:"30.000", img:"ignite-v300.webp", price:109.90, old:119.90, n:16},
+  vmix:   {name:"New VMIX Boost Series", brand:"Ignite", puffs:"40.000", img:"new-vmix-boost-series.webp", price:134.90, n:18},
+  ice40:  {name:"Ice 40K", brand:"Ignite", puffs:"40.000", img:"ice-40k.webp", price:129.90, n:16},
+  v500:   {name:"V500", brand:"Ignite", puffs:"50.000", img:"v500.webp", price:139.90, n:11, rating:[5.0,1]},
+  bc:     {name:"BC 15K", brand:"Elfbar", puffs:"15.000", img:"bc.webp", price:79.90, n:17},
+  te:     {name:"TE 30K", brand:"Elfbar", puffs:"30.000", img:"te.webp", price:105.90, n:14},
+  duke:   {name:"Duke", brand:"Elfbar", puffs:"35.000", img:"duke.webp", price:109.90, flavors:["🫐❤️❄️ Blue Razz Ice"], stock:1},
+  iceking:{name:"Ice King (regula o gelo)", brand:"Elfbar", puffs:"40.000", img:"ice-king-regula-o-gelo.webp", price:118.90, old:124.90, n:10, rating:[5.0,1]},
+  joinon: {name:"Joinon EW Kit (bateria + refil)", brand:"Elfbar", puffs:"25.000", img:"joinon-ew-kit-bateria-refil.webp", price:124.90, n:3},
+  bs30:   {name:"Dual Tank 30K", brand:"Black Sheep", puffs:"30.000", img:"black-sheep-dual-tank-30k.webp", price:109.90, old:129.90, n:8},
+  bs40:   {name:"Dual 40K", brand:"Black Sheep", puffs:"40.000", img:"black-sheep-dual-40k.webp", price:129.90, old:139.90, n:9},
+  slim15: {name:"Slim 15K", brand:"Black Sheep", puffs:"15.000", img:"slim-15k.webp", price:89.90, flavors:["🍸🍋 Pink Lemonade"], stock:1},
+  bs30im: {name:"Dual Tank 30K Ice Master", brand:"Black Sheep", puffs:"30.000", img:"black-sheep-dual-tank-30k-ice-master.webp", price:109.90, old:129.90, flavors:["🍇🧊🍇🧊 Grape+Grape"]},
+  bs40im: {name:"Dual 40K Ice Master", brand:"Black Sheep", puffs:"40.000", img:"black-sheep-dual-40k-ice-master.webp", price:129.90, old:139.90, n:5, best:true},
+  cyber:  {name:"Cyber Tank", brand:"Black Sheep", puffs:"55.000", img:"cyber-tank.webp", price:145.90, flavors:["🍦🍇💚 Aloe Grape"]},
+  dl20:   {name:"Dinner Lady 20K", brand:"Dinner Lady", puffs:"20.000", img:"dinner-lady-20k.webp", price:89.90, n:19, best:true, rating:[5.0,1]},
+  luma40: {name:"Dinner Luma 40K", brand:"Dinner Lady", puffs:"40.000", img:"dinner-luma-40k.webp", price:109.90, old:119.90, n:20},
+  dldual: {name:"Dinner Lady Dual Flavor", brand:"Dinner Lady", puffs:"50.000", img:"dinner-lady-dual-flavor.webp", price:139.90, n:14}
 };
 const SUGGESTED = ["v300us","bs40im","dl20"];
 
 /* ===================================================================== */
 const $ = s => document.querySelector(s);
-const brl = v => "R$ " + v.toFixed(2).replace(".", ",");
+const $$ = s => [...document.querySelectorAll(s)];
+const brl = v => "R$ " + v.toFixed(2).replace(".", ",").replace(/\B(?=(\d{3})+(?!\d))/g,".");
 const waLink = (txt) => "https://wa.me/" + CONFIG.whatsapp + (txt ? "?text=" + encodeURIComponent(txt) : "");
 const store = {get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const esc = s => String(s||"").replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;");
+const puffsShort = p => p.replace(".000"," mil").replace(".500",",5 mil") + " puffs";
 
-// flavors
 Object.entries(PRODUCTS).forEach(([id,p],i)=>{
   p.id=id;
   if(!p.flavors){const off=(i*5)%FLAVOR_POOL.length;p.flavors=Array.from({length:p.n},(_,k)=>FLAVOR_POOL[(off+k)%FLAVOR_POOL.length]);}
 });
 
-let cart = store.get("a41_cart", []); // [{pid, flavor, qty}]
-const saveCart = () => { store.set("a41_cart", cart); renderCart(); };
+let cart = store.get("a41_cart", []).filter(i=>PRODUCTS[i.pid]);
+const qtyOf = pid => cart.filter(i=>i.pid===pid).reduce((a,i)=>a+i.qty,0);
+const totals = () => ({qty:cart.reduce((a,i)=>a+i.qty,0), sub:cart.reduce((a,i)=>a+i.qty*PRODUCTS[i.pid].price,0)});
 
 /* ---------- catalog ---------- */
-function cardHTML(p,catId,featured){
+function cardHTML(p){
   const off=p.old?Math.round((1-p.price/p.old)*100):0;
   const single=p.flavors.length===1;
-  let stock='<p class="stock">em estoque</p>';
-  if(p.stock===1)stock='<p class="stock low">🔥 última unidade</p>';
-  else if(typeof p.stock==="number")stock=`<p class="stock low">🔥 ${p.stock} últimas unidades</p>`;
-  const cls=p.best?"best":(featured?"hl":"");
-  return `<div class="card ${cls}" data-pid="${p.id}">
-   <div class="row">
-    <button class="thumb" data-open="${p.id}" aria-label="Ver sabores de ${p.name}"><img src="img/${p.img}" alt="${p.name}" loading="lazy">
-      <span class="b1">${single?"Ver sabor":"Ver sabores"}</span>
-      ${p.best?'<span class="b2 gold">Mais vendido</span>':(p.offer?'<span class="b2">Oferta</span>':"")}</button>
-    <div class="info">
-      <p class="meta"><b>${p.brand}</b> · ${p.puffs} PUFFS</p>
-      <h4>${p.name}</h4>
-      <p class="fl">${single?"Sabor: "+p.flavors[0]:p.flavors.length+" sabores disponíveis"}</p>
-      ${p.rating?`<p class="rate"><b>★ ${p.rating[0].toFixed(1)}</b> (${p.rating[1]} ${p.rating[1]>1?"avaliações":"avaliação"})</p>`:""}
-      ${stock}
-      <div class="price">${p.old?`<s>${brl(p.old)}</s>`:""}<strong class="tabnum">${brl(p.price)}</strong>${off?`<span class="off">${off}% OFF</span>`:""}</div>
-      <button class="about" data-about="${p.id}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>Sobre este produto</button>
-    </div>
-   </div>
-   <button class="addbtn" data-open="${p.id}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14"/><path d="M12 5v14"/></svg>${single?"Adicionar":"Sabores"}</button>
-  </div>`;
+  let sub=single?p.flavors[0]:`${p.flavors.length} sabores`;
+  let low=false;
+  if(p.stock===1){sub="Última unidade · "+(single?p.flavors[0]:"");low=true;}
+  else if(typeof p.stock==="number"){sub=`Só ${p.stock} unidades`;low=true;}
+  if(p.stock===1&&!single)sub="Última unidade";
+  if(p.stock===1&&single)sub="Última unidade";
+  const q=qtyOf(p.id);
+  return `<article class="card">
+    <button class="ph" data-open="${p.id}" aria-label="Escolher sabor de ${esc(p.name)}"><img src="img/${p.img}" alt="${esc(p.name)}" loading="lazy">
+      ${off?`<span class="badge off">−${off}%</span>`:""}${p.best?`<span class="badge best ${off?"badge2":""}">Mais vendido</span>`:""}</button>
+    <div class="cb">
+      <div class="brandrow"><span>${p.brand}</span><span class="puffs">${puffsShort(p.puffs)}</span></div>
+      <h3>${esc(p.name)}</h3>
+      <p class="sub ${low?"low":""}">${esc(sub)}</p>
+      ${p.rating?`<p class="rate">★ <b>${p.rating[0].toFixed(1)}</b> · ${p.rating[1]} ${p.rating[1]>1?"avaliações":"avaliação"}</p>`:""}
+      <div class="pr"><strong class="num">${brl(p.price)}</strong>${p.old?`<s class="num">${brl(p.old)}</s>`:""}</div>
+      <button class="pick" data-open="${p.id}">${q?`No pedido <span class="q">${q}</span>`:(single?"Adicionar":"Escolher sabor")}</button>
+    </div></article>`;
 }
 function renderCatalog(){
-  const q=$("#q").value.trim().toLowerCase();
-  let html="",any=false;
+  const q=($("#q").value||$("#qm").value).trim().toLowerCase();
+  let html="",promos="",any=false; const seen=new Set();
   CATEGORIES.forEach(c=>{
-    const items=c.items.map(id=>PRODUCTS[id]).filter(p=>!q||p.name.toLowerCase().includes(q)||p.brand.toLowerCase().includes(q)||p.flavors.some(f=>f.toLowerCase().includes(q)));
+    let items=c.items.map(id=>PRODUCTS[id]);
+    if(q){items=items.filter(p=>!seen.has(p.id)&&(p.name.toLowerCase().includes(q)||p.brand.toLowerCase().includes(q)||p.flavors.some(f=>f.toLowerCase().includes(q))));items.forEach(p=>seen.add(p.id));}
     if(!items.length)return; any=true;
-    html+=`<section class="sec ${c.featured?"feat":""}" id="cat-${c.id}" style="--n:${Math.min(items.length,2)}">
-      <h3><span class="nm">${c.name}</span>${c.featured?'<span class="tag">EM DESTAQUE</span>':(c.tag?`<span class="tag">${c.tag}</span>`:"")}</h3>
-      <div class="grid">${items.map(p=>cardHTML(p,c.id,c.featured)).join("")}</div></section>`;
+    const head=`<div class="sec-h"><h2>${c.name}</h2><span>${c.note||items.length+(items.length>1?" modelos":" modelo")}</span></div>`;
+    const grid=`<div class="grid">${items.map(cardHTML).join("")}</div>`;
+    if(c.promo&&!q){promos+=`<section class="promo" id="cat-${c.id}" style="--n:${items.length}">${head}${grid}</section>`;}
+    else{if(promos){html+=`<div class="promos">${promos}</div>`;promos="";}html+=`<section class="sec" id="cat-${c.id}">${head}${grid}</section>`;}
   });
+  if(promos)html+=`<div class="promos">${promos}</div>`;
   $("#catalog").innerHTML=html;
   $("#emptySearch").style.display=any?"none":"block";
+  $(".hero").style.display=q?"none":"";
 }
-function renderNav(){
-  const b=CATEGORIES.map((c,i)=>`<button data-cat="${c.id}" class="${i===0?"on":""}">${c.name}</button>`).join("");
-  $("#sideNav").innerHTML=b; $("#catsM").innerHTML=b;
-}
-function goCat(id){const el=document.getElementById("cat-"+id);if(el)el.scrollIntoView({behavior:"smooth",block:"start"});}
+function renderTabs(){$("#tabs").innerHTML=CATEGORIES.map((c,i)=>`<button data-cat="${c.id}" class="${i===0?"on":""}">${c.name.replace(/[😂😍😱]/gu,"").trim()}</button>`).join("");}
+function goCat(id){const el=document.getElementById("cat-"+id);if(el)el.scrollIntoView({block:"start"});}
 function spy(){
   let cur=CATEGORIES[0].id;
-  CATEGORIES.forEach(c=>{const el=document.getElementById("cat-"+c.id);if(el&&el.getBoundingClientRect().top<180)cur=c.id;});
-  document.querySelectorAll("[data-cat]").forEach(b=>b.classList.toggle("on",b.dataset.cat===cur));
-  const on=$("#catsM .on"); if(on&&window.innerWidth<1024){const p=$("#catsM");const l=on.offsetLeft-p.clientWidth/2+on.clientWidth/2;if(Math.abs(p.scrollLeft-l)>40)p.scrollTo({left:l,behavior:"smooth"});}
+  CATEGORIES.forEach(c=>{const el=document.getElementById("cat-"+c.id);if(el&&el.getBoundingClientRect().top<170)cur=c.id;});
+  $$("[data-cat]").forEach(b=>b.classList.toggle("on",b.dataset.cat===cur));
+  const on=$("#tabs .on"),p=$("#tabs");if(on){const l=on.offsetLeft-p.clientWidth/2+on.clientWidth/2;if(Math.abs(p.scrollLeft-l)>40)p.scrollTo({left:l,behavior:"smooth"});}
 }
 
 /* ---------- flavor modal ---------- */
-let sel={}; let modalPid=null;
-function openModal(pid,aboutOnly){
-  const p=PRODUCTS[pid]; modalPid=pid; sel={};
+let sel={},modalPid=null,lastFocus=null;
+function openModal(pid,about){
+  const p=PRODUCTS[pid]; modalPid=pid; sel={}; lastFocus=document.activeElement;
   cart.filter(i=>i.pid===pid).forEach(i=>sel[i.flavor]=i.qty);
   const off=p.old?Math.round((1-p.price/p.old)*100):0;
+  $("#modalBox").setAttribute("aria-label",p.name);
   $("#modalBox").innerHTML=`
-   <div class="mhd"><img src="img/${p.img}" alt=""><div class="n"><small>${p.brand} · ${p.puffs} puffs</small><b>${p.name}</b>
-     <div class="price">${p.old?`<s>${brl(p.old)}</s>`:""}<strong>${brl(p.price)}</strong>${off?`<span class="off">${off}% OFF</span>`:""}</div></div>
-     <button data-close-modal aria-label="Fechar" style="background:#222;border-radius:10px;align-self:flex-start;padding:8px 12px">✕</button></div>
-   <div class="mbody">
-     ${aboutOnly?`<p class="desc">Pod descartável <b>${p.brand} ${p.name}</b> com até <b>${p.puffs} puffs</b>. Produto original, lacrado, com garantia de 24h contra defeito de fábrica. Pronto para uso — não precisa recarregar.</p>`:""}
-     ${p.flavors.length>6?'<input class="fsearch" id="fq" placeholder="Filtrar sabor…">':""}
-     <div id="flvList">${p.flavors.map(f=>`<div class="flv" data-f="${f.replace(/"/g,"&quot;")}"><span class="nm">${f}</span>
-        <button class="add">+ Adicionar</button><div class="qty"><button data-d="-1">−</button><b>0</b><button data-d="1">+</button></div></div>`).join("")}</div>
+   <div class="mh"><div class="ph"><img src="img/${p.img}" alt=""></div>
+     <div class="n"><small>${p.brand}, ${puffsShort(p.puffs)}</small><h3>${esc(p.name)}</h3>
+       <div class="pr"><strong class="num">${brl(p.price)}</strong>${p.old?`<s class="num">${brl(p.old)}</s>`:""}${off?`<span class="badge off" style="position:static">−${off}%</span>`:""}</div></div>
+     <button class="xbtn" data-close-modal aria-label="Fechar" style="align-self:flex-start"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button></div>
+   <div class="mb">
+     ${about?`<p class="desc">${esc(p.brand)} ${esc(p.name)}: pod descartável com até ${p.puffs} puffs. Original, lacrado e com garantia de 24h contra defeito de fábrica. Já vem carregado, é só usar.</p>`:""}
+     ${p.flavors.length>6?'<input class="fsearch" id="fq" placeholder="Filtrar sabores" aria-label="Filtrar sabores">':""}
+     <div class="flist" id="flvList">${p.flavors.map(f=>`<div class="flv" data-f="${esc(f)}"><span class="nm">${esc(f)}</span>
+        <button class="add">Adicionar</button><span class="stp"><button data-d="-1" aria-label="Diminuir">−</button><b>0</b><button data-d="1" aria-label="Aumentar">+</button></span></div>`).join("")}</div>
    </div>
-   <div class="mft"><button class="finish" id="mOk">Escolha seus sabores</button></div>`;
+   <div class="mf"><button class="send" id="mOk"></button></div>`;
   syncModal();
   $("#modal").classList.add("open"); document.body.style.overflow="hidden";
-  const fq=$("#fq"); if(fq)fq.oninput=()=>{const v=fq.value.toLowerCase();document.querySelectorAll("#flvList .flv").forEach(r=>r.style.display=r.dataset.f.toLowerCase().includes(v)?"":"none");};
+  const fq=$("#fq"); if(fq)fq.oninput=()=>{const v=fq.value.toLowerCase();$$("#flvList .flv").forEach(r=>r.style.display=r.dataset.f.toLowerCase().includes(v)?"":"none");};
+  setTimeout(()=>{const f=$("#modalBox .add");if(f)f.focus({preventScroll:true});},50);
 }
 function syncModal(){
-  let tot=0,qt=0;
-  document.querySelectorAll("#flvList .flv").forEach(r=>{const q=sel[r.dataset.f]||0;r.classList.toggle("sel",q>0);r.querySelector(".qty b").textContent=q;qt+=q;});
-  tot=qt*PRODUCTS[modalPid].price;
-  const had=cart.some(i=>i.pid===modalPid);
-  const b=$("#mOk"); b.disabled=!qt&&!had;
-  b.textContent=qt?`Adicionar ${qt} ${qt>1?"itens":"item"} · ${brl(tot)}`:(had?"Remover da sacola":"Escolha seus sabores");
+  let qt=0;
+  $$("#flvList .flv").forEach(r=>{const q=sel[r.dataset.f]||0;r.classList.toggle("sel",q>0);r.querySelector(".stp b").textContent=q;qt+=q;});
+  const had=cart.some(i=>i.pid===modalPid), b=$("#mOk");
+  b.disabled=!qt&&!had;
+  b.textContent=qt?`${had?"Atualizar pedido":"Adicionar ao pedido"} · ${brl(qt*PRODUCTS[modalPid].price)}`:(had?"Tirar do pedido":"Escolha pelo menos um sabor");
 }
-function closeModal(){$("#modal").classList.remove("open");document.body.style.overflow="";}
+function closeModal(){$("#modal").classList.remove("open");if(!$("#sheet").classList.contains("open"))document.body.style.overflow="";if(lastFocus)lastFocus.focus({preventScroll:true});}
 function commitModal(){
+  const before=qtyOf(modalPid);
   cart=cart.filter(i=>i.pid!==modalPid);
-  const added=Object.entries(sel).filter(([,q])=>q>0);
-  added.forEach(([f,q])=>cart.push({pid:modalPid,flavor:f,qty:q}));
-  saveCart(); closeModal();
-  if(added.length){toast("✅ Adicionado à sacola"); if(window.innerWidth<1024)bump();}
+  Object.entries(sel).filter(([,q])=>q>0).forEach(([f,q])=>cart.push({pid:modalPid,flavor:f,qty:q}));
+  const after=qtyOf(modalPid);
+  save(); closeModal();
+  if(after>before){toast("Adicionado ao pedido");pulse();}else if(after<before)toast(after?"Pedido atualizado":"Removido do pedido");
 }
 
 /* ---------- cart ---------- */
 const FORM_KEY="a41_form";
-let form=store.get(FORM_KEY,{nome:"",wpp:"",comp:"",pag:"Pix"});
-function cartTotals(){const qty=cart.reduce((a,i)=>a+i.qty,0);const sub=cart.reduce((a,i)=>a+i.qty*PRODUCTS[i.pid].price,0);return{qty,sub};}
-function cartHTML(mobile){
-  const {qty,sub}=cartTotals();
-  const items=cart.map((i,ix)=>{const p=PRODUCTS[i.pid];return `<div class="item"><img src="img/${p.img}" alt=""><div class="n"><b>${p.name}</b><small>${i.flavor}</small><span>${brl(p.price*i.qty)}</span></div>
-      <div class="qty"><button data-ci="${ix}" data-d="-1">−</button><b>${i.qty}</b><button data-ci="${ix}" data-d="1">+</button></div></div>`;}).join("");
-  const sugg=SUGGESTED.map(id=>{const p=PRODUCTS[id];return `<div class="sug"><img src="img/${p.img}" alt=""><div class="n"><b>${p.name}</b><span>${brl(p.price)}</span></div><button data-open="${id}" aria-label="Adicionar ${p.name}">+</button></div>`;}).join("");
-  const f=form;
-  return `<div class="cart">
-   <div class="hd"><div><h2>Seu carrinho</h2><small>${qty?`${qty} ${qty>1?"itens":"item"} · ${brl(sub)}`:"Nenhum item ainda"}</small></div><button class="x" ${mobile?"data-close-drawer":"data-close-cart"} aria-label="Fechar carrinho"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button></div>
-   <div class="body">
-    ${qty?items+`<div class="totals"><div class="big" style="margin-top:0"><span>Total</span><span>${brl(sub)}</span></div></div>`
-      :`<div class="emptycart"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg></i><b>Sua sacola está vazia</b><p>Escolha seus sabores e finalize o pedido pelo WhatsApp.</p></div>`}
-    <div class="lbl">Mais pedidos hoje</div>${sugg}
-    ${qty?`<div class="form">
-      <div class="lbl">Seus dados</div>
-      <div class="field" data-k="nome"><label>Nome <i>*</i></label><input data-in="nome" value="${esc(f.nome)}" autocomplete="name"></div>
-      <div class="field" data-k="wpp"><label>WhatsApp <i>*</i></label><input data-in="wpp" value="${esc(f.wpp)}" inputmode="tel" placeholder="(00) 00000-0000"><small>Obrigatório — usamos para identificar seu pedido</small></div>
-      <div class="field"><label>Observação</label><textarea data-in="comp" placeholder="Opcional — alguma informação sobre o pedido…">${esc(f.comp)}</textarea></div>
-      <div class="lbl">Pagamento</div>
-      <div class="pay"><label><input type="radio" name="pag${mobile?"m":"d"}" data-in="pag" value="Pix" ${f.pag==="Pix"?"checked":""}> Pix</label><label><input type="radio" name="pag${mobile?"m":"d"}" data-in="pag" value="Dinheiro" ${f.pag==="Dinheiro"?"checked":""}> Dinheiro</label></div>
-      <p class="miss" data-miss></p>
-      <button class="finish" data-finish><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.87 1.22 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2-1.41.25-.69.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35zM12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.5A10 10 0 1 0 12 2z"/></svg>Finalizar no WhatsApp · <span data-paylbl>${f.pag}</span></button>
-    </div>`:""}
-   </div></div>`;
-}
-function esc(s){return String(s||"").replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;");}
-function renderCart(){
-  $("#cartPanel").innerHTML=cartHTML(false);
-  $("#drawerPanel").innerHTML=cartHTML(true);
-  const {qty}=cartTotals(); const c=$("#bagCnt"); c.textContent=qty; c.style.display=qty?"grid":"none"; $("#fabCnt").textContent=qty;
-  updateMissing();
-}
+let form=Object.assign({nome:"",wpp:"",comp:"",pag:"Pix"},store.get(FORM_KEY,{}));
 const REQ={nome:"Nome",wpp:"WhatsApp"};
+function save(){store.set("a41_cart",cart);renderCart();renderCatalog();}
+function renderCart(){
+  const {qty,sub}=totals();
+  const lines=cart.map((i,ix)=>{const p=PRODUCTS[i.pid];return `<div class="li"><img src="img/${p.img}" alt=""><div class="n"><b>${esc(p.name)}</b><small>${esc(i.flavor)}</small></div>
+     <span class="stp"><button data-ci="${ix}" data-d="-1" aria-label="Diminuir">−</button><b>${i.qty}</b><button data-ci="${ix}" data-d="1" aria-label="Aumentar">+</button></span></div>`;}).join("");
+  const sugg=SUGGESTED.filter(id=>!qtyOf(id)).map(id=>{const p=PRODUCTS[id];return `<div class="li"><img src="img/${p.img}" alt=""><div class="n"><b>${esc(p.name)}</b><small class="num">${brl(p.price)}</small></div><button class="addmini" data-open="${id}" aria-label="Escolher sabor de ${esc(p.name)}">+</button></div>`;}).join("");
+  $("#cartBody").innerHTML=`
+    <div class="sum"><small>Total do pedido</small><span class="v num">${brl(sub)}</span><div class="meta"><span>${qty} ${qty===1?"item":"itens"}</span><span>${form.pag}</span></div></div>
+    ${qty?`<div class="block"><h3>Itens</h3>${lines}</div>`:`<div class="block"><div class="emptycart"><img src="img/logo.webp" alt=""><b>Seu pedido está vazio</b><p>Escolha um pod e os sabores para começar.</p></div></div>`}
+    ${sugg?`<div class="block"><h3>Mais pedidos hoje</h3>${sugg}</div>`:""}
+    ${qty?`<div class="block">
+      <h3>Seus dados</h3>
+      <div class="field" data-k="nome"><label for="f-nome">Nome</label><input id="f-nome" data-in="nome" value="${esc(form.nome)}" autocomplete="name"><small hidden>Informe seu nome.</small></div>
+      <div class="field" data-k="wpp"><label for="f-wpp">WhatsApp</label><input id="f-wpp" data-in="wpp" value="${esc(form.wpp)}" inputmode="tel" autocomplete="tel" placeholder="(00) 00000-0000"><small>Usamos para confirmar seu pedido.</small></div>
+      <div class="field"><label for="f-comp">Observação</label><textarea id="f-comp" data-in="comp" placeholder="Opcional">${esc(form.comp)}</textarea></div>
+      <h3 style="padding-top:6px">Pagamento</h3>
+      <div class="seg" role="radiogroup" aria-label="Forma de pagamento"><label><input type="radio" name="pag" data-in="pag" value="Pix" ${form.pag==="Pix"?"checked":""}>Pix</label><label><input type="radio" name="pag" data-in="pag" value="Dinheiro" ${form.pag==="Dinheiro"?"checked":""}>Dinheiro</label></div>
+    </div>`:""}`;
+  $("#cartFoot").innerHTML=qty?`<button class="send" data-finish><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.87 1.22 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2-1.41.25-.69.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35zM12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.5A10 10 0 1 0 12 2z"/></svg>Enviar pedido no WhatsApp</button><p class="hint">O pedido abre pronto no WhatsApp. É só tocar em enviar.</p>`
+    :`<button class="send alt" data-close-cart>Ver os pods</button>`;
+  // header, card, mobile bar
+  $("#topTot").textContent=brl(sub);
+  $("#pcTotal").textContent=brl(sub);
+  $("#pcItems").textContent=qty?`${qty} ${qty===1?"pod":"pods"} no pedido`:"Nenhum pod escolhido ainda";
+  $("#mbItems").textContent=`${qty} ${qty===1?"item":"itens"}`; $("#mbTot").textContent=brl(sub);
+  $("#mbar").classList.toggle("on",qty>0);
+}
 function missing(){return Object.keys(REQ).filter(k=>{const v=(form[k]||"").trim();if(k==="wpp")return v.replace(/\D/g,"").length<10;return!v;});}
-function updateMissing(){const m=missing();document.querySelectorAll("[data-miss]").forEach(el=>el.textContent=m.length?`Faltam ${m.length} campo${m.length>1?"s":""} — toque em Finalizar pra ver quais`:"");}
-function finish(root){
+function finish(){
   const m=missing();
-  root.querySelectorAll(".field").forEach(f=>f.classList.toggle("err",m.includes(f.dataset.k)));
-  if(m.length){toast("Preencha: "+m.map(k=>REQ[k]).join(", "));const first=root.querySelector(`.field[data-k="${m[0]}"] input`);if(first)first.focus();return;}
-  const {sub}=cartTotals();
-  let t=`👽 *NOVO PEDIDO — ${CONFIG.nome}*\n\n`;
-  cart.forEach(i=>{const p=PRODUCTS[i.pid];t+=`• ${i.qty}x ${p.name} — ${i.flavor} (${brl(p.price*i.qty)})\n`;});
-  t+=`\n*Total:* ${brl(sub)}\n*Pagamento:* ${form.pag}\n\n`;
-  t+=`*Nome:* ${form.nome}\n*WhatsApp:* ${form.wpp}\n`;
+  $$("#cartBody .field").forEach(f=>{const bad=m.includes(f.dataset.k);f.classList.toggle("err",bad);const s=f.querySelector("small");if(s&&f.dataset.k==="nome")s.hidden=!bad;if(s&&f.dataset.k==="wpp")s.textContent=bad?"Informe um WhatsApp com DDD.":"Usamos para confirmar seu pedido.";});
+  if(m.length){const first=$(`#cartBody .field[data-k="${m[0]}"] input`);if(first){first.focus();first.scrollIntoView({block:"center",behavior:"smooth"});}toast("Falta preencher: "+m.map(k=>REQ[k]).join(" e "),true);return;}
+  const {sub}=totals();
+  let t=`👽 *Novo pedido — ${CONFIG.nome}*\n\n`;
+  cart.forEach(i=>{const p=PRODUCTS[i.pid];t+=`• ${i.qty}x ${p.brand} ${p.name} — ${i.flavor} (${brl(p.price*i.qty)})\n`;});
+  t+=`\n*Total:* ${brl(sub)}\n*Pagamento:* ${form.pag}\n\n*Nome:* ${form.nome}\n*WhatsApp:* ${form.wpp}\n`;
   if(form.comp)t+=`*Observação:* ${form.comp}\n`;
   const url=waLink(t); let w=null; try{w=window.open(url,"_blank");}catch(e){}
-  let a=root.querySelector("[data-walink]");
-  if(!a){a=document.createElement("a");a.dataset.walink="";a.className="finish";a.style.marginTop="8px";a.target="_blank";a.rel="noopener";root.querySelector("[data-finish]").after(a);}
-  a.href=url; a.textContent=w?"WhatsApp não abriu? Toque aqui":"👉 Toque aqui para enviar o pedido no WhatsApp";
+  let a=$("#cartFoot [data-walink]");
+  if(!a){a=document.createElement("a");a.dataset.walink="";a.className="send alt";a.target="_blank";a.rel="noopener";$("#cartFoot").appendChild(a);}
+  a.href=url; a.textContent=w?"O WhatsApp não abriu? Toque aqui":"Abrir o WhatsApp com o pedido";
 }
 
 /* ---------- misc ---------- */
-let tt; function toast(m){const e=$("#toast");e.textContent=m;e.classList.add("on");clearTimeout(tt);tt=setTimeout(()=>e.classList.remove("on"),2200);}
-function bump(){const b=$(".bnav .bag i");b.animate([{transform:"scale(1)"},{transform:"scale(1.18)"},{transform:"scale(1)"}],{duration:350});}
-function setCartOpen(open){document.body.classList.toggle("cart-closed",!open);store.set("a41_cart_closed",!open);}
-function openDrawer(){$("#drawer").classList.add("open");document.body.style.overflow="hidden";}
-function closeDrawer(){$("#drawer").classList.remove("open");document.body.style.overflow="";}
+let tt; function toast(m,err){const e=$("#toast");e.innerHTML=`<i style="${err?"background:#FFB4B4;color:#5a0b0d":""}">${err?"!":"✓"}</i>${esc(m)}`;e.classList.add("on");clearTimeout(tt);tt=setTimeout(()=>e.classList.remove("on"),2200);}
+function pulse(){const c=$("#paycard");c.classList.remove("pulse");void c.offsetWidth;c.classList.add("pulse");}
+function openCart(){closeModal();$("#sheet").classList.add("open");$("#sheet").setAttribute("aria-hidden","false");document.body.style.overflow="hidden";setTimeout(()=>$("#sheet .xbtn").focus({preventScroll:true}),60);}
+function closeCart(){$("#sheet").classList.remove("open");$("#sheet").setAttribute("aria-hidden","true");document.body.style.overflow="";}
 const INFO={
-  sobre:`A ${CONFIG.nome} trabalha com pods descartáveis originais, com atendimento direto pelo WhatsApp.`,
-  pagamentos:"Aceitamos Pix e dinheiro. Para Pix, a chave é enviada pelo WhatsApp após a confirmação do pedido.",
-  garantia:"Defeito de fábrica? Troca em até 24h após a compra. Fale com a gente no WhatsApp com foto/vídeo do produto.",
-  termos:"Venda exclusiva para maiores de 18 anos. Ao fazer um pedido você declara ter 18 anos ou mais.",
-  privacidade:"Seus dados (nome e WhatsApp) são usados apenas para identificar seu pedido e ficam salvos só no seu aparelho."
+  pagamentos:["Pagamentos","Aceitamos Pix e dinheiro. No Pix, mandamos a chave pelo WhatsApp depois de confirmar o pedido."],
+  garantia:["Garantia 24h","Veio com defeito de fábrica? Mande foto ou vídeo pelo WhatsApp em até 24h após a compra que a gente troca."],
+  termos:["Termos","Venda exclusiva para maiores de 18 anos. Ao fazer um pedido você declara ter 18 anos ou mais."],
+  privacidade:["Privacidade","Seu nome e WhatsApp servem só para identificar o pedido e ficam salvos apenas neste aparelho."]
 };
-function info(k){$("#modalBox").innerHTML=`<div class="mhd"><div class="n"><b>${({sobre:"Sobre",pagamentos:"Pagamentos",garantia:"Garantia 24h",termos:"Termos",privacidade:"Privacidade"})[k]}</b></div><button data-close-modal style="background:#222;border-radius:10px;padding:8px 12px">✕</button></div><div class="mbody"><p class="desc" style="font-size:14px">${INFO[k]}</p></div><div class="mft"><a class="finish" href="${waLink()}" target="_blank" rel="noopener">Falar no WhatsApp</a></div>`;$("#modal").classList.add("open");}
+function info(k){lastFocus=document.activeElement;const [h,t]=INFO[k];$("#modalBox").setAttribute("aria-label",h);$("#modalBox").innerHTML=`<div class="mh"><div class="n"><h3>${h}</h3></div><button class="xbtn" data-close-modal aria-label="Fechar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button></div><div class="mb"><p class="desc">${t}</p></div><div class="mf"><a class="send" href="${waLink()}" target="_blank" rel="noopener">Falar no WhatsApp</a></div>`;$("#modal").classList.add("open");}
 
 /* ---------- events ---------- */
 document.addEventListener("click",e=>{
   const t=e.target;
   const op=t.closest("[data-open]"); if(op){e.preventDefault();openModal(op.dataset.open);return;}
-  const ab=t.closest("[data-about]"); if(ab){openModal(ab.dataset.about,true);return;}
   if(t.closest("[data-close-modal]")){closeModal();return;}
-  if(t.closest("[data-close-drawer]")){closeDrawer();return;}
-  if(t.closest("[data-close-cart]")){setCartOpen(false);return;}
+  if(t.closest("[data-open-cart]")){openCart();return;}
+  if(t.closest("[data-close-cart]")){closeCart();return;}
   const cat=t.closest("[data-cat]"); if(cat){goCat(cat.dataset.cat);return;}
-  const g=t.closest("[data-garantia]"); if(g){e.preventDefault();info("garantia");return;}
   const inf=t.closest("[data-info]"); if(inf){e.preventDefault();info(inf.dataset.info);return;}
-  // modal flavors
   const row=t.closest("#flvList .flv");
-  if(row){const f=row.dataset.f;if(t.closest(".add"))sel[f]=1;const d=t.closest("[data-d]");if(d)sel[f]=Math.max(0,(sel[f]||0)+Number(d.dataset.d));syncModal();return;}
+  if(row){const f=row.dataset.f;if(t.closest(".add")){sel[f]=1;syncModal();row.querySelector('[data-d="1"]').focus();return;}const d=t.closest("[data-d]");if(d){sel[f]=Math.max(0,(sel[f]||0)+Number(d.dataset.d));syncModal();}return;}
   if(t.closest("#mOk")){commitModal();return;}
-  // cart qty
-  const cq=t.closest("[data-ci]"); if(cq){const i=cart[+cq.dataset.ci];i.qty+=Number(cq.dataset.d);if(i.qty<=0)cart.splice(+cq.dataset.ci,1);saveCart();return;}
-  const fin=t.closest("[data-finish]"); if(fin){finish(fin.closest(".cart"));return;}
+  const cq=t.closest("[data-ci]"); if(cq){const ix=+cq.dataset.ci,i=cart[ix];i.qty+=Number(cq.dataset.d);if(i.qty<=0)cart.splice(ix,1);save();return;}
+  if(t.closest("[data-finish]")){finish();return;}
 });
 document.addEventListener("input",e=>{
   const k=e.target.dataset&&e.target.dataset.in; if(!k)return;
-  let v=e.target.type==="checkbox"?e.target.checked:e.target.value;
-  if(k==="wpp"){let d=v.replace(/\D/g,"").slice(0,11);v=d.length>6?`(${d.slice(0,2)}) ${d.slice(2,d.length-4)}-${d.slice(-4)}`:d.length>2?`(${d.slice(0,2)}) ${d.slice(2)}`:d;e.target.value=v;}
+  let v=e.target.value;
+  if(k==="wpp"){const d=v.replace(/\D/g,"").slice(0,11);v=d.length>6?`(${d.slice(0,2)}) ${d.slice(2,d.length-4)}-${d.slice(-4)}`:d.length>2?`(${d.slice(0,2)}) ${d.slice(2)}`:d;e.target.value=v;}
   form[k]=v; store.set(FORM_KEY,form);
-  // mirror to the other cart panel
-  document.querySelectorAll(`[data-in="${k}"]`).forEach(o=>{if(o===e.target)return;if(o.type==="checkbox")o.checked=v;else if(o.type==="radio")o.checked=o.value===v;else o.value=v;});
-  if(k==="pag")document.querySelectorAll("[data-paylbl]").forEach(s=>s.textContent=v);
   const fe=e.target.closest(".field"); if(fe)fe.classList.remove("err");
-  updateMissing();
+  if(k==="pag"){const m=$("#cartBody .sum .meta span:last-child");if(m)m.textContent=v;}
 });
-document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeModal();closeDrawer();}});
-$("#q").addEventListener("input",renderCatalog);
-$("#pickBtn").onclick=()=>{const all=Object.values(PRODUCTS);openModal(all[Math.floor(Math.random()*all.length)].id);};
-$("#bagBtn").onclick=openDrawer;
-$("#cartFab").onclick=()=>setCartOpen(true);
-if(store.get("a41_cart_closed",false))document.body.classList.add("cart-closed");
-$("#srchBtn").onclick=()=>{$("#q").scrollIntoView({behavior:"smooth",block:"center"});setTimeout(()=>$("#q").focus(),350);};
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){if($("#modal").classList.contains("open"))closeModal();else closeCart();}});
+["#q","#qm"].forEach(id=>$(id).addEventListener("input",e=>{const o=id==="#q"?"#qm":"#q";$(o).value=e.target.value;renderCatalog();}));
 window.addEventListener("scroll",spy,{passive:true});
 
 /* ---------- age gate ---------- */
-if(!store.get("a41_age",false)){$("#gate").classList.add("open");}
+if(!store.get("a41_age",false)){$("#gate").classList.add("open");setTimeout(()=>$("#age18").focus(),50);}
 $("#age18").onclick=()=>{store.set("a41_age",true);$("#gate").classList.remove("open");};
 $("#ageNo").onclick=()=>{$("#ageMsg").style.display="block";};
 
 /* ---------- init ---------- */
-document.querySelectorAll("[data-wa]").forEach(a=>{a.href=waLink(`Olá! Vim pelo site da ${CONFIG.nome} 👽`);a.target="_blank";});
-$("#igLink").textContent="@"+CONFIG.instagram; $("#igLink").href="https://instagram.com/"+CONFIG.instagram; $("#igNav").href="https://instagram.com/"+CONFIG.instagram;
-$("#heroKick").textContent="Pods originais · "+CONFIG.cidade;
-$("#footCity").textContent=CONFIG.cidade+" · WhatsApp oficial no checkout";
+$$("[data-wa]").forEach(a=>{a.href=waLink(`Olá! Vim pelo site da ${CONFIG.nome} 👽`);});
+$("#igLink").href="https://instagram.com/"+CONFIG.instagram;
+$("#footCity").textContent="Pods originais · "+CONFIG.cidade;
 $("#yr").textContent=new Date().getFullYear();
-renderNav(); renderCatalog(); renderCart();
+renderTabs(); renderCatalog(); renderCart();
 </script>
 </body>
 </html>

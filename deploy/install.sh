@@ -47,5 +47,5 @@ if [ -n "$DOMAIN" ]; then
 fi
 
 echo ""
-echo "✅ Pronto! Site no ar em: ${DOMAIN:+https://$DOMAIN}${DOMAIN:-http://$(curl -s ifconfig.me || hostname -I | awk '{print $1}')}"
+echo "✅ Pronto! Site no ar em: ${DOMAIN:+https://$DOMAIN}${DOMAIN:-http://$(curl -4 -s ifconfig.me || hostname -I | awk '{print $1}')}"
 echo "   Para atualizar depois:  bash $DIR/deploy/update.sh"

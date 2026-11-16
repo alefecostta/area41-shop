@@ -103,32 +103,52 @@ img{display:block;max-width:100%}
 .grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
 
 /* ---------- product card ---------- */
-.card{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:10px;color:var(--ink);transition:border-color .15s,box-shadow .2s}
-.card:hover{border-color:var(--line-2);box-shadow:0 18px 40px -20px rgba(0,0,0,.9)}
-.promo .card{border-color:rgba(255,255,255,.06);background:rgba(5,10,7,.75)}
 .ph{position:relative;aspect-ratio:1;border-radius:16px;background:var(--ph);overflow:hidden;display:block;width:100%}
-.ph img{width:100%;height:100%;object-fit:contain;padding:12px;mix-blend-mode:multiply;transition:transform .3s}
-.card:hover .ph img{transform:scale(1.04)}
-.badge{position:absolute;left:8px;top:8px;height:24px;padding:0 9px;border-radius:999px;font-size:12px;font-weight:700;display:inline-flex;align-items:center;gap:4px;background:#fff;color:#0D1F14;box-shadow:0 1px 2px rgba(0,0,0,.2)}
+.ph img{width:100%;height:100%;object-fit:contain;padding:12px;mix-blend-mode:multiply;transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.badge{position:absolute;left:10px;top:10px;height:26px;padding:0 10px;border-radius:999px;font-size:12px;font-weight:700;display:inline-flex;align-items:center;gap:4px;background:#fff;color:#0D1F14;z-index:2}
 .badge.off{background:var(--red);color:#fff}
-.badge.best{background:var(--lime);color:var(--lime-ink)}
-.badge2{left:auto;right:8px}
-.cb{padding:12px 6px 4px;display:flex;flex-direction:column;flex:1}
-.brandrow{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:12.5px;color:var(--muted)}
-.puffs{background:var(--tile);border-radius:999px;padding:2px 8px;font-weight:600;color:var(--ink-2);white-space:nowrap}
-.cb h3{font-family:var(--display);font-weight:600;font-size:15.5px;line-height:1.25;letter-spacing:-.015em;margin-top:6px}
-.cb .sub{font-size:13px;color:var(--muted);margin-top:4px}
-.cb .sub.low{color:var(--amber);font-weight:600}
-.cb .rate{font-size:12.5px;color:var(--muted);margin-top:2px}
-.cb .rate b{color:var(--ink)}
-.pr{display:flex;align-items:baseline;gap:8px;margin-top:auto;padding-top:12px;flex-wrap:wrap}
+.badge.best{background:#0D1F14;color:var(--lime)}
+.badge2{left:auto;right:10px}
+.pr{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
 .pr strong{font-size:21px;font-weight:700}
 .pr s{font-size:13px;color:var(--muted)}
-.pick{margin-top:12px;height:44px;border-radius:14px;background:var(--lime);color:var(--lime-ink);font-weight:600;font-size:14.5px;display:flex;align-items:center;justify-content:center;gap:8px;transition:background .15s}
-.pick:hover{filter:brightness(1.06)}
-.pick.in{background:var(--tile);color:var(--ink);border:1px solid var(--line-2)}
-.pick svg{width:18px;height:18px}
-.pick .q{background:var(--lime);color:var(--lime-ink);border-radius:999px;min-width:22px;height:22px;font-size:12px;font-weight:700;display:grid;place-items:center;padding:0 6px}
+
+.card{position:relative;display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:26px;color:var(--ink);overflow:hidden;transition:border-color .2s,transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .25s}
+.card:hover{border-color:rgba(166,244,90,.35);transform:translateY(-3px);box-shadow:0 24px 50px -24px rgba(69,242,31,.25)}
+.promo .card{background:#08100B;border-color:rgba(166,244,90,.14)}
+.card .ph{border-radius:0;aspect-ratio:1/1.02;background:radial-gradient(70% 60% at 50% 45%,#FFFFFF 0%,#E7EDE6 70%,#D8E0D6 100%)}
+.card .ph img{padding:16px 16px 26px}
+.card:hover .ph img{transform:scale(1.05) rotate(-2deg)}
+.card .brandtag{position:absolute;left:12px;bottom:12px;z-index:2;height:24px;padding:0 10px;border-radius:8px;background:rgba(13,31,20,.88);color:#fff;font-size:11.5px;font-weight:600;display:inline-flex;align-items:center;letter-spacing:.01em;backdrop-filter:blur(6px)}
+.cb{display:flex;flex-direction:column;flex:1;padding:14px 16px 0}
+.cb h3{font-family:var(--display);font-weight:600;font-size:16px;line-height:1.22;letter-spacing:-.02em}
+.meter{margin-top:10px}
+.meter .mt{display:flex;justify-content:space-between;align-items:baseline;font-size:12.5px;color:var(--muted)}
+.meter .mt b{font-family:var(--display);font-weight:700;font-size:14px;color:var(--ink);letter-spacing:-.01em}
+.meter .tr{display:block;height:4px;border-radius:99px;background:var(--tile);margin-top:6px;overflow:hidden}
+.meter .tr i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#45F21F,#A6F45A)}
+.flv-stack{display:flex;align-items:center;gap:8px;margin-top:12px;min-height:30px}
+.flv-stack .em{display:flex}
+.flv-stack .em span{width:30px;height:30px;border-radius:999px;background:var(--tile);border:2px solid var(--surface);display:grid;place-items:center;font-size:14px;margin-left:-8px}
+.flv-stack .em span:first-child{margin-left:0}
+.promo .flv-stack .em span{border-color:#08100B}
+.flv-stack small{font-size:12.5px;color:var(--muted);line-height:1.25}
+.flv-stack small.low{color:#F5B14C;font-weight:600}
+.cb .rate{font-size:12px;color:var(--muted);margin-top:8px}
+.cb .rate b{color:#F5C451}
+.perf{position:relative;margin:16px -16px 0;border-top:1.5px dashed var(--line-2)}
+.perf::before,.perf::after{content:"";position:absolute;top:-9px;width:18px;height:18px;border-radius:999px;background:var(--canvas)}
+.perf::before{left:-10px}.perf::after{right:-10px}
+.promo .perf::before,.promo .perf::after{background:#0E2A1A}
+.buy{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 16px 16px;margin-top:auto}
+.buy .pr strong{font-size:22px}
+.buy .save{display:block;font-size:12px;font-weight:600;color:var(--lime);margin-top:2px}
+.pick{position:relative;flex-shrink:0;width:50px;height:50px;border-radius:16px;background:var(--lime);color:var(--lime-ink);display:grid;place-items:center;transition:transform .15s,filter .15s,border-radius .2s}
+.pick:hover{filter:brightness(1.06);border-radius:999px}
+.pick:active{transform:scale(.94)}
+.pick svg{width:22px;height:22px}
+.pick.in{background:var(--tile);color:var(--lime);border:1px solid rgba(166,244,90,.45)}
+.pick .q{position:absolute;top:-6px;right:-6px;background:var(--lime);color:var(--lime-ink);border:2px solid var(--surface);border-radius:999px;min-width:22px;height:22px;font-size:11.5px;font-weight:800;display:grid;place-items:center;padding:0 5px}
 .empty-search{display:none;text-align:center;color:var(--muted);padding:60px 0}
 .empty-search b{display:block;font-family:var(--display);font-size:20px;color:var(--ink);margin-bottom:6px}
 
@@ -281,7 +301,7 @@ footer{margin-top:64px;position:relative;overflow:hidden;border-top:1px solid va
 
 .toast{position:fixed;left:50%;bottom:28px;z-index:95;transform:translate(-50%,16px);opacity:0;background:#F2F7F2;color:#0D1F14;font-weight:600;font-size:14px;padding:12px 18px;border-radius:999px;transition:.25s;pointer-events:none;white-space:nowrap;display:flex;gap:8px;align-items:center}
 .toast.on{opacity:1;transform:translate(-50%,0)}
-.toast i{width:20px;height:20px;border-radius:999px;background:#0D1F14;color:var(--lime);color:var(--lime-ink);display:grid;place-items:center;font-style:normal;font-size:12px;font-weight:800}
+.toast i{width:20px;height:20px;border-radius:999px;background:#0D1F14;color:var(--lime);display:grid;place-items:center;font-style:normal;font-size:12px;font-weight:800}
 
 /* ---------- responsive ---------- */
 @media (max-width:1100px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
@@ -310,11 +330,19 @@ footer{margin-top:64px;position:relative;overflow:hidden;border-top:1px solid va
   .paycard{transform:none;padding:20px;border-radius:22px}
   @keyframes pulse{40%{transform:scale(1.025)}}
   .grid{gap:10px}
-  .card{padding:8px;border-radius:18px}
-  .cb{padding:10px 4px 2px}
+  .card{border-radius:20px}
+  .cb{padding:12px 12px 0}
   .cb h3{font-size:14px}
-  .pr strong{font-size:18px}
-  .pick{height:40px;font-size:13.5px;border-radius:12px}
+  .meter .mt{font-size:11.5px}.meter .mt b{font-size:13px}
+  .flv-stack .em span{width:26px;height:26px;font-size:12px;margin-left:-7px}
+  .flv-stack small{font-size:11.5px}
+  .perf{margin:12px -12px 0}
+  .buy{padding:12px}
+  .buy .pr strong{font-size:17px}
+  .buy .pr s{display:none}
+  .buy .save{font-size:11px}
+  .pick{width:42px;height:42px;border-radius:13px}
+  .card .brandtag{left:8px;bottom:8px;font-size:10.5px;height:22px;padding:0 8px}
   .promo{border-radius:22px;padding:16px 12px}
   .promo .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .sec-h h2{font-size:20px}
@@ -510,26 +538,31 @@ const qtyOf = pid => cart.filter(i=>i.pid===pid).reduce((a,i)=>a+i.qty,0);
 const totals = () => ({qty:cart.reduce((a,i)=>a+i.qty,0), sub:cart.reduce((a,i)=>a+i.qty*PRODUCTS[i.pid].price,0)});
 
 /* ---------- catalog ---------- */
+const seg=(typeof Intl!=="undefined"&&Intl.Segmenter)?new Intl.Segmenter("pt",{granularity:"grapheme"}):null;
+const firstEmoji=f=>{const head=f.split(" ")[0];const g=seg?[...seg.segment(head)].map(x=>x.segment):Array.from(head);return g[0]||"🍃";};
+const MAXPUFFS=55000;
 function cardHTML(p){
   const off=p.old?Math.round((1-p.price/p.old)*100):0;
   const single=p.flavors.length===1;
-  let sub=single?p.flavors[0]:`${p.flavors.length} sabores`;
-  let low=false;
-  if(p.stock===1){sub="Última unidade · "+(single?p.flavors[0]:"");low=true;}
-  else if(typeof p.stock==="number"){sub=`Só ${p.stock} unidades`;low=true;}
-  if(p.stock===1&&!single)sub="Última unidade";
-  if(p.stock===1&&single)sub="Última unidade";
   const q=qtyOf(p.id);
+  const puffs=Number(p.puffs.replace(/\./g,"")); const pct=Math.max(8,Math.round(puffs/MAXPUFFS*100));
+  const ems=[...new Set(p.flavors.map(firstEmoji))].slice(0,4);
+  let fl=single?esc(p.flavors[0].split(" ").slice(1).join(" ")):`${p.flavors.length} sabores`, low=false;
+  if(p.stock===1){fl+=" · última unidade";low=true;} else if(typeof p.stock==="number"){fl+=` · só ${p.stock}`;low=true;}
   return `<article class="card">
-    <button class="ph" data-open="${p.id}" aria-label="Escolher sabor de ${esc(p.name)}"><img src="img/${p.img}" alt="${esc(p.name)}" loading="lazy">
-      ${off?`<span class="badge off">−${off}%</span>`:""}${p.best?`<span class="badge best ${off?"badge2":""}">Mais vendido</span>`:""}</button>
+    <button class="ph" data-open="${p.id}" aria-label="Escolher sabor de ${esc(p.name)}" tabindex="-1"><img src="img/${p.img}" alt="${esc(p.name)}" loading="lazy">
+      ${off?`<span class="badge off">−${off}%</span>`:""}${p.best?`<span class="badge best ${off?"badge2":""}">★ Mais vendido</span>`:""}
+      <span class="brandtag">${p.brand}</span></button>
     <div class="cb">
-      <div class="brandrow"><span>${p.brand}</span><span class="puffs">${puffsShort(p.puffs)}</span></div>
       <h3>${esc(p.name)}</h3>
-      <p class="sub ${low?"low":""}">${esc(sub)}</p>
-      ${p.rating?`<p class="rate">★ <b>${p.rating[0].toFixed(1)}</b> · ${p.rating[1]} ${p.rating[1]>1?"avaliações":"avaliação"}</p>`:""}
-      <div class="pr"><strong class="num">${brl(p.price)}</strong>${p.old?`<s class="num">${brl(p.old)}</s>`:""}</div>
-      <button class="pick ${q?"in":""}" data-open="${p.id}">${q?`No pedido <span class="q">${q}</span>`:(single?"Adicionar":"Escolher sabor")}</button>
+      <div class="meter"><div class="mt"><span>Puffs</span><b>${p.puffs.replace(".000"," mil").replace(".500",",5 mil")}</b></div><span class="tr"><i style="width:${pct}%"></i></span></div>
+      <div class="flv-stack"><div class="em">${ems.map(e=>`<span>${e}</span>`).join("")}</div><small class="${low?"low":""}">${fl}</small></div>
+      ${p.rating?`<p class="rate"><b>★ ${p.rating[0].toFixed(1)}</b> · ${p.rating[1]} ${p.rating[1]>1?"avaliações":"avaliação"}</p>`:""}
+    </div>
+    <div class="perf" aria-hidden="true"></div>
+    <div class="buy">
+      <div><div class="pr"><strong class="num">${brl(p.price)}</strong>${p.old?`<s class="num">${brl(p.old)}</s>`:""}</div>${p.old?`<span class="save">Economize ${brl(p.old-p.price)}</span>`:""}</div>
+      <button class="pick ${q?"in":""}" data-open="${p.id}" aria-label="${q?`${q} no pedido, alterar sabores de ${esc(p.name)}`:`Escolher sabor de ${esc(p.name)}`}">${q?`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg><span class="q">${q}</span>`:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>`}</button>
     </div></article>`;
 }
 function renderCatalog(){

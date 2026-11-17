@@ -250,6 +250,7 @@ footer{margin-top:64px;position:relative;overflow:hidden;border-top:1px solid va
 .paypix .pixlogo{width:34px;height:34px;padding:6px;border-radius:10px;background:#fff}
 .paypix b{display:block;font-size:15px}
 .paypix span{display:block;font-size:12.5px;color:var(--muted)}
+.two{display:grid;grid-template-columns:1fr 1.4fr;gap:10px}
 .gift{display:flex;align-items:center;gap:12px;margin-top:12px;padding:12px 14px 12px 10px;border-radius:20px;background:linear-gradient(120deg,rgba(139,47,214,.22),rgba(139,47,214,.06));border:1px solid rgba(168,85,247,.35)}
 .gift img{width:58px;height:58px;object-fit:contain;flex-shrink:0;filter:drop-shadow(0 6px 10px rgba(0,0,0,.5))}
 .gift .g{flex:1;min-width:0}
@@ -313,7 +314,7 @@ footer{margin-top:64px;position:relative;overflow:hidden;border-top:1px solid va
 .gate .opts button.y{background:var(--lime);border-color:transparent;color:var(--lime-ink)}
 .gate .no{display:none;margin-top:12px;color:#FF8A8E;font-size:13.5px;text-align:center}
 
-.toast{position:fixed;left:50%;bottom:28px;z-index:95;transform:translate(-50%,16px);opacity:0;background:#F2F7F2;color:#0D1F14;font-weight:600;font-size:14px;padding:12px 18px;border-radius:999px;transition:.25s;pointer-events:none;white-space:nowrap;display:flex;gap:8px;align-items:center}
+.toast{max-width:calc(100% - 24px);white-space:normal!important;position:fixed;left:50%;bottom:28px;z-index:95;transform:translate(-50%,16px);opacity:0;background:#F2F7F2;color:#0D1F14;font-weight:600;font-size:14px;padding:12px 18px;border-radius:999px;transition:.25s;pointer-events:none;white-space:nowrap;display:flex;gap:8px;align-items:center}
 .toast.on{opacity:1;transform:translate(-50%,0)}
 .toast i{width:20px;height:20px;border-radius:999px;background:#0D1F14;color:var(--lime);display:grid;place-items:center;font-style:normal;font-size:12px;font-weight:800}
 
@@ -407,7 +408,7 @@ footer{margin-top:64px;position:relative;overflow:hidden;border-top:1px solid va
       <div class="facts">
         <div class="fact"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/></svg></i><div><b>Originais</b><span>Lacrados de fábrica</span></div></div>
         <div class="fact"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg></i><div><b>Garantia 24h</b><span>Troca se vier com defeito</span></div></div>
-        <div class="fact"><i class="pixi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="5" rx="2"/><path d="M2 10h20"/></svg><img class="pixlogo" src="img/pix.svg" alt="" onerror="this.remove()"></i><div><b>Pagamento via Pix</b><span>Rápido e seguro</span></div></div>
+        <div class="fact"><i class="pixi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="5" rx="2"/><path d="M2 10h20"/></svg></i><div><b>Pagamento via Pix</b><span>Rápido e seguro</span></div></div>
         <button class="fact gift-fact" id="giftFact" data-open-cart hidden><img id="giftFactImg" src="img/chaveiro.webp" alt=""><div><b id="giftFactName">Chaveiro grátis</b><span id="giftFactRule">Comprando 2 pods</span></div></button>
       </div>
     </div>
@@ -440,7 +441,7 @@ footer{margin-top:64px;position:relative;overflow:hidden;border-top:1px solid va
       <div class="f-col"><h3>Ajuda</h3>
         <button data-info="comopedir">Como pedir</button><button data-info="pagamentos">Pagamentos</button><button data-info="garantia">Garantia 24h</button><button data-info="termos">Termos</button><button data-info="privacidade">Privacidade</button></div>
       <div class="f-col"><h3>Pagamento</h3>
-        <div class="paychips"><span><img class="pixlogo" src="img/pix.svg" alt="" onerror="this.remove()">Pix</span></div>
+        <div class="paychips"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="5" rx="2"/><path d="M2 10h20"/></svg>Pix</span></div>
         <div class="age18"><b>+18</b>Venda proibida para menores de 18 anos.</div>
       </div>
     </div>
@@ -619,9 +620,9 @@ function commitModal(){
 
 /* ---------- cart ---------- */
 const FORM_KEY="a41_form";
-let form=Object.assign({nome:"",wpp:"",comp:""},store.get(FORM_KEY,{}));
+let form=Object.assign({nome:"",wpp:"",cep:"",rua:"",num:"",bairro:"",cidade:"",compl:"",comp:""},store.get(FORM_KEY,{}));
 form.pag="Pix";
-const REQ={nome:"Nome",wpp:"WhatsApp"};
+const REQ={nome:"Nome",wpp:"WhatsApp",cep:"CEP",rua:"Rua",num:"Número",bairro:"Bairro",cidade:"Cidade"};
 function save(){store.set("a41_cart",cart);renderCart();renderCatalog();}
 function giftHTML(qty){
   if(!CONFIG.giftEnabled)return "";
@@ -647,9 +648,15 @@ function renderCart(){
       <h3>Seus dados</h3>
       <div class="field" data-k="nome"><label for="f-nome">Nome</label><input id="f-nome" data-in="nome" value="${esc(form.nome)}" autocomplete="name"><small hidden>Informe seu nome.</small></div>
       <div class="field" data-k="wpp"><label for="f-wpp">WhatsApp</label><input id="f-wpp" data-in="wpp" value="${esc(form.wpp)}" inputmode="tel" autocomplete="tel" placeholder="(00) 00000-0000"><small>Usamos para confirmar seu pedido.</small></div>
+      <h3 style="padding-top:6px">Endereço</h3>
+      <div class="field" data-k="cep"><label for="f-cep">CEP</label><input id="f-cep" data-in="cep" value="${esc(form.cep)}" inputmode="numeric" autocomplete="postal-code" maxlength="9" placeholder="00000-000"><small>Digite o CEP que a rua e o bairro preenchem sozinhos.</small></div>
+      <div class="field" data-k="rua"><label for="f-rua">Rua</label><input id="f-rua" data-in="rua" value="${esc(form.rua)}" autocomplete="address-line1" placeholder=""><small hidden>Informe a rua.</small></div>
+      <div class="two"><div class="field" data-k="num"><label for="f-num">Número</label><input id="f-num" data-in="num" value="${esc(form.num)}" inputmode="numeric" placeholder=""><small hidden>Informe o número.</small></div><div class="field" data-k="bairro"><label for="f-bairro">Bairro</label><input id="f-bairro" data-in="bairro" value="${esc(form.bairro)}"  placeholder=""><small hidden>Informe o bairro.</small></div></div>
+      <div class="field" data-k="cidade"><label for="f-cidade">Cidade</label><input id="f-cidade" data-in="cidade" value="${esc(form.cidade)}" autocomplete="address-level2" placeholder=""><small hidden>Informe a cidade.</small></div>
+      <div class="field"><label for="f-compl">Complemento</label><input id="f-compl" data-in="compl" value="${esc(form.compl)}" placeholder="Apto, bloco, referência (opcional)"></div>
       <div class="field"><label for="f-comp">Observação</label><textarea id="f-comp" data-in="comp" placeholder="Opcional">${esc(form.comp)}</textarea></div>
       <h3 style="padding-top:6px">Pagamento</h3>
-      <div class="paypix"><img class="pixlogo" src="img/pix.svg" alt="" onerror="this.remove()"><div><b>Pix</b><span>A chave Pix é enviada no WhatsApp quando confirmarmos o pedido.</span></div></div>
+      <div class="paypix"><div><b>Pix</b><span>A chave Pix é enviada no WhatsApp quando confirmarmos o pedido.</span></div></div>
     </div>`:""}`;
   $("#cartFoot").innerHTML=qty?`<button class="send" data-finish><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.87 1.22 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2-1.41.25-.69.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35zM12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.5A10 10 0 1 0 12 2z"/></svg>Enviar pedido no WhatsApp</button><p class="hint">O pedido abre pronto no WhatsApp. É só tocar em enviar.</p>`
     :`<button class="send alt" data-close-cart>Ver os pods</button>`;
@@ -662,17 +669,31 @@ function renderCart(){
   const gm=CONFIG.giftMin, g=CONFIG.giftEnabled&&qty>=gm; if(hadGift===false&&g)setTimeout(()=>toast(`Você ganhou: ${CONFIG.giftName} 🎁`),2300); hadGift=g;
   $("#mbItems").textContent=`${qty} ${qty===1?"item":"itens"}${g?" + brinde grátis 🎁":(CONFIG.giftEnabled&&qty>0&&gm-qty===1)?" · falta 1 para o brinde":""}`;
 }
-function missing(){return Object.keys(REQ).filter(k=>{const v=(form[k]||"").trim();if(k==="wpp")return v.replace(/\D/g,"").length<10;return!v;});}
+let cepTimer=null;
+async function lookupCep(cep){
+  const d=cep.replace(/\D/g,""); const hint=$('#cartBody .field[data-k="cep"] small');
+  if(hint)hint.textContent="Buscando endereço…";
+  try{
+    const r=await fetch(`https://viacep.com.br/ws/${d}/json/`); const j=await r.json();
+    if(j.erro){if(hint)hint.textContent="CEP não encontrado. Preencha o endereço abaixo.";return;}
+    const set=(k,v)=>{if(!v)return;form[k]=v;const i=$(`#f-${k}`);if(i){i.value=v;i.closest(".field").classList.remove("err");}};
+    set("rua",j.logradouro);set("bairro",j.bairro);set("cidade",j.localidade?(j.localidade+(j.uf?" / "+j.uf:"")):"");
+    store.set(FORM_KEY,form); if(hint)hint.textContent="Endereço encontrado. Confira e coloque o número.";
+    const n=$("#f-num"); if(n&&!n.value)n.focus();
+  }catch(e){if(hint)hint.textContent="Não deu para buscar o CEP agora. Preencha o endereço abaixo.";}
+}
+function missing(){return Object.keys(REQ).filter(k=>{const v=(form[k]||"").trim();if(k==="wpp")return v.replace(/\D/g,"").length<10;if(k==="cep")return v.replace(/\D/g,"").length!==8;return!v;});}
 function finish(){
   const m=missing();
-  $$("#cartBody .field").forEach(f=>{const bad=m.includes(f.dataset.k);f.classList.toggle("err",bad);const s=f.querySelector("small");if(s&&f.dataset.k==="nome")s.hidden=!bad;if(s&&f.dataset.k==="wpp")s.textContent=bad?"Informe um WhatsApp com DDD.":"Usamos para confirmar seu pedido.";});
-  if(m.length){const first=$(`#cartBody .field[data-k="${m[0]}"] input`);if(first){first.focus();first.scrollIntoView({block:"center",behavior:"smooth"});}toast("Falta preencher: "+m.map(k=>REQ[k]).join(" e "),true);return;}
+  $$("#cartBody .field").forEach(f=>{const bad=m.includes(f.dataset.k);f.classList.toggle("err",bad);const s=f.querySelector("small");if(s&&!["wpp","cep"].includes(f.dataset.k))s.hidden=!bad;if(s&&f.dataset.k==="cep")s.textContent=bad?"Informe um CEP com 8 números.":"Digite o CEP que a rua e o bairro preenchem sozinhos.";if(s&&f.dataset.k==="wpp")s.textContent=bad?"Informe um WhatsApp com DDD.":"Usamos para confirmar seu pedido.";});
+  if(m.length){const first=$(`#cartBody .field[data-k="${m[0]}"] input`);if(first){first.focus();first.scrollIntoView({block:"center",behavior:"smooth"});}{const n=m.map(k=>REQ[k]);toast("Falta preencher: "+(n.length>1?n.slice(0,-1).join(", ")+" e "+n[n.length-1]:n[0]),true);}return;}
   const {sub}=totals();
   let t=`👽 *Novo pedido — ${CONFIG.nome}*\n\n`;
   cart.forEach(i=>{const p=PRODUCTS[i.pid];t+=`• ${i.qty}x ${p.brand} ${p.name} — ${i.flavor} (${brl(p.price*i.qty)})\n`;});
   if(CONFIG.giftEnabled&&totals().qty>=CONFIG.giftMin)t+=`• 1x 🎁 ${CONFIG.giftName} — brinde (grátis)\n`;
   t+=`\n*Total:* ${brl(sub)}\n*Pagamento:* ${form.pag}\n\n*Nome:* ${form.nome}\n*WhatsApp:* ${form.wpp}\n`;
-  if(form.comp)t+=`*Observação:* ${form.comp}\n`;
+  t+=`\n📍 *Endereço:* ${form.rua}, ${form.num}${form.compl?" — "+form.compl:""}\n${form.bairro} — ${form.cidade}\nCEP ${form.cep}\n`;
+  if(form.comp)t+=`\n*Observação:* ${form.comp}\n`;
   const url=waLink(t); let w=null; try{w=window.open(url,"_blank");}catch(e){}
   let a=$("#cartFoot [data-walink]");
   if(!a){a=document.createElement("a");a.dataset.walink="";a.className="send alt";a.target="_blank";a.rel="noopener";$("#cartFoot").appendChild(a);}
@@ -712,8 +733,10 @@ document.addEventListener("input",e=>{
   const k=e.target.dataset&&e.target.dataset.in; if(!k)return;
   let v=e.target.value;
   if(k==="wpp"){const d=v.replace(/\D/g,"").slice(0,11);v=d.length>6?`(${d.slice(0,2)}) ${d.slice(2,d.length-4)}-${d.slice(-4)}`:d.length>2?`(${d.slice(0,2)}) ${d.slice(2)}`:d;e.target.value=v;}
+  if(k==="cep"){v=v.replace(/\D/g,"").slice(0,8);if(v.length>5)v=v.slice(0,5)+"-"+v.slice(5);e.target.value=v;}
   form[k]=v; store.set(FORM_KEY,form);
-  const fe=e.target.closest(".field"); if(fe)fe.classList.remove("err");
+  const fe=e.target.closest(".field"); if(fe){fe.classList.remove("err");const sm=fe.querySelector("small");if(sm&&!["wpp","cep"].includes(fe.dataset.k))sm.hidden=true;}
+  if(k==="cep"&&v.length===9)lookupCep(v);
   if(k==="pag"){const m=$("#cartBody .sum .meta span:last-child");if(m)m.textContent=v;}
 });
 document.addEventListener("keydown",e=>{if(e.key==="Escape"){if($("#modal").classList.contains("open"))closeModal();else closeCart();}});

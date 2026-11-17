@@ -759,12 +759,12 @@ function finish(){
   $$("#cartBody .field").forEach(f=>{const bad=m.includes(f.dataset.k);f.classList.toggle("err",bad);const s=f.querySelector("small");if(s&&!["wpp","cep"].includes(f.dataset.k))s.hidden=!bad;if(s&&f.dataset.k==="cep")s.textContent=bad?"Informe um CEP com 8 números.":"Digite o CEP que a rua e o bairro preenchem sozinhos.";if(s&&f.dataset.k==="wpp")s.textContent=bad?"Informe um WhatsApp com DDD.":"Usamos para confirmar seu pedido.";});
   if(m.length){const first=$(`#cartBody .field[data-k="${m[0]}"] input`);if(first){first.focus();first.scrollIntoView({block:"center",behavior:"smooth"});}{const n=m.map(k=>REQ[k]);toast("Falta preencher: "+(n.length>1?n.slice(0,-1).join(", ")+" e "+n[n.length-1]:n[0]),true);}return;}
   const {sub}=totals();
-  let t=`👽 *Novo pedido — ${CONFIG.nome}*\n\n`;
+  let t=`*Novo pedido — ${CONFIG.nome}*\n\n`;
   cart.forEach(i=>{const p=PRODUCTS[i.pid];t+=`• ${i.qty}x ${p.brand} ${p.name} — ${i.flavor} (${brl(p.price*i.qty)})\n`;});
-  if(CONFIG.giftEnabled&&totals().qty>=CONFIG.giftMin)t+=`• 1x 🎁 ${CONFIG.giftName} — brinde (grátis)\n`;
-  if(fee())t+=`\n*Subtotal:* ${brl(sub)}\n*Entrega:* ${brl(fee())}`;
-  t+=`\n*Total:* ${brl(grandTotal())}\n*Pagamento:* Pix${CONFIG.pixKey?` (chave: ${CONFIG.pixKey})`:""}\n\n*Nome:* ${form.nome}\n*WhatsApp:* ${form.wpp}\n`;
-  if(CONFIG.askAddress)t+=`\n📍 *Endereço:* ${form.rua}, ${form.num}${form.compl?" — "+form.compl:""}\n${form.bairro} — ${form.cidade}\nCEP ${form.cep}\n`;
+  if(CONFIG.giftEnabled&&totals().qty>=CONFIG.giftMin)t+=`• 1x ${CONFIG.giftName} — brinde (grátis)\n`;
+  if(fee())t+=`\n*Entrega:* ${brl(fee())}`;
+  t+=`\n*Pagamento:* Pix${CONFIG.pixKey?` (chave: ${CONFIG.pixKey})`:""}\n\n*Nome:* ${form.nome}\n*WhatsApp:* ${form.wpp}\n`;
+  if(CONFIG.askAddress)t+=`\n*Endereço:* ${form.rua}, ${form.num}${form.compl?" — "+form.compl:""}\n${form.bairro} — ${form.cidade}\nCEP ${form.cep}\n`;
   if(form.comp)t+=`\n*Observação:* ${form.comp}\n`;
   track("checkout",{v:grandTotal(),q:totals().qty,items:cart.map(i=>({pid:i.pid,name:PRODUCTS[i.pid].name,flavor:i.flavor,qty:i.qty,price:PRODUCTS[i.pid].price}))});
   const url=waLink(t); let w=null; try{w=window.open(url,"_blank");}catch(e){}

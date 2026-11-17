@@ -162,6 +162,17 @@ function sanitize(input) {
     giftMin: Math.round(num(ci.giftMin, 1, 99)) || 2,
     giftName: str(ci.giftName, 60) || "Chaveiro Área 41",
     giftImg: imgPath(ci.giftImg) || "img/chaveiro.webp",
+    heroTitle: str(ci.heroTitle, 60) || "AREA 41 PODS",
+    heroText: str(ci.heroText, 200),
+    announceOn: !!ci.announceOn,
+    announce: str(ci.announce, 140),
+    storeOpen: ci.storeOpen !== false,
+    closedMsg: str(ci.closedMsg, 160) || "Estamos fechados no momento. Você pode montar o pedido e enviar quando abrirmos.",
+    minOrder: Math.round(num(ci.minOrder, 0, 100000) * 100) / 100,
+    deliveryFee: Math.round(num(ci.deliveryFee, 0, 10000) * 100) / 100,
+    lowStock: Math.round(num(ci.lowStock == null ? 3 : ci.lowStock, 0, 999)),
+    pixKey: str(ci.pixKey, 120),
+    askAddress: ci.askAddress !== false,
     groupUrl: /^https:\/\/chat\.whatsapp\.com\/[A-Za-z0-9]+/.test(str(ci.groupUrl, 200)) ? str(ci.groupUrl, 200) : "",
     suggested: (Array.isArray(ci.suggested) ? ci.suggested : []).map(String).filter(x => ids.has(x)).slice(0, 6)
   };
@@ -174,6 +185,107 @@ function publicCatalog(c) {
     config: c.config,
     categories: c.categories.map(cat => Object.assign({}, cat, { items: cat.items.filter(id => active.has(id)) })),
     products: c.products.filter(p => p.active)
+  };
+}
+
+/* ---------------- métricas ---------------- */
+const EVENTS = path.join(DATA_DIR, "events");
+fs.mkdirSync(EVENTS, { recursive: true });
+const TZ = "America/Sao_Paulo";
+const dayOf = ts => new Intl.DateTimeFormat("en-CA", { timeZone: TZ, year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date(ts));
+const hourOf = ts => Number(new Intl.DateTimeFormat("en-GB", { timeZone: TZ, hour: "2-digit", hour12: false }).format(new Date(ts))) % 24;
+const TYPES = new Set(["view", "product", "add", "cart", "open_cart", "checkout", "group", "whatsapp"]);
+const trackHits = new Map();
+function trackLimited(ip) {
+  const now = Date.now(); const a = trackHits.get(ip) || { n: 0, t: now };
+  if (now - a.t > 10 * 60e3) { a.n = 0; a.t = now; }
+  a.n++; trackHits.set(ip, a);
+  if (trackHits.size > 5000) trackHits.clear();
+  return a.n > 300;
+}
+function cleanItems(items) {
+  return (Array.isArray(items) ? items : []).slice(0, 40).map(i => ({
+    pid: str(i && i.pid, 60), name: str(i && i.name, 80), flavor: str(i && i.flavor, 60),
+    qty: Math.round(num(i && i.qty, 0, 999)), price: Math.round(num(i && i.price, 0, 100000) * 100) / 100
+  })).filter(i => i.pid && i.qty > 0);
+}
+function recordEvent(body) {
+  const t = String(body.t || "");
+  const sid = String(body.sid || "");
+  if (!TYPES.has(t) || !/^[a-z0-9]{8,40}$/.test(sid)) return false;
+  const ev = { ts: Date.now(), sid, t };
+  if (body.pid) ev.pid = str(body.pid, 60);
+  if (body.v != null) ev.v = Math.round(num(body.v, 0, 1e6) * 100) / 100;
+  if (body.q != null) ev.q = Math.round(num(body.q, 0, 9999));
+  if (t === "checkout" || t === "add") ev.items = cleanItems(body.items);
+  const file = path.join(EVENTS, dayOf(ev.ts) + ".jsonl");
+  try { if (fs.existsSync(file) && fs.statSync(file).size > 60e6) return false; } catch (e) {}
+  fs.appendFileSync(file, JSON.stringify(ev) + "\n");
+  return true;
+}
+function rangeDays(range) {
+  const today = dayOf(Date.now());
+  const shift = (d, n) => { const x = new Date(d + "T12:00:00Z"); x.setUTCDate(x.getUTCDate() + n); return x.toISOString().slice(0, 10); };
+  if (range === "today") return [today, today];
+  if (range === "yesterday") { const y = shift(today, -1); return [y, y]; }
+  const n = { "7d": 7, "30d": 30, "90d": 90 }[range];
+  if (n) return [shift(today, -(n - 1)), today];
+  const files = fs.readdirSync(EVENTS).filter(f => /^\d{4}-\d{2}-\d{2}\.jsonl$/.test(f)).sort();
+  return [files.length ? files[0].slice(0, 10) : today, today];
+}
+function metrics(range) {
+  const [from, to] = rangeDays(range);
+  const days = [];
+  for (let d = from; d <= to; ) { days.push(d); const x = new Date(d + "T12:00:00Z"); x.setUTCDate(x.getUTCDate() + 1); d = x.toISOString().slice(0, 10); if (days.length > 400) break; }
+  const evs = [];
+  days.forEach(d => {
+    const f = path.join(EVENTS, d + ".jsonl");
+    if (!fs.existsSync(f)) return;
+    fs.readFileSync(f, "utf8").split("\n").forEach(line => { if (!line) return; try { evs.push(JSON.parse(line)); } catch (e) {} });
+  });
+  const cat = loadCatalog(); const names = {}; cat.products.forEach(p => names[p.id] = p.name);
+  const stage = { view: new Set(), product: new Set(), add: new Set(), open_cart: new Set(), checkout: new Set() };
+  const lastCart = {}; const daily = {}; days.forEach(d => daily[d] = { day: d, visitors: new Set(), carts: new Set(), orders: 0, revenue: 0 });
+  const hours = Array(24).fill(0);
+  let orders = 0, revenue = 0, items = 0, group = 0, whatsapp = 0, adds = 0;
+  const prodViews = {}, prodAdds = {}, prodOrders = {}, flavors = {}; const recent = [];
+  evs.forEach(e => {
+    const dd = daily[dayOf(e.ts)];
+    if (stage[e.t]) stage[e.t].add(e.sid);
+    if (dd) dd.visitors.add(e.sid);
+    if (e.t === "view") hours[hourOf(e.ts)]++;
+    if (e.t === "product" && e.pid) prodViews[e.pid] = (prodViews[e.pid] || 0) + 1;
+    if (e.t === "add") { adds++; if (dd) dd.carts.add(e.sid); (e.items || []).forEach(i => prodAdds[i.pid] = (prodAdds[i.pid] || 0) + i.qty); }
+    if (e.t === "cart" || e.t === "add") lastCart[e.sid] = { v: e.v || 0, q: e.q || 0 };
+    if (e.t === "group") group++;
+    if (e.t === "whatsapp") whatsapp++;
+    if (e.t === "checkout") {
+      orders++; revenue += e.v || 0; items += e.q || 0;
+      if (dd) { dd.orders++; dd.revenue += e.v || 0; }
+      (e.items || []).forEach(i => { prodOrders[i.pid] = (prodOrders[i.pid] || 0) + i.qty; const k = (names[i.pid] || i.name) + " — " + i.flavor; flavors[k] = (flavors[k] || 0) + i.qty; });
+      recent.push({ ts: e.ts, v: e.v || 0, q: e.q || 0, items: (e.items || []).map(i => ({ name: names[i.pid] || i.name, flavor: i.flavor, qty: i.qty })) });
+    }
+  });
+  const cartSids = [...stage.add];
+  const cartValue = cartSids.reduce((a, s) => a + ((lastCart[s] && lastCart[s].v) || 0), 0);
+  const abandoned = cartSids.filter(s => !stage.checkout.has(s) && lastCart[s] && lastCart[s].v > 0);
+  const abandonedValue = abandoned.reduce((a, s) => a + lastCart[s].v, 0);
+  const visitors = new Set(evs.map(e => e.sid)).size;
+  const top = (obj, n) => Object.entries(obj).sort((a, b) => b[1] - a[1]).slice(0, n).map(([id, v]) => ({ id, name: names[id] || id, v }));
+  const r2 = v => Math.round(v * 100) / 100;
+  return {
+    range, from, to, generatedAt: new Date().toISOString(),
+    kpis: { visitors, productViews: stage.product.size, carts: cartSids.length, adds, cartValue: r2(cartValue), openCart: stage.open_cart.size,
+      orders, orderSessions: stage.checkout.size, revenue: r2(revenue), items, avgTicket: orders ? r2(revenue / orders) : 0,
+      conversion: visitors ? Math.round(stage.checkout.size / visitors * 1000) / 10 : 0,
+      cartConversion: cartSids.length ? Math.round(cartSids.filter(s => stage.checkout.has(s)).length / cartSids.length * 1000) / 10 : 0,
+      abandoned: abandoned.length, abandonedValue: r2(abandonedValue), groupClicks: group, whatsappClicks: whatsapp },
+    funnel: [["Visitaram a loja", stage.view.size], ["Abriram um produto", stage.product.size], ["Adicionaram ao carrinho", stage.add.size], ["Abriram o carrinho", stage.open_cart.size], ["Enviaram pedido no WhatsApp", stage.checkout.size]],
+    daily: days.map(d => ({ day: d, visitors: daily[d].visitors.size, carts: daily[d].carts.size, orders: daily[d].orders, revenue: r2(daily[d].revenue) })),
+    hours,
+    topViewed: top(prodViews, 8), topAdded: top(prodAdds, 8), topOrdered: top(prodOrders, 8),
+    topFlavors: Object.entries(flavors).sort((a, b) => b[1] - a[1]).slice(0, 10).map(([name, v]) => ({ name, v })),
+    recent: recent.slice(-20).reverse()
   };
 }
 
@@ -216,6 +328,12 @@ const server = http.createServer(async (req, res) => {
     if (p === "/api/catalog" && req.method === "GET") {
       return send(res, 200, publicCatalog(loadCatalog()), { "Cache-Control": "no-cache" });
     }
+    if (p === "/api/track" && req.method === "POST") {
+      if (trackLimited(clientIp(req))) return send(res, 204, "");
+      const body = await readBody(req, 20e3);
+      recordEvent(body);
+      return send(res, 204, "");
+    }
     if (p.indexOf("/api/admin/") === 0) {
       // proteção extra contra requisições vindas de outros sites
       if (req.method !== "GET" && req.headers["x-requested-with"] !== "a41") return send(res, 403, { error: "Requisição recusada." });
@@ -237,6 +355,10 @@ const server = http.createServer(async (req, res) => {
 
       if (p === "/api/admin/me") return send(res, 200, { ok: true });
       if (p === "/api/admin/catalog" && req.method === "GET") return send(res, 200, loadCatalog());
+      if (p === "/api/admin/metrics" && req.method === "GET") {
+        const r = url.searchParams.get("range") || "7d";
+        return send(res, 200, metrics(["today", "yesterday", "7d", "30d", "90d", "all"].indexOf(r) >= 0 ? r : "7d"));
+      }
       if (p === "/api/admin/catalog" && req.method === "PUT") {
         const body = await readBody(req, 2e6);
         const cur = loadCatalog();

@@ -101,6 +101,39 @@ img{display:block;max-width:100%}
 .rowact{display:flex;gap:6px;justify-content:flex-end}
 .empty{padding:40px;text-align:center;color:var(--muted)}
 
+/* metrics */
+.stats.s4{grid-template-columns:repeat(4,1fr)}
+.stat .sub{display:block;color:var(--muted);font-size:12.5px;margin-top:2px}
+.stat.good b{color:var(--lime)}
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.mgrid .card{margin-bottom:0}
+.mgrid+.card,.mgrid+.mgrid,.card+.mgrid{margin-top:14px}
+.chart{width:100%;height:220px;display:block}
+.chart .grid{stroke:#1A241D;stroke-width:1;vector-effect:non-scaling-stroke}
+.chart .axis{stroke:#2B3B30;stroke-width:1;vector-effect:non-scaling-stroke}
+.chart .tick{fill:var(--muted);font-size:11px;font-family:var(--body)}
+.chart .peak{fill:var(--ink-2);font-size:11px;font-weight:700;font-family:var(--display)}
+.chart .bar{fill:#4FAE2A}
+.chart .bar.hl{fill:#7BD93A}
+.chart .hit{fill:transparent;cursor:crosshair}
+.ctip{position:fixed;z-index:99;pointer-events:none;opacity:0;background:#F2F7F2;color:#0D1F14;font-size:13px;font-weight:600;padding:8px 12px;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.6);transition:opacity .1s;max-width:320px}
+.muted{color:var(--muted);font-size:13.5px}
+.hb,.funnel{display:grid;gap:10px}
+.hbr{display:grid;grid-template-columns:minmax(0,1.3fr) 1fr auto;gap:10px;align-items:center;font-size:13.5px}
+.hn{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--ink-2)}
+.ht,.ft{height:10px;border-radius:99px;background:var(--tile);overflow:hidden}
+.ht i,.ft i{display:block;height:100%;border-radius:0 4px 4px 0;background:#4FAE2A}
+.hbr b{min-width:34px;text-align:right}
+.fr{display:grid;grid-template-columns:minmax(0,1.4fr) 2fr 56px 42px;gap:10px;align-items:center;font-size:13.5px}
+.fl{color:var(--ink-2)}
+.ft{height:14px}
+.fr b{text-align:right}
+.fp{color:var(--muted);font-size:12.5px;text-align:right}
+.otable{display:grid}
+.orow{display:grid;grid-template-columns:100px 1fr auto;gap:12px;padding:10px 0;border-top:1px solid var(--line);font-size:13.5px;align-items:baseline}
+.orow:first-child{border-top:0}
+.ot{color:var(--muted)}
+.oi em{font-style:normal;color:var(--muted)}
 /* toggle */
 .tg{position:relative;display:inline-flex;align-items:center;gap:10px;cursor:pointer;font-weight:600;font-size:14px}
 .tg input{position:absolute;opacity:0;width:0;height:0}
@@ -160,7 +193,8 @@ img{display:block;max-width:100%}
 
 .catpick{display:flex;flex-wrap:wrap;gap:8px}
 .catpick label{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 12px;border-radius:999px;border:1px solid var(--line-2);font-size:13px;font-weight:600;color:var(--ink-2);cursor:pointer}
-.catpick input{accent-color:var(--lime)}
+.catpick input,.f .catpick input{accent-color:var(--lime);width:16px;height:16px;min-width:16px;padding:0;margin:0;border:0;flex-shrink:0}
+.catpick label{white-space:nowrap;line-height:1}
 .catpick label:has(input:checked){border-color:var(--lime);color:var(--ink);background:rgba(166,244,90,.08)}
 
 .flavors{border:1px solid var(--line);border-radius:14px;overflow:hidden}
@@ -214,7 +248,12 @@ img{display:block;max-width:100%}
   .mtabs button{height:36px;padding:0 12px;border-radius:999px;font-weight:600;font-size:13.5px;color:var(--ink-2);white-space:nowrap}
   .mtabs button.on{background:var(--lime);color:var(--lime-ink)}
   .main{padding:16px 14px 80px}
-  .stats{grid-template-columns:1fr 1fr}
+  .stats,.stats.s4{grid-template-columns:1fr 1fr}
+  .mgrid{grid-template-columns:1fr}
+  .fr{grid-template-columns:1fr 1.2fr 44px 36px}
+  .orow{grid-template-columns:1fr auto}
+  .orow .oi{grid-column:1/-1;grid-row:2}
+  .head .chips{width:100%}
   .prow{grid-template-columns:52px minmax(0,1fr) auto;row-gap:6px}
   .prow.hd{display:none}
   .prow img{width:52px;height:52px}
@@ -255,7 +294,8 @@ img{display:block;max-width:100%}
   <aside class="side">
     <div class="brand"><img src="/img/logo.webp" alt=""><div><b>ÁREA 41</b><small>Console Admin</small></div></div>
     <nav class="nav" id="nav">
-      <button data-view="produtos" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="m3 8 9 5 9-5M12 13v8"/></svg>Produtos</button>
+      <button data-view="metricas" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 16v-4M12 16V8M17 16v-7"/></svg>Métricas</button>
+      <button data-view="produtos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="m3 8 9 5 9-5M12 13v8"/></svg>Produtos</button>
       <button data-view="categorias"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Categorias</button>
       <button data-view="config"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Configurações</button>
     </nav>
@@ -265,7 +305,7 @@ img{display:block;max-width:100%}
     </div>
   </aside>
   <div>
-    <div class="mtabs" id="mtabs"><img src="/img/logo.webp" alt=""><button data-view="produtos" class="on">Produtos</button><button data-view="categorias">Categorias</button><button data-view="config">Configurações</button><a class="btn sm" href="/" target="_blank" rel="noopener">Loja</a><button class="btn sm" data-logout>Sair</button></div>
+    <div class="mtabs" id="mtabs"><img src="/img/logo.webp" alt=""><button data-view="metricas" class="on">Métricas</button><button data-view="produtos">Produtos</button><button data-view="categorias">Categorias</button><button data-view="config">Configurações</button><a class="btn sm" href="/" target="_blank" rel="noopener">Loja</a><button class="btn sm" data-logout>Sair</button></div>
     <main class="main" id="main"></main>
   </div>
 </div>
@@ -294,9 +334,9 @@ const money=v=>v==null||v===""?"":Number(v).toFixed(2).replace(".",",");
 const slug=s=>String(s||"").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
 const clone=o=>JSON.parse(JSON.stringify(o));
 const STAR='<svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2.5 2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"/></svg>';
-const LOW=3;
+let LOW=3;
 
-let CAT=null, view="produtos", filter="todos", query="", editing=null, isNew=false;
+let CAT=null, view="metricas", mRange="7d", M=null, filter="todos", query="", editing=null, isNew=false;
 
 /* ---------- api ---------- */
 async function api(path,opts){
@@ -344,9 +384,80 @@ function confirmBox(title,text,yes){
 /* ---------- views ---------- */
 function setView(v){view=v;$$("[data-view]").forEach(b=>b.classList.toggle("on",b.dataset.view===v));render();window.scrollTo(0,0);}
 $$("[data-view]").forEach(b=>b.onclick=()=>setView(b.dataset.view));
-function render(){if(!CAT)return;({produtos:renderProducts,categorias:renderCategories,config:renderConfig})[view]();}
+function render(){if(!CAT)return;({metricas:renderMetrics,produtos:renderProducts,categorias:renderCategories,config:renderConfig})[view]();}
+
+/* ---------- métricas ---------- */
+const RANGES=[["today","Hoje"],["yesterday","Ontem"],["7d","7 dias"],["30d","30 dias"],["90d","90 dias"],["all","Tudo"]];
+const intf=n=>Number(n||0).toLocaleString("pt-BR");
+const dlabel=d=>{const [y,m,dd]=d.split("-");return dd+"/"+m;};
+async function loadMetrics(){
+  try{M=await api("/api/admin/metrics?range="+mRange);}catch(e){toast(e.message,true);M=null;}
+  if(view==="metricas")renderMetrics();
+}
+function kpi(label,value,sub,cls){return `<div class="stat ${cls||""}"><small>${label}</small><b class="num">${value}</b>${sub?`<span class="sub">${sub}</span>`:""}</div>`;}
+function niceMax(v){if(v<=0)return 4;const raw=v/4,p=Math.pow(10,Math.floor(Math.log10(raw))),n=raw/p;let step=(n<=1?1:n<=2?2:n<=5?5:10)*p;step=Math.max(1,step);return step*4;}
+function colChart(rows,key,fmt,tipFn){
+  const W=720,H=220,L=44,B=26,T=12,R=8,max=niceMax(Math.max(...rows.map(r=>r[key]),0));
+  const n=rows.length,slot=(W-L-R)/n,bw=Math.max(3,Math.min(24,slot*0.6));
+  const y=v=>T+(H-T-B)*(1-v/max);
+  let g="";for(let i=0;i<=4;i++){const v=max*i/4,yy=y(v);g+=`<line x1="${L}" x2="${W-R}" y1="${yy}" y2="${yy}" class="grid"/><text x="${L-8}" y="${yy+4}" class="tick" text-anchor="end">${fmt(v,true)}</text>`;}
+  const every=Math.ceil(n/12);let bars="",labels="";
+  rows.forEach((r,i)=>{const x=L+slot*i+(slot-bw)/2,v=r[key],yy=y(v),h=H-B-yy,rad=Math.min(4,h,bw/2);
+    if(v>0)bars+=`<path class="bar" d="M${x},${H-B} V${yy+rad} Q${x},${yy} ${x+rad},${yy} H${x+bw-rad} Q${x+bw},${yy} ${x+bw},${yy+rad} V${H-B} Z"/>`;
+    bars+=`<rect class="hit" x="${L+slot*i}" y="${T}" width="${slot}" height="${H-T-B}" data-tip="${esc(tipFn(r))}"/>`;
+    if(i%every===0||i===n-1)labels+=`<text x="${L+slot*i+slot/2}" y="${H-8}" class="tick" text-anchor="middle">${esc(r.label)}</text>`;});
+  const mi=rows.reduce((b,r,i)=>r[key]>rows[b][key]?i:b,0);
+  const peak=rows[mi]&&rows[mi][key]>0?`<text x="${L+slot*mi+slot/2}" y="${y(rows[mi][key])-6}" class="peak" text-anchor="middle">${fmt(rows[mi][key])}</text>`:"";
+  return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" preserveAspectRatio="none">${g}<line x1="${L}" x2="${W-R}" y1="${H-B}" y2="${H-B}" class="axis"/>${bars}${peak}${labels}</svg>`;
+}
+function hbars(list,fmt,empty){
+  if(!list.length)return `<p class="muted">${empty||"Sem dados no período."}</p>`;
+  const max=Math.max(...list.map(x=>x.v),1);
+  return `<div class="hb">${list.map(x=>`<div class="hbr" title="${esc(x.name)}: ${fmt(x.v)}"><span class="hn">${esc(x.name)}</span><span class="ht"><i style="width:${Math.max(2,x.v/max*100)}%"></i></span><b class="num">${fmt(x.v)}</b></div>`).join("")}</div>`;
+}
+function renderMetrics(){
+  const head=`<div class="head"><div><h1>Métricas</h1><p>Como os clientes usam a loja: visitas, carrinhos e pedidos enviados no WhatsApp.</p></div>
+    <div class="chips" role="tablist" aria-label="Período">${RANGES.map(([k,l])=>`<button class="chip ${mRange===k?"on":""}" data-range="${k}">${l}</button>`).join("")}<button class="chip" data-mrefresh title="Atualizar">↻</button></div></div>`;
+  if(!M||M.range!==mRange){$("#main").innerHTML=head+`<div class="empty">Carregando métricas…</div>`;if(!M||M.range!==mRange)loadMetrics();return;}
+  const k=M.kpis, single=M.daily.length===1;
+  const series=single?M.hours.map((v,h)=>({label:h+"h",v})):M.daily.map(d=>Object.assign({label:dlabel(d.day)},d));
+  const f0=M.funnel[0][1]||0;
+  $("#main").innerHTML=head+`
+   <div class="stats s4">
+     ${kpi("Visitantes",intf(k.visitors),`${intf(k.productViews)} abriram algum produto`)}
+     ${kpi("Carrinhos criados",intf(k.carts),`${intf(k.adds)} vezes adicionaram itens`)}
+     ${kpi("Valor nos carrinhos",brl(k.cartValue),"soma do último valor de cada carrinho")}
+     ${kpi("Pedidos enviados no WhatsApp",intf(k.orders),`${intf(k.items)} pods`,"good")}
+     ${kpi("Valor dos pedidos enviados",brl(k.revenue),`ticket médio ${brl(k.avgTicket)}`,"good")}
+     ${kpi("Conversão",k.conversion.toLocaleString("pt-BR")+"%",`${k.cartConversion.toLocaleString("pt-BR")}% dos carrinhos viraram pedido`)}
+     ${kpi("Carrinhos abandonados",intf(k.abandoned),`${brl(k.abandonedValue)} que não foram enviados`,"warn")}
+     ${kpi("Cliques no grupo VIP",intf(k.groupClicks),`${intf(k.whatsappClicks)} cliques no WhatsApp da loja`)}
+   </div>
+   <div class="mgrid">
+     <div class="card"><h3>${single?"Visitas por hora":"Pedidos enviados por dia"}<small>passe o mouse nas barras</small></h3>
+       ${single?colChart(series,"v",(v)=>intf(Math.round(v)),r=>`${r.label}: ${intf(r.v)} visitas`):colChart(series,"orders",(v)=>intf(Math.round(v)),r=>`${r.label} — ${intf(r.orders)} pedidos · ${brl(r.revenue)} · ${intf(r.visitors)} visitantes · ${intf(r.carts)} carrinhos`)}</div>
+     <div class="card"><h3>${single?"Funil de hoje":"Visitantes por dia"}<small>${single?"":"passe o mouse nas barras"}</small></h3>
+       ${single?"":colChart(series,"visitors",(v)=>intf(Math.round(v)),r=>`${r.label} — ${intf(r.visitors)} visitantes · ${intf(r.carts)} carrinhos · ${intf(r.orders)} pedidos`)}
+       ${single?funnelHTML(f0):""}</div>
+   </div>
+   ${single?"":`<div class="card"><h3>Funil de vendas<small>pessoas que chegaram em cada etapa</small></h3>${funnelHTML(f0)}</div>`}
+   <div class="mgrid">
+     <div class="card"><h3>Mais pedidos<small>unidades enviadas no WhatsApp</small></h3>${hbars(M.topOrdered,intf)}</div>
+     <div class="card"><h3>Mais adicionados ao carrinho<small>unidades</small></h3>${hbars(M.topAdded,intf)}</div>
+     <div class="card"><h3>Mais vistos<small>aberturas do produto</small></h3>${hbars(M.topViewed,intf)}</div>
+     <div class="card"><h3>Sabores mais pedidos<small>unidades</small></h3>${hbars(M.topFlavors,intf)}</div>
+   </div>
+   <div class="card"><h3>Últimos pedidos enviados<small>clique em “Enviar pedido no WhatsApp”</small></h3>
+     ${M.recent.length?`<div class="otable">${M.recent.map(o=>`<div class="orow"><span class="ot">${new Date(o.ts).toLocaleString("pt-BR",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"})}</span><span class="oi">${o.items.map(i=>`${i.qty}x ${esc(i.name)} <em>${esc(i.flavor)}</em>`).join(", ")}</span><b class="num">${brl(o.v)}</b></div>`).join("")}</div>`:'<p class="muted">Nenhum pedido enviado neste período.</p>'}
+   </div>
+   <p class="muted" style="margin-top:6px">“Pedidos enviados” conta quem tocou em <b>Enviar pedido no WhatsApp</b>. O pagamento é confirmado por você no WhatsApp. As métricas são anônimas e começam a contar a partir de agora.</p>`;
+}
+function funnelHTML(f0){
+  return `<div class="funnel">${M.funnel.map(([l,v],i)=>`<div class="fr"><span class="fl">${l}</span><span class="ft"><i style="width:${f0?Math.max(1.5,v/f0*100):0}%"></i></span><b class="num">${intf(v)}</b><span class="fp">${f0&&i?Math.round(v/f0*100)+"%":""}</span></div>`).join("")}</div>`;
+}
 
 function renderProducts(){
+  LOW=CAT.config.lowStock==null?3:(CAT.config.lowStock||0);
   const P=CAT.products;
   const units=P.reduce((a,p)=>a+totalStock(p),0), out=P.filter(p=>!totalStock(p)).length, low=P.filter(p=>{const t=totalStock(p);return t>0&&t<=LOW;}).length;
   const counts={todos:P.length,ativos:P.filter(p=>p.active).length,ocultos:P.filter(p=>!p.active).length,baixo:low,esgotados:out};
@@ -425,6 +536,27 @@ function renderConfig(){
        <div class="f"><label for="c-ig">Instagram</label><div class="affix"><span>@</span><input id="c-ig" value="${esc(c.instagram)}"></div></div>
        <div class="f" style="grid-column:1/-1"><label for="c-group">Link do grupo de promoções (botão redondo na loja)</label><input id="c-group" value="${esc(c.groupUrl==null?"https://chat.whatsapp.com/JC7wFjZu0g098FowsdckZa":c.groupUrl)}" placeholder="https://chat.whatsapp.com/..."><small>Deixe vazio para esconder o botão.</small></div>
      </div></div>
+   <div class="card"><h3>Topo da loja</h3>
+     <div class="grid2">
+       <div class="f"><label for="c-ht">Título grande</label><input id="c-ht" value="${esc(c.heroTitle||"AREA 41 PODS")}"></div>
+       <div class="f"><label for="c-hx">Texto abaixo do título</label><input id="c-hx" value="${esc(c.heroText||"")}" placeholder="Escolha o modelo, separe os sabores e mande o pedido pronto no nosso WhatsApp."></div>
+     </div>
+     <label class="tg" style="margin-top:16px"><input type="checkbox" id="c-aon" ${c.announceOn?"checked":""}><i></i><span>Faixa de aviso no topo<small>Uma faixa verde acima de tudo, para promoções ou avisos.</small></span></label>
+     <div class="f" style="margin-top:10px"><label for="c-an">Texto da faixa</label><input id="c-an" value="${esc(c.announce||"")}" placeholder="Ex.: 🔥 Frete grátis acima de R$ 150 só hoje!"></div>
+   </div>
+   <div class="card"><h3>Funcionamento e pedidos</h3>
+     <label class="tg"><input type="checkbox" id="c-open" ${c.storeOpen!==false?"checked":""}><i></i><span>Loja aberta<small>Desligado: o cliente vê os produtos, mas não consegue enviar o pedido.</small></span></label>
+     <div class="f" style="margin-top:10px"><label for="c-cmsg">Mensagem quando a loja estiver fechada</label><input id="c-cmsg" value="${esc(c.closedMsg||"")}" placeholder="Estamos fechados no momento. Você pode montar o pedido e enviar quando abrirmos."></div>
+     <div class="grid3" style="margin-top:12px">
+       <div class="f"><label for="c-min">Pedido mínimo</label><div class="affix"><span>R$</span><input id="c-min" inputmode="decimal" value="${money(c.minOrder||"")}" placeholder="0,00"></div><small>Vazio ou 0 = sem mínimo.</small></div>
+       <div class="f"><label for="c-fee">Taxa de entrega fixa</label><div class="affix"><span>R$</span><input id="c-fee" inputmode="decimal" value="${money(c.deliveryFee||"")}" placeholder="0,00"></div><small>Somada ao total. 0 = não cobra.</small></div>
+       <div class="f"><label for="c-low">Avisar “últimas unidades” a partir de</label><input id="c-low" type="number" min="0" max="99" value="${c.lowStock==null?3:c.lowStock}"><small>Unidades. 0 = não avisa.</small></div>
+     </div>
+     <label class="tg" style="margin-top:14px"><input type="checkbox" id="c-addr" ${c.askAddress!==false?"checked":""}><i></i><span>Pedir endereço no carrinho<small>CEP, rua, número, bairro e cidade.</small></span></label>
+   </div>
+   <div class="card"><h3>Pix</h3>
+     <div class="f"><label for="c-pix">Chave Pix (opcional)</label><input id="c-pix" value="${esc(c.pixKey||"")}" placeholder="CNPJ, e-mail, telefone ou chave aleatória"><small>Se preencher, aparece no carrinho com botão de copiar e vai na mensagem do pedido. Vazio: avisa que a chave é enviada no WhatsApp.</small></div>
+   </div>
    <div class="card"><h3>Brinde <small>aparece no carrinho e na mensagem do pedido</small></h3>
      <label class="tg" style="margin-bottom:14px"><input type="checkbox" id="c-gon" ${c.giftEnabled?"checked":""}><i></i><span>Brinde ativo</span></label>
      <div class="photo"><div class="pv" id="giftPv"><img src="${esc(c.giftImg[0]==="/"?c.giftImg:"/"+c.giftImg)}" alt=""></div>
@@ -442,7 +574,9 @@ function renderConfig(){
   let giftImg=c.giftImg;
   $("#giftPhoto").onclick=()=>pickImage(url=>{giftImg=url;$("#giftPv").innerHTML=`<img src="${esc(url)}" alt="">`;});
   $("#saveCfg").onclick=()=>{
-    Object.assign(CAT.config,{nome:$("#c-nome").value,whatsapp:$("#c-wpp").value.replace(/\D/g,""),cidade:$("#c-cid").value,instagram:$("#c-ig").value.replace(/^@/,""),groupUrl:$("#c-group").value.trim(),
+    Object.assign(CAT.config,{nome:$("#c-nome").value,whatsapp:$("#c-wpp").value.replace(/\D/g,""),cidade:$("#c-cid").value,instagram:$("#c-ig").value.replace(/^@/,""),groupUrl:$("#c-group").value.trim(),heroTitle:$("#c-ht").value.trim(),heroText:$("#c-hx").value.trim(),announceOn:$("#c-aon").checked,announce:$("#c-an").value.trim(),
+      storeOpen:$("#c-open").checked,closedMsg:$("#c-cmsg").value.trim(),minOrder:parseMoney($("#c-min").value)||0,deliveryFee:parseMoney($("#c-fee").value)||0,
+      lowStock:Number($("#c-low").value),askAddress:$("#c-addr").checked,pixKey:$("#c-pix").value.trim(),
       giftEnabled:$("#c-gon").checked,giftMin:Number($("#c-gmin").value)||2,giftName:$("#c-gname").value,giftImg,
       suggested:$$("[data-sugg]").filter(x=>x.checked).map(x=>x.dataset.sugg)});
     if(CAT.config.whatsapp.length<12)toast("Atenção: o WhatsApp parece incompleto (use 55 + DDD + número).",true);
@@ -617,6 +751,8 @@ $("#edDel").onclick=async()=>{
 /* ---------- global clicks ---------- */
 document.addEventListener("click",async e=>{
   const t=e.target;
+  const rg=t.closest("[data-range]");if(rg){mRange=rg.dataset.range;M=null;renderMetrics();return;}
+  if(t.closest("[data-mrefresh]")){M=null;renderMetrics();return;}
   if(t.closest("[data-close]")){closeEditor();return;}
   const ed=t.closest("[data-edit]");if(ed){openEditor(ed.dataset.edit);return;}
   const fl=t.closest("[data-filter]");if(fl){filter=fl.dataset.filter;renderProducts();return;}
@@ -644,6 +780,12 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"){if($("#confirm").cl
   if((e.ctrlKey||e.metaKey)&&e.key==="s"&&editing){e.preventDefault();$("#edSave").click();}});
 window.addEventListener("beforeunload",e=>{if(editing){e.preventDefault();e.returnValue="";}});
 
+const tip=document.createElement("div");tip.className="ctip";document.body.appendChild(tip);
+document.addEventListener("mousemove",e=>{const h=e.target.closest&&e.target.closest(".hit");if(!h){tip.style.opacity=0;$$(".bar.hl").forEach(b=>b.classList.remove("hl"));return;}
+  tip.textContent=h.dataset.tip;tip.style.opacity=1;const x=Math.min(window.innerWidth-tip.offsetWidth-12,e.clientX+14);tip.style.left=x+"px";tip.style.top=(e.clientY-40)+"px";
+  $$(".bar.hl").forEach(b=>b.classList.remove("hl"));const prev=h.previousElementSibling;if(prev&&prev.classList.contains("bar"))prev.classList.add("hl");});
+document.addEventListener("touchstart",e=>{const h=e.target.closest&&e.target.closest(".hit");if(h){toast(h.dataset.tip);}},{passive:true});
+setInterval(()=>{if(view==="metricas"&&!document.hidden&&CAT){api("/api/admin/metrics?range="+mRange).then(r=>{M=r;if(view==="metricas"&&!editing)renderMetrics();}).catch(()=>{});}},60000);
 boot();
 </script>
 </body>

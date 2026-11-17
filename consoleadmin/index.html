@@ -423,6 +423,7 @@ function renderConfig(){
        <div class="f"><label for="c-wpp">WhatsApp que recebe os pedidos</label><input id="c-wpp" value="${esc(c.whatsapp)}" inputmode="numeric" placeholder="5541999999999"><small>Com 55 + DDD + número, só números.</small></div>
        <div class="f"><label for="c-cid">Cidade</label><input id="c-cid" value="${esc(c.cidade)}" placeholder="Curitiba"></div>
        <div class="f"><label for="c-ig">Instagram</label><div class="affix"><span>@</span><input id="c-ig" value="${esc(c.instagram)}"></div></div>
+       <div class="f" style="grid-column:1/-1"><label for="c-group">Link do grupo de promoções (botão redondo na loja)</label><input id="c-group" value="${esc(c.groupUrl==null?"https://chat.whatsapp.com/JC7wFjZu0g098FowsdckZa":c.groupUrl)}" placeholder="https://chat.whatsapp.com/..."><small>Deixe vazio para esconder o botão.</small></div>
      </div></div>
    <div class="card"><h3>Brinde <small>aparece no carrinho e na mensagem do pedido</small></h3>
      <label class="tg" style="margin-bottom:14px"><input type="checkbox" id="c-gon" ${c.giftEnabled?"checked":""}><i></i><span>Brinde ativo</span></label>
@@ -441,7 +442,7 @@ function renderConfig(){
   let giftImg=c.giftImg;
   $("#giftPhoto").onclick=()=>pickImage(url=>{giftImg=url;$("#giftPv").innerHTML=`<img src="${esc(url)}" alt="">`;});
   $("#saveCfg").onclick=()=>{
-    Object.assign(CAT.config,{nome:$("#c-nome").value,whatsapp:$("#c-wpp").value.replace(/\D/g,""),cidade:$("#c-cid").value,instagram:$("#c-ig").value.replace(/^@/,""),
+    Object.assign(CAT.config,{nome:$("#c-nome").value,whatsapp:$("#c-wpp").value.replace(/\D/g,""),cidade:$("#c-cid").value,instagram:$("#c-ig").value.replace(/^@/,""),groupUrl:$("#c-group").value.trim(),
       giftEnabled:$("#c-gon").checked,giftMin:Number($("#c-gmin").value)||2,giftName:$("#c-gname").value,giftImg,
       suggested:$$("[data-sugg]").filter(x=>x.checked).map(x=>x.dataset.sugg)});
     if(CAT.config.whatsapp.length<12)toast("Atenção: o WhatsApp parece incompleto (use 55 + DDD + número).",true);

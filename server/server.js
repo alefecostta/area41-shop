@@ -162,6 +162,7 @@ function sanitize(input) {
     giftMin: Math.round(num(ci.giftMin, 1, 99)) || 2,
     giftName: str(ci.giftName, 60) || "Chaveiro Área 41",
     giftImg: imgPath(ci.giftImg) || "img/chaveiro.webp",
+    groupUrl: /^https:\/\/chat\.whatsapp\.com\/[A-Za-z0-9]+/.test(str(ci.groupUrl, 200)) ? str(ci.groupUrl, 200) : "",
     suggested: (Array.isArray(ci.suggested) ? ci.suggested : []).map(String).filter(x => ids.has(x)).slice(0, 6)
   };
   return { config, categories, products };

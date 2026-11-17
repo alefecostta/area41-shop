@@ -251,6 +251,24 @@ footer{margin-top:64px;position:relative;overflow:hidden;border-top:1px solid va
 .paypix b{display:block;font-size:15px}
 .paypix span{display:block;font-size:12.5px;color:var(--muted)}
 .two{display:grid;grid-template-columns:1fr 1.4fr;gap:10px}
+.groupfab{position:fixed;right:20px;bottom:20px;z-index:44;display:flex;align-items:center;gap:12px;height:62px;padding:0 20px 0 0;border-radius:999px;background:var(--surface);border:1px solid rgba(166,244,90,.35);color:var(--ink);box-shadow:0 18px 40px -12px rgba(0,0,0,.9),0 0 0 6px rgba(166,244,90,.06);transition:transform .2s,bottom .3s cubic-bezier(.2,.8,.2,1)}
+.groupfab:hover{transform:translateY(-2px)}
+.groupfab[hidden]{display:none}
+.groupfab .ico{position:relative;width:62px;height:62px;margin:-1px 0 -1px -1px;border-radius:999px;background:radial-gradient(circle at 30% 30%,#7BF03A,#25B33B);color:#06200C;display:grid;place-items:center;flex-shrink:0}
+.groupfab .ico svg{width:30px;height:30px}
+.groupfab .ico b{position:absolute;top:-2px;right:-2px;width:22px;height:22px;border-radius:999px;background:var(--red);color:#fff;font-size:12px;font-weight:800;display:grid;place-items:center;border:2px solid var(--canvas)}
+.groupfab .lbl{font-weight:700;font-size:14px;line-height:1.15;white-space:nowrap}
+.groupfab .lbl small{display:block;font-size:11.5px;font-weight:600;color:var(--lime)}
+.groupfab .pulse{position:absolute;left:0;top:0;width:62px;height:62px;border-radius:999px;border:2px solid rgba(123,240,58,.7);animation:gpulse 2.4s ease-out infinite;pointer-events:none}
+@keyframes gpulse{0%{transform:scale(1);opacity:.9}70%,100%{transform:scale(1.55);opacity:0}}
+.sheet.open~.groupfab,body:has(.sheet.open) .groupfab,body:has(.modal.open) .groupfab{opacity:0;pointer-events:none}
+@media (max-width:720px){
+  .groupfab{right:14px;bottom:calc(14px + env(safe-area-inset-bottom));height:58px;padding:0;background:none;border:0;box-shadow:none}
+  .groupfab .ico{width:58px;height:58px;margin:0;box-shadow:0 12px 28px -8px rgba(0,0,0,.9)}
+  .groupfab .pulse{width:58px;height:58px}
+  .groupfab .lbl{display:none}
+  body.has-mbar .groupfab{bottom:calc(96px + env(safe-area-inset-bottom))}
+}
 .gift{display:flex;align-items:center;gap:12px;margin-top:12px;padding:12px 14px 12px 10px;border-radius:20px;background:linear-gradient(120deg,rgba(139,47,214,.22),rgba(139,47,214,.06));border:1px solid rgba(168,85,247,.35)}
 .gift img{width:58px;height:58px;object-fit:contain;flex-shrink:0;filter:drop-shadow(0 6px 10px rgba(0,0,0,.5))}
 .gift .g{flex:1;min-width:0}
@@ -314,7 +332,7 @@ footer{margin-top:64px;position:relative;overflow:hidden;border-top:1px solid va
 .gate .opts button.y{background:var(--lime);border-color:transparent;color:var(--lime-ink)}
 .gate .no{display:none;margin-top:12px;color:#FF8A8E;font-size:13.5px;text-align:center}
 
-.toast{max-width:calc(100% - 24px);white-space:normal!important;position:fixed;left:50%;bottom:28px;z-index:95;transform:translate(-50%,16px);opacity:0;background:#F2F7F2;color:#0D1F14;font-weight:600;font-size:14px;padding:12px 18px;border-radius:999px;transition:.25s;pointer-events:none;white-space:nowrap;display:flex;gap:8px;align-items:center}
+.toast{width:max-content;max-width:calc(100% - 24px);white-space:normal!important;position:fixed;left:50%;bottom:28px;z-index:95;transform:translate(-50%,16px);opacity:0;background:#F2F7F2;color:#0D1F14;font-weight:600;font-size:14px;padding:12px 18px;border-radius:999px;transition:.25s;pointer-events:none;white-space:nowrap;display:flex;gap:8px;align-items:center}
 .toast.on{opacity:1;transform:translate(-50%,0)}
 .toast i{width:20px;height:20px;border-radius:999px;background:#0D1F14;color:var(--lime);display:grid;place-items:center;font-style:normal;font-size:12px;font-weight:800}
 
@@ -450,6 +468,7 @@ footer{margin-top:64px;position:relative;overflow:hidden;border-top:1px solid va
   </div>
 </footer>
 
+<a class="groupfab" id="groupFab" href="https://chat.whatsapp.com/JC7wFjZu0g098FowsdckZa" target="_blank" rel="noopener" aria-label="Entrar no grupo de promoções da AREA 41 PODS no WhatsApp"><span class="pulse" aria-hidden="true"></span><span class="ico"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.87 1.22 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2-1.41.25-.69.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35zM12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.5A10 10 0 1 0 12 2z"/></svg><b aria-hidden="true">%</b></span><span class="lbl"><small>Grupo VIP</small>Promoções AREA 41 PODS</span></a>
 <div class="mbar" id="mbar"><div class="t"><small id="mbItems">0 itens</small><b class="num" id="mbTot">R$ 0,00</b></div><button data-open-cart>Ver pedido</button></div>
 
 <!-- cart sheet -->
@@ -481,7 +500,7 @@ footer{margin-top:64px;position:relative;overflow:hidden;border-top:1px solid va
    Os produtos, preços, estoque e configurações vêm do painel /consoleadmin
    (API /api/catalog). Sem a API, usa o catálogo inicial data/catalog.seed.json.
    ===================================================================== */
-let CONFIG={nome:"ÁREA 41 SHOP",whatsapp:"",cidade:"",instagram:"",giftEnabled:true,giftMin:2,giftName:"Chaveiro Área 41",giftImg:"img/chaveiro.webp",suggested:[]};
+let CONFIG={groupUrl:"https://chat.whatsapp.com/JC7wFjZu0g098FowsdckZa",nome:"ÁREA 41 SHOP",whatsapp:"",cidade:"",instagram:"",giftEnabled:true,giftMin:2,giftName:"Chaveiro Área 41",giftImg:"img/chaveiro.webp",suggested:[]};
 let CATEGORIES=[], PRODUCTS={}, SUGGESTED=[];
 
 /* ===================================================================== */
@@ -666,6 +685,7 @@ function renderCart(){
   $("#pcItems").textContent=qty?`${qty} ${qty===1?"pod":"pods"} no pedido`:"Nenhum pod escolhido ainda";
   $("#mbItems").textContent=`${qty} ${qty===1?"item":"itens"}`; $("#mbTot").textContent=brl(sub);
   $("#mbar").classList.toggle("on",qty>0);
+  document.body.classList.toggle("has-mbar",qty>0);
   const gm=CONFIG.giftMin, g=CONFIG.giftEnabled&&qty>=gm; if(hadGift===false&&g)setTimeout(()=>toast(`Você ganhou: ${CONFIG.giftName} 🎁`),2300); hadGift=g;
   $("#mbItems").textContent=`${qty} ${qty===1?"item":"itens"}${g?" + brinde grátis 🎁":(CONFIG.giftEnabled&&qty>0&&gm-qty===1)?" · falta 1 para o brinde":""}`;
 }
@@ -759,6 +779,7 @@ $("#yr").textContent=new Date().getFullYear();
   $("#footCity").textContent=CONFIG.cidade?"Atendimento em "+CONFIG.cidade+".":"";
   $("#footCats").innerHTML=CATEGORIES.filter(c=>!c.promo&&c.id!=="best").map(c=>`<a href="#cat-${c.id}" data-cat="${c.id}">${esc(c.name)}</a>`).join("");
   if(CONFIG.giftEnabled){$("#giftFact").hidden=false;$("#giftFactImg").src=CONFIG.giftImg;$("#giftFactName").textContent=CONFIG.giftName.split(" ")[0]+" grátis";$("#giftFactRule").textContent=`Comprando ${CONFIG.giftMin} ${CONFIG.giftMin>1?"pods":"pod"}`;}
+  if(/^https:\/\/chat\.whatsapp\.com\//.test(CONFIG.groupUrl||""))$("#groupFab").href=CONFIG.groupUrl;else $("#groupFab").hidden=true;
   renderTabs(); renderCatalog(); renderCart();
 })();
 </script>

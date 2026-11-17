@@ -44,6 +44,11 @@ function loadCatalog() {
     writeJSON(CATALOG, c);
     backup(c);
   }
+  // número ainda de exemplo: usa o número oficial do catálogo inicial
+  if (c.config && (!c.config.whatsapp || c.config.whatsapp === "5500000000000")) {
+    const seed = readJSON(SEED, null);
+    if (seed && seed.config && seed.config.whatsapp && seed.config.whatsapp !== "5500000000000") { c.config.whatsapp = seed.config.whatsapp; writeJSON(CATALOG, c); }
+  }
   return c;
 }
 function backup(c) {
